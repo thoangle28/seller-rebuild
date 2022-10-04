@@ -40,34 +40,30 @@ const Example = (props: Props) => {
             }
         }
     }
-    return (
-        <FullWidthLayout>
-            <Signin />
-            <div className="wrapper w-50 mx-auto">
-                <div className="row">
-                    <div className="col-sm-4">
-                        <button onClick={onClick} className="btn btn-success" >Click Me</button>
-                        <p className="text-danger">{number}</p>
-                    </div>
-                    <div className="col-sm-8">
-                        <button onClick={getList} disabled={isLoading} className="btn btn-success" >Get Data</button>
-                        {!data.length ? <p className='text-danger'>No Item Found</p> : data.map((item: any) => {
-                            return <p className='text-success'>{item.name}</p>
-                        })}
-                    </div>
+    return <FullWidthLayout>
+        <div className="wrapper w-50 mx-auto">
+            <div className="row">
+                <div className="col-sm-4">
+                    <button onClick={onClick} className="btn btn-success" >Click Me</button>
+                    <p className="text-danger">{number}</p>
                 </div>
-
+                <div className="col-sm-8">
+                    <button onClick={getList} disabled={isLoading} className="btn btn-success" >Get Data</button>
+                    {!data.length ? <p className='text-danger'>No Item Found</p> : data.map((item: any) => {
+                        return <p className='text-success'>{item.name}</p>
+                    })}
+                </div>
             </div>
-            <input type="file" onChange={uploadImage} />
-            <img src={baseImage} alt="" />
-            <input type="file" onChange={uploadMultipleImages} multiple />
-            <div>
-                {
-                    images.map((img: any) => <img src={img} alt="" />)
-                }
-            </div>
-        </FullWidthLayout>
-    )
+        </div>
+        <input type="file" onChange={uploadImage} />
+        <img src={baseImage} alt="" />
+        <input type="file" onChange={uploadMultipleImages} multiple />
+        <div>
+            {
+                images.map((img: any) => <img src={img} alt="" />)
+            }
+        </div>
+    </FullWidthLayout>
 }
 
 export default Example

@@ -1,4 +1,5 @@
 import { FC } from "react";
+import './style.scss'
 
 interface Props {
   children: JSX.Element[] | JSX.Element
@@ -6,8 +7,8 @@ interface Props {
 
 const FullWidthLayout: FC<Props> = (props: Props) => {
   const { children } = props
-  return <div className="container-fluid p-0 m-0 min-vh-100">
-    {children}
-  </div>;
-};
-export default FullWidthLayout;
+  return <div className="main-content container-fluid p-0 m-0 min-vh-100">
+    {children} 
+  </div>
+}
+export default FullWidthLayout
