@@ -1,4 +1,4 @@
-import { convertBase64 } from 'app/Utils'
+import {convertBase64} from 'app/Utils'
 import FullWidthLayout from 'Components/Layouts/FullWidthLayout'
 import  { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -7,37 +7,38 @@ import { add, getData } from './Redux/action'
 type Props = {}
 
 const Example = (props: Props) => {
-    const dispatch = useDispatch()
-    const { number, data, isLoading } = useSelector((state: any) => state.loginReducer)
+  const dispatch = useDispatch()
+  const {number, data, isLoading} = useSelector((state: any) => {
+    return state.loginReducer
+  })
 
-    const onClick = () => {
-        dispatch(add(1))
-    }
+  const onClick = () => {
+    dispatch(add(1))
+  }
 
-    const getList = () => {
-        getData(dispatch)
-    }
+  const getList = () => {
+    getData(dispatch)
+  }
 
-    const [baseImage, setBaseImage] = useState("");
-    const [images, setImages] = useState<any[]>([])
-    const uploadImage = async (e: any) => {
-        const file = e.target.files[0];
-        const base64: any = await convertBase64(file);
-        setBaseImage(base64);
-    };
+  const [baseImage, setBaseImage] = useState('')
+  const [images, setImages] = useState<any[]>([])
+  const uploadImage = async (e: any) => {
+    const file = e.target.files[0]
+    const base64: any = await convertBase64(file)
+    setBaseImage(base64)
+  }
 
-    const uploadMultipleImages = (e: any) => {
-        const { files } = e.target
-        for (const file of files) {
-            const reader = new FileReader();
-            reader.readAsDataURL(file)
-            reader.onload = () => {
-                setImages(prev => [...prev, reader.result])
-            };
-            reader.onerror = () => {
-                console.log(reader.error)
-            }
-        }
+  const uploadMultipleImages = (e: any) => {
+    const {files} = e.target
+    for (const file of files) {
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = () => {
+        setImages((prev) => [...prev, reader.result])
+      }
+      reader.onerror = () => {
+        console.log(reader.error)
+      }
     }
     return <FullWidthLayout>
         <div className="wrapper w-50 mx-auto">
