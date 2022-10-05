@@ -1,0 +1,23 @@
+::-webkit-scrollbar {
+    display: none;
+}
+
+$enable-gradients: true;
+
+$primary: #000080;
+$secondary: #87BDD8;
+$info: #B7D7E8;
+$danger: #C5221F;
+$warning: #FBBC04;
+
+
+@import "~bootstrap/scss/bootstrap"; 
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./../Fonts/Montserrat-Regular.ttf');
+}
+
+:root {
+    --bs-body-font-family: 'Montserrat';
+}

@@ -1,7 +1,7 @@
 import axiosConfig from "./AxiosConfig";
 
 const fetchData = (url: string, config: any) => {
-    return config.post(url);
+    return config.get(url);
 }
 
 const loginApi = {

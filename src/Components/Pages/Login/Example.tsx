@@ -1,9 +1,8 @@
 import { convertBase64 } from 'app/Utils'
 import FullWidthLayout from 'Components/Layouts/FullWidthLayout'
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { add, getData } from './Redux/action'
-import Signin from './Signin'
+import { add, getData } from './Redux/action' 
 
 type Props = {}
 
@@ -48,11 +47,12 @@ const Example = (props: Props) => {
                     <p className="text-danger">{number}</p>
                 </div>
                 <div className="col-sm-8">
-                    <button onClick={getList} disabled={isLoading} className="btn btn-success" >Get Data</button>
+                    <button onClick={getList} disabled={isLoading} className={`btn btn-${isLoading ? 'primary' : 'secondary'} bg-gradient`} >Get Data</button>
                     {!data.length ? <p className='text-danger'>No Item Found</p> : data.map((item: any) => {
                         return <p className='text-success'>{item.name}</p>
                     })}
-                </div>
+                </div> 
+                <p className='text-danger'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorem consequuntur ex qui, quae tempora numquam nisi id corrupti, voluptates ut, enim quod odit eum animi iusto neque perferendis? In, magni.</p>
             </div>
         </div>
         <input type="file" onChange={uploadImage} />
