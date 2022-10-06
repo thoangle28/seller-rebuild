@@ -56,6 +56,9 @@ const Example = (props: Props) => {
                 <p className='text-danger'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorem consequuntur ex qui, quae tempora numquam nisi id corrupti, voluptates ut, enim quod odit eum animi iusto neque perferendis? In, magni.</p>
             </div>
         </div>
+        <div className="p-10">
+            test
+        </div>
         <input type="file" onChange={uploadImage} />
         <img src={baseImage} alt="" />
         <input type="file" onChange={uploadMultipleImages} multiple />
