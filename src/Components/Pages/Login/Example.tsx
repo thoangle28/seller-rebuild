@@ -1,14 +1,14 @@
-import {convertBase64} from 'app/Utils'
+import { convertBase64 } from 'app/Utils'
 import FullWidthLayout from 'Components/Layouts/FullWidthLayout'
-import  { useState } from 'react'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { add, getData } from './Redux/action' 
+import { add, getData } from './Redux/action'
 
 type Props = {}
 
 const Example = (props: Props) => {
   const dispatch = useDispatch()
-  const {number, data, isLoading} = useSelector((state: any) => {
+  const { number, data, isLoading } = useSelector((state: any) => {
     return state.loginReducer
   })
 
@@ -29,7 +29,7 @@ const Example = (props: Props) => {
   }
 
   const uploadMultipleImages = (e: any) => {
-    const {files} = e.target
+    const { files } = e.target
     for (const file of files) {
       const reader = new FileReader()
       reader.readAsDataURL(file)
@@ -40,34 +40,33 @@ const Example = (props: Props) => {
         console.log(reader.error)
       }
     }
-    return <FullWidthLayout>
-        <div className="wrapper w-50 mx-auto">
-            <div className="row">
-                <div className="col-sm-4">
-                    <button onClick={onClick} className="btn btn-success" >Click Me</button>
-                    <p className="text-danger">{number}</p>
-                </div>
-                <div className="col-sm-8">
-                    <button onClick={getList} disabled={isLoading} className={`btn btn-${isLoading ? 'primary' : 'secondary'} bg-gradient`} >Get Data</button>
-                    {!data.length ? <p className='text-danger'>No Item Found</p> : data.map((item: any) => {
-                        return <p className='text-success'>{item.name}</p>
-                    })}
-                </div> 
-                <p className='text-danger'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorem consequuntur ex qui, quae tempora numquam nisi id corrupti, voluptates ut, enim quod odit eum animi iusto neque perferendis? In, magni.</p>
-            </div>
+  }
+  return <FullWidthLayout>
+    <div className="wrapper w-50 mx-auto">
+      <div className="row">
+        <div className="col-sm-4">
+          <button onClick={onClick} className="btn btn-success" >Click Me</button>
+          <p className="text-danger">{number}</p>
         </div>
-        <div className="p-10">
-            test
+        <div className="col-sm-8">
+          <button onClick={getList} disabled={isLoading} className={`btn btn-${isLoading ? 'primary' : 'secondary'} bg-gradient`} >Get Data</button>
+          {!data.length ? <p className='text-danger'>No Item Found</p> : data.map((item: any) => {
+            return <p className='text-success'>{item.name}</p>
+          })}
         </div>
-        <input type="file" onChange={uploadImage} />
-        <img src={baseImage} alt="" />
-        <input type="file" onChange={uploadMultipleImages} multiple />
-        <div>
-            {
-                images.map((img: any) => <img src={img} alt="" />)
-            }
-        </div>
-    </FullWidthLayout>
+        <p className='text-danger'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorem consequuntur ex qui, quae tempora numquam nisi id corrupti, voluptates ut, enim quod odit eum animi iusto neque perferendis? In, magni.</p>
+      </div>
+    </div>
+    <input type="file" onChange={uploadImage} />
+    <img src={baseImage} alt="" />
+    <input type="file" onChange={uploadMultipleImages} multiple />
+    <div>
+      {
+        images.map((img: any) => <img src={img} alt="" />)
+      }
+    </div>
+  </FullWidthLayout>
 }
+
 
 export default Example
