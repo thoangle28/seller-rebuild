@@ -21,8 +21,7 @@ const getDataSuccess = (payload: any) => ({
 
 export const getData = async (dispatch: any) => {
     dispatch(getDataRequest());
-    try {
-        // get Data directly 
+    try { 
         const data: any = await loginApi.getAll()
         data ? dispatch(getDataSuccess(data)) : dispatch(getDataFailure())
     } catch {

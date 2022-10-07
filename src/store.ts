@@ -1,8 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { loginReducer } from 'Components/Pages/Login/Redux/reducer'
+import { loginReducer } from 'Components/Pages/Login/Redux/reducer' 
 
-export default configureStore({
-    reducer: {
-        loginReducer
-    }
+const reducers = {
+    loginReducer
+}
+
+export const store = configureStore({
+    reducer: reducers
 })
+
+
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
