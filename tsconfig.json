@@ -16,7 +16,8 @@
     "jsx": "react-jsx",
     "baseUrl": "./src",
     "useUnknownInCatchVariables": false,
-    "isolatedModules": false
+    "isolatedModules": false,
+    "typeRoots" : ["node_modules/@types", "src/types"]
   },
   "include": ["src"]
 }
