@@ -23,34 +23,49 @@ const Signin: FC<Props> = (props: Props) => {
       console.log(values)
     },
   })
+
+  console.log(formik)
+
   return (
     <FullWidthLayout>
-      <FormWrapper formTitle='SIGN IN TO SELLER PORTAL'>
-        <h4 className='form-sub-title text-center'>
-          <span>New here? </span>
-          <Link to='/signup' className='text-decoration-none'>
-            Create new account
-          </Link>
-        </h4>
+      <form onSubmit={formik.handleSubmit}>
+        <FormWrapper formTitle='SIGN IN TO SELLER PORTAL'>
+          <h4 className='form-sub-title text-center'>
+            <span>New here? </span>
+            <Link to='/signup' className='text-decoration-none'>
+              Create new account
+            </Link>
+          </h4>
 
-        <div className='form__input-wrap'>
-          <div className='form__input-field-wrap'>
-            <InputField id='email' name='email' label='Email/Username' />
-          </div>
-          <div className='form__input-field-wrap'>
-            <InputField id='password' name='Password' label='Password' />
-          </div>
+          <div className='form__input-wrap'>
+            <div className='form__input-field-wrap'>
+              <InputField
+                id='email'
+                name='email'
+                label='Email/Username'
+                onChange={formik.handleChange}
+              />
+            </div>
+            <div className='form__input-field-wrap'>
+              <InputField
+                id='password'
+                name='password'
+                label='Password'
+                onChange={formik.handleChange}
+              />
+            </div>
 
-          <div className='form__check-remember-pwd'>
-            <input type='checkbox' name='remember-pwd' id='remember-pwd' />
-            <label className='ms-3' htmlFor='remember-pwd'>
-              Remember Password
-            </label>
-          </div>
+            <div className='form__check-remember-pwd'>
+              <input type='checkbox' name='remember-pwd' id='remember-pwd' />
+              <label className='ms-3' htmlFor='remember-pwd'>
+                Remember Password
+              </label>
+            </div>
 
-          <ButtonSubmitForm>CONTINUE</ButtonSubmitForm>
-        </div>
-      </FormWrapper>
+            <ButtonSubmitForm>CONTINUE</ButtonSubmitForm>
+          </div>
+        </FormWrapper>
+      </form>
     </FullWidthLayout>
   )
 }

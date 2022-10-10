@@ -1,13 +1,15 @@
+import {ChangeEvent} from 'react'
 import './style.scss'
 
 interface Props {
   name: string
   id: string
   label: string
+  onChange: (event: ChangeEvent) => void
 }
 
 const InputField = (props: Props) => {
-  const {name, id, label} = props
+  const {name, id, label, onChange} = props
   return (
     <div className='form-field'>
       <input
@@ -16,6 +18,7 @@ const InputField = (props: Props) => {
         type='text'
         placeholder=' '
         name={name}
+        onChange={onChange}
       />
       <label className='form__label user-select-none pe-none' htmlFor={id}>
         {label}
