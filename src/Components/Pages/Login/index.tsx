@@ -1,8 +1,8 @@
-import { FC } from "react"
-import Example from "./Example"
+import {FC} from 'react'
+import Signin from './Signin'
 
 const Login: FC = () => {
-    return <Example />
+  return <Signin />
 }
 
 export default Login

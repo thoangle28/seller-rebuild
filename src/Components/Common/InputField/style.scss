@@ -1,0 +1,43 @@
+@import './../../../app/Sass/App.scss';
+
+.form-field {
+  position: relative;
+}
+
+.form__input {
+  width: 100%;
+  padding-left: 36px;
+  outline: none;
+  font-size: 20px;
+  color: #000;
+  border: 0.5px solid transparent;
+  border-radius: 10px;
+  transition: border 0.3s;
+  box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1);
+
+  &:focus {
+    border-color: $primary;
+  }
+
+  &:not(:placeholder-shown) + .form__label,
+  &:focus + .form__label {
+    top: 0;
+    left: 28px + 0.5px;
+    padding: 0 8px;
+    background-color: #ffffff;
+    z-index: 1;
+    font-size: 16px;
+    color: $primary;
+  }
+}
+
+.form__label {
+  position: absolute;
+  top: 50%;
+  left: 36px + 0.5px;
+  transform: translateY(-50%);
+  font-size: 20px;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.6);
+  transition: all 0.3s;
+}

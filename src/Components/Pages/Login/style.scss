@@ -1,0 +1,29 @@
+@import './../../../app/Sass/App.scss';
+
+.form-sub-title {
+  font-size: 16px;
+  margin-bottom: 40px;
+  line-height: 20px;
+
+  span {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  a {
+    display: inline-block;
+    color: $primary;
+  }
+}
+
+.form__input-field-wrap + .form__input-field-wrap {
+  margin-top: 24px;
+}
+
+.form__check-remember-pwd {
+  margin-top: 20px;
+  color: #000;
+
+  label {
+    cursor: pointer;
+  }
+}
