@@ -3,7 +3,7 @@ import './style.scss'
 import backLoginIcon from './../../../app/Images/icons/arrow-left.svg'
 
 type Props = {
-  children: JSX.Element
+  children: JSX.Element | JSX.Element[]
   formTitle: string
   backPagelogin?: boolean
 }
