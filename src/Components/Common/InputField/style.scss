@@ -1,6 +1,10 @@
 @import './../../../app/Sass/App.scss';
 
-.form-field {
+.form__input-field-wrap {
+  width: 100%;
+}
+
+.form__input-field {
   position: relative;
 }
 
@@ -14,6 +18,10 @@
   border-radius: 10px;
   transition: border 0.3s;
   box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1);
+
+  &.form__input--error {
+    border-color: $danger;
+  }
 
   &:focus {
     border-color: $primary;
@@ -40,4 +48,11 @@
   line-height: 24px;
   color: rgba(0, 0, 0, 0.6);
   transition: all 0.3s;
+}
+
+.form__input-text-error {
+  color: $danger;
+  font-size: 12px;
+  line-height: 15px;
+  margin-top: 4px;
 }

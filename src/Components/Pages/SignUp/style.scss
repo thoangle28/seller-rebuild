@@ -1,0 +1,44 @@
+@import './../../../app/Sass/App.scss';
+
+.form-sign-up {
+  .form__input-wrap-field {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 24px;
+    column-gap: 18px;
+  }
+
+  .form-sub-title {
+    font-size: 16px;
+    margin-bottom: 40px;
+    line-height: 20px;
+
+    span {
+      color: rgba(0, 0, 0, 0.6);
+    }
+
+    a {
+      display: inline-block;
+      color: $primary;
+    }
+  }
+
+  .form__input-col {
+    width: calc(50% - 9px);
+  }
+
+  .form__check-terms {
+    margin-top: 20px;
+
+    label {
+      span {
+        color: $primary;
+        cursor: pointer;
+
+        span {
+          color: $danger;
+        }
+      }
+    }
+  }
+}

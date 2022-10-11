@@ -7,28 +7,75 @@ import {Link} from 'react-router-dom'
 import './style.scss'
 import InputField from 'Components/Common/InputField'
 import ButtonSubmitForm from 'Components/Common/ButtonSubmitForm'
-
+import LoginSchema from './Schema/index'
 interface Props {
   ex?: string
 }
 
 const Signin: FC<Props> = (props: Props) => {
   const dispatch = useDispatch()
-  const formik = useFormik({
+  const {
+    errors,
+    touched,
+    isSubmitting,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    setFieldTouched,
+  } = useFormik({
     initialValues: {
       email: '',
       password: '',
     },
-    onSubmit: (values) => {
+    validationSchema: LoginSchema,
+    onSubmit: async (values) => {
       console.log(values)
+      await new Promise((resolve) => setTimeout(resolve, 1000))
     },
   })
 
-  console.log(formik)
+  const data = [
+    {
+      name: 'email',
+      id: 'email',
+      label: 'Email/Username',
+      type: 'email',
+      textError: errors.email,
+      isError: errors.email && touched.email,
+    },
+    {
+      name: 'password',
+      id: 'password',
+      label: 'Password',
+      type: 'password',
+      textError: errors.password,
+      isError: errors.password && touched.password,
+    },
+  ]
+
+  // Render list input
+  const inputFieldList = data.map((item) => {
+    return (
+      <InputField
+        key={item.id}
+        id={item.id}
+        name={item.name}
+        label={item.label}
+        type={item.type}
+        textError={item.textError}
+        onBlur={handleBlur}
+        onChange={(e) => {
+          handleChange(e)
+          setFieldTouched(item.name, false, false)
+        }}
+        isError={item.isError ? true : false}
+      />
+    )
+  })
 
   return (
     <FullWidthLayout>
-      <form onSubmit={formik.handleSubmit}>
+      <form className='form-login' onSubmit={handleSubmit}>
         <FormWrapper formTitle='SIGN IN TO SELLER PORTAL'>
           <h4 className='form-sub-title text-center'>
             <span>New here? </span>
@@ -37,33 +84,27 @@ const Signin: FC<Props> = (props: Props) => {
             </Link>
           </h4>
 
-          <div className='form__input-wrap'>
-            <div className='form__input-field-wrap'>
-              <InputField
-                id='email'
-                name='email'
-                label='Email/Username'
-                onChange={formik.handleChange}
-              />
-            </div>
-            <div className='form__input-field-wrap'>
-              <InputField
-                id='password'
-                name='password'
-                label='Password'
-                onChange={formik.handleChange}
-              />
-            </div>
+          <div className='form__input-wrap'>{inputFieldList}</div>
 
-            <div className='form__check-remember-pwd'>
-              <input type='checkbox' name='remember-pwd' id='remember-pwd' />
-              <label className='ms-3' htmlFor='remember-pwd'>
-                Remember Password
-              </label>
-            </div>
-
-            <ButtonSubmitForm>CONTINUE</ButtonSubmitForm>
+          <div className='form__check-remember-pwd'>
+            <input type='checkbox' name='remember-pwd' id='remember-pwd' />
+            <label className='ms-3' htmlFor='remember-pwd'>
+              Remember Password
+            </label>
           </div>
+
+          <ButtonSubmitForm disabled={isSubmitting}>CONTINUE</ButtonSubmitForm>
+
+          <Link
+            className='link-forgot-pwd text-center mt-4 mb-1 text-decoration-none d-block'
+            to='forgot-password'>
+            Forgot Password?
+          </Link>
+          <Link
+            to='password-validation'
+            className='link-pwd-validation text-center text-decoration-none d-block'>
+            Password Validation
+          </Link>
         </FormWrapper>
       </form>
     </FullWidthLayout>

@@ -65,7 +65,7 @@ const Example = (props: Props) => {
           </div>
         </div>
       </div> */}
-      <FormWrapper formTitle='SIGN IN TO SELLER PORTAL' backPagelogin>
+      <FormWrapper formTitle='SIGN IN TO SELLER PORTAL'>
         <h3></h3>
       </FormWrapper>
     </FullWidthLayout>
