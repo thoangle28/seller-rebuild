@@ -1,5 +1,4 @@
 @import './../../../app/Sass/App.scss';
-
 .form-sign-up {
   .form__input-wrap-field {
     display: flex;
@@ -7,38 +6,94 @@
     row-gap: 24px;
     column-gap: 18px;
   }
-
   .form-sub-title {
     font-size: 16px;
     margin-bottom: 40px;
     line-height: 20px;
-
     span {
       color: rgba(0, 0, 0, 0.6);
     }
-
     a {
       display: inline-block;
       color: $primary;
     }
   }
-
   .form__input-col {
     width: calc(50% - 9px);
   }
-
   .form__check-terms {
     margin-top: 20px;
-
     label {
       span {
         color: $primary;
         cursor: pointer;
-
         span {
           color: $danger;
         }
       }
     }
+  }
+}
+// Modal
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 100;
+}
+.modal-terms {
+  width: 720px;
+  max-height: 704px;
+  padding: 30px;
+  z-index: 101;
+  background-color: #fff;
+  background: #ffffff;
+  box-shadow: 1px 1px 20px 2px rgba(0, 0, 0, 0.15);
+  border-radius: 15px;
+  animation: showModal 0.15s linear;
+}
+.modal__heading {
+  font-weight: 600;
+  font-size: 35px;
+  line-height: 43px;
+  color: #000;
+}
+.modal__sub-heading {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.6);
+}
+.modal__content-wrap {
+  padding-top: 36px;
+  padding-right: 15px;
+  height: 540px - 36px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    margin-left: 15px;
+  }
+}
+.modal__content {
+  color: #000;
+
+  &-title {
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  &-body {
+    font-size: 16px;
+  }
+}
+@keyframes showModal {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
 }
