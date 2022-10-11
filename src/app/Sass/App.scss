@@ -10,9 +10,8 @@ $info: #B7D7E8;
 $danger: #C5221F;
 $warning: #FBBC04;
 
-$spacer:1rem;
-$custom-spacers :(
-    6:$spacer* 3.5,
+$spacer: 1rem;
+$custom-spacers :(6:$spacer* 3.5,
     7:$spacer*4,
     8:$spacer*5,
     9:$spacer*6,
@@ -30,8 +29,15 @@ $spacers: map-merge($spacers, $custom-spacers);
 // my own spacer's map   
 
 :root {
-    --bs-body-font-family: 'Montserrat'; 
-    @each $spacer , $value in $spacers {
+    --bs-body-font-family: 'Montserrat';
+    --bs-body-color: #000;
+
+    @each $spacer ,
+    $value in $spacers {
         --theme-spacer-#{$spacer}:#{$value} !important;
     }
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }
