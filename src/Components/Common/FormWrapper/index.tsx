@@ -1,20 +1,27 @@
 import './style.scss'
 
 import backLoginIcon from './../../../app/Images/icons/arrow-left.svg'
+import {useNavigate} from 'react-router-dom'
 
 type Props = {
-  children: JSX.Element
+  children: JSX.Element | JSX.Element[]
   formTitle: string
-  backPagelogin?: boolean
+  backPageLogin?: boolean
 }
 
 const FormWrapper = (props: Props) => {
-  const {formTitle, children, backPagelogin} = props
+  const {formTitle, children, backPageLogin} = props
+
+  const navigate = useNavigate()
+
+  const handleBackPagelogin = () => {
+    navigate('/login')
+  }
 
   return (
     <div className='form-wrap'>
-      {backPagelogin ? (
-        <div className='back-login'>
+      {backPageLogin ? (
+        <div className='back-login' onClick={handleBackPagelogin}>
           <img
             src={backLoginIcon}
             alt='back-login'

@@ -1,0 +1,40 @@
+@import './../../../app/Sass/App.scss';
+
+.form-login {
+  .form-sub-title {
+    font-size: 16px;
+    margin-bottom: 40px;
+    line-height: 20px;
+
+    span {
+      color: rgba(0, 0, 0, 0.6);
+    }
+
+    a {
+      display: inline-block;
+      color: $primary;
+    }
+  }
+
+  .form__input-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 24px;
+  }
+
+  .form__check-remember-pwd {
+    margin-top: 20px;
+    color: #000;
+
+    label {
+      cursor: pointer;
+    }
+  }
+
+  .link-pwd-validation,
+  .link-forgot-pwd {
+    color: $primary;
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
