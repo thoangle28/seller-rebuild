@@ -1,0 +1,19 @@
+@import './../../../app/Sass/App.scss';
+
+.form-forgot-password {
+  .form__input-wrap-field {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 24px;
+  }
+
+  .form-sub-title {
+    font-size: 16px;
+    margin-bottom: 40px;
+    line-height: 20px;
+
+    span {
+      color: rgba(0, 0, 0, 0.6);
+    }
+  }
+}

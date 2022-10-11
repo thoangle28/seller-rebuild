@@ -4,7 +4,7 @@ import InputField from 'Components/Common/InputField'
 import FullWidthLayout from 'Components/Layouts/FullWidthLayout'
 import {useFormik} from 'formik'
 import {FC} from 'react'
-import ForgotPasswordSchema from './Schema'
+import PasswordValidationSchema from './Schema'
 
 import './style.scss'
 
@@ -21,9 +21,11 @@ const ForgotPassword: FC = (props: Props) => {
     setFieldTouched,
   } = useFormik({
     initialValues: {
-      email: '',
+      newPassword: '',
+      passwordConfirm: '',
+      password: '',
     },
-    validationSchema: ForgotPasswordSchema,
+    validationSchema: PasswordValidationSchema,
     onSubmit: async (values) => {
       console.log(values)
       await new Promise((resolve) => setTimeout(resolve, 1000))
@@ -32,12 +34,28 @@ const ForgotPassword: FC = (props: Props) => {
 
   const data = [
     {
-      name: 'email',
-      id: 'email',
-      label: 'Email',
-      type: 'email',
-      textError: errors.email,
-      isError: errors.email && touched.email,
+      name: 'newPassword',
+      id: 'newPassword',
+      label: 'New Password',
+      type: 'password',
+      textError: errors.newPassword,
+      isError: errors.newPassword && touched.newPassword,
+    },
+    {
+      name: 'passwordConfirm',
+      id: 'passwordConfirm',
+      label: 'Password Confirm',
+      type: 'password',
+      textError: errors.passwordConfirm,
+      isError: errors.passwordConfirm && touched.passwordConfirm,
+    },
+    {
+      name: 'password',
+      id: 'password',
+      label: 'Password *',
+      type: 'password',
+      textError: errors.password,
+      isError: errors.password && touched.password,
     },
   ]
 
@@ -63,8 +81,8 @@ const ForgotPassword: FC = (props: Props) => {
 
   return (
     <FullWidthLayout>
-      <form className='form-forgot-password' onSubmit={handleSubmit}>
-        <FormWrapper formTitle='FORGOT PASSWORD' backPageLogin>
+      <form className='form-pwd-validation' onSubmit={handleSubmit}>
+        <FormWrapper formTitle='FORGOT PASSWORD VALIDATION' backPageLogin>
           <h4 className='form-sub-title text-center'>
             <span>Enter your email to reset your password.</span>
           </h4>

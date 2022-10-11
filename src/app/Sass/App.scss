@@ -1,9 +1,4 @@
-::-webkit-scrollbar {
-    display: none;
-}
-
 $enable-gradients: true;
-
 $primary: #000080;
 $secondary: #87BDD8;
 $info: #B7D7E8;
@@ -18,16 +13,26 @@ $custom-spacers :(6:$spacer* 3.5,
     10:$spacer*7,
 );
 
-@import "~bootstrap/scss/bootstrap";
-$spacers: map-merge($spacers, $custom-spacers);
-
-@font-face {
-    font-family: 'Montserrat';
-    src: url('./../Fonts/Montserrat-Regular.ttf');
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-// my own spacer's map   
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
 
+::-webkit-scrollbar-thumb {
+  background: #d9d9d9;
+  border-radius: 15px;
+}
+
+@import '~bootstrap/scss/bootstrap';
+$spacers: map-merge($spacers, $custom-spacers);
+@font-face {
+  font-family: 'Montserrat';
+  src: url('./../Fonts/Montserrat-Regular.ttf');
+}
+// my own spacer's map
 :root {
     --bs-body-font-family: 'Montserrat';
     --bs-body-color: #000;

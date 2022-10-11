@@ -97,11 +97,11 @@ const Signin: FC<Props> = (props: Props) => {
 
           <Link
             className='link-forgot-pwd text-center mt-4 mb-1 text-decoration-none d-block'
-            to='forgot-password'>
+            to='/forgot-password'>
             Forgot Password?
           </Link>
           <Link
-            to='password-validation'
+            to='/password-validation'
             className='link-pwd-validation text-center text-decoration-none d-block'>
             Password Validation
           </Link>
