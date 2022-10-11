@@ -111,7 +111,7 @@ const SignUp = (props: Props) => {
   return (
     <FullWidthLayout>
       <form className='form-sign-up' onSubmit={handleSubmit}>
-        <FormWrapper formTitle='SIGN IN TO SELLER PORTAL'>
+        <FormWrapper formTitle='SIGN IN TO SELLER PORTAL' backPageLogin>
           <h4 className='form-sub-title text-center'>
             <span>Already have an account, </span>
             <Link to='/login' className='text-decoration-none'>
