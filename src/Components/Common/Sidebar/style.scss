@@ -1,0 +1,72 @@
+.sidebar {
+    &__navigation {
+        padding-top: 27px;
+
+    }
+
+    &__list {
+
+        &-item {
+            list-style-type: none;
+            font-size: 16px;
+            margin-bottom: 24px;
+            line-height: 27px;
+            font-weight: 500;
+            position: relative;
+
+            &.active {
+                color: #000080;
+                font-weight: 600;
+
+                &::after {
+                    position: absolute;
+                    left: -54px;
+                    top: 0;
+                    content: "";
+                    width: 8px;
+                    height: 24px;
+                    background-color: #000080;
+                    border-radius: 10px;
+                }
+            }
+
+            span {
+                padding-left: 8px;
+            }
+        }
+    }
+
+    &__avatar {
+        padding-top: 60px;
+
+        img {
+            max-width: 100px;
+        }
+
+        p {
+            font-weight: 600;
+            font-size: 20px;
+            padding-top: 26px;
+            padding-bottom: 32px;
+            line-height: 24px;
+        }
+    }
+}
+
+.seperator {
+    display: block;
+    width: calc(100% - 40px);
+    height: 0.5px;
+    background-color: #000;
+    margin: 0 auto;
+}
+
+.divider {
+    position: relative;
+    width: calc(100% - 40px);
+    border: 0.5px solid rgba(0, 0, 0, 0.6);
+    filter: blur(1px);
+    margin: 0 auto;
+    margin-top: 150px;
+    margin-bottom: 32px;
+}

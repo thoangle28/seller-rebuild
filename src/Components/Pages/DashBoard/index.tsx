@@ -1,13 +1,13 @@
-import { FC } from 'react'
-import ProtectedRoute from '../../Common/ProtectedRoute'
+import DefaultLayout from 'Components/Layouts/DefaultLayout'
+import { FC } from 'react' 
 
 type Props = {}
 
 const DashBoard: FC<Props> = (props: Props) => {
     return (
-        <ProtectedRoute>
-            <div>DashBoard</div>
-        </ProtectedRoute>
+        <DefaultLayout>
+           
+        </DefaultLayout>
     )
 }
 

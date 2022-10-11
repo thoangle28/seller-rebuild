@@ -1,0 +1,32 @@
+.default-layout {
+    background-color: #B7D7E8;
+}
+
+.header {
+    background: url('./../../../app/Images/background.png');
+    background-size: cover;
+    min-height: 242px;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+    &__image {
+        img {
+            width: 201px;
+            height: 79px;
+            object-fit: contain;
+        }
+    }
+
+    &__breadscrumb {
+        position: relative;
+        top: 36px;
+        font-weight: 600;
+        font-size: 20px;
+    }
+}
+
+.footer {
+    font-size: 12px;
+    line-height: 15px;
+    font-weight: 400;
+}
