@@ -9,7 +9,7 @@ interface Props {
 
 const DefaultLayout: FC<Props> = (props: Props) => {
   const { children } = props
-  return <div className="default-layout container-fluid p-0 m-0 min-vh-100" >
+  return <div className="default-layout container-fluid min-vh-100" >
     <div className="row">
       <div className="col-md-2 col-lg-2 ps-0 pe-0">
         <div className="default-layout__sidebar">
@@ -17,7 +17,7 @@ const DefaultLayout: FC<Props> = (props: Props) => {
         </div>
 
       </div>
-      <div className="col-md-10 col-lg-10 ps-0">
+      <div className="col-md-10 col-lg-10 ps-0 pe-0">
         <Header />
         {children}
         <Footer />
