@@ -1,4 +1,6 @@
 .sidebar {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+
     &__navigation {
         padding-top: 27px;
 
@@ -16,18 +18,7 @@
 
             &.active {
                 color: #000080;
-                font-weight: 600;
-
-                &::after {
-                    position: absolute;
-                    left: -54px;
-                    top: 0;
-                    content: "";
-                    width: 8px;
-                    height: 24px;
-                    background-color: #000080;
-                    border-radius: 10px;
-                }
+                font-weight: 600; 
             }
 
             span {

@@ -41,7 +41,7 @@ const Sidebar: FC = () => {
         <div className='sidebar d-flex flex-column align-items-center bg-light min-vh-100'>
             <div className="sidebar__avatar d-flex  align-items-center flex-column">
                 <div className="user-avatar">
-                    <img src="https://via.placeholder.com/100" className='rounded-circle' />
+                    <img src="https://via.placeholder.com/100" className='rounded-circle' alt='avatar' />
                 </div>
                 <p className='mb-0'>User Name</p>
             </div>
