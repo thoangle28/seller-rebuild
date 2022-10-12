@@ -21,6 +21,14 @@
 
   &.form__input--error {
     border-color: $danger;
+
+    &:focus + .form__label {
+      color: $primary !important;
+    }
+  }
+
+  &.form__input--error + .form__label {
+    color: $danger !important;
   }
 
   &:focus {

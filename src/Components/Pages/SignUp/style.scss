@@ -3,7 +3,7 @@
   .form__input-wrap-field {
     display: flex;
     flex-wrap: wrap;
-    row-gap: 24px;
+    row-gap: 18px;
     column-gap: 18px;
   }
   .form-sub-title {
@@ -24,6 +24,8 @@
   .form__check-terms {
     margin-top: 20px;
     label {
+      cursor: pointer;
+
       span {
         color: $primary;
         cursor: pointer;
@@ -34,6 +36,7 @@
     }
   }
 }
+
 // Modal
 .overlay {
   position: fixed;

@@ -10,11 +10,14 @@ import SignUpSchema from './Schema'
 import {useOnClickOutside} from 'app/Hooks/UseClickOutSide'
 type Props = {}
 const SignUp = (props: Props) => {
-  const [showPopup, setShowPopup] = useState<boolean>(true)
+  const [showPopup, setShowPopup] = useState<boolean>(false)
+  const [checkAcceptTerms, setCheckAcceptTerms] = useState<boolean>(false)
+
   const modalRef = useRef<HTMLDivElement>(null)
   useOnClickOutside(modalRef, () => {
     setShowPopup(false)
   })
+
   const {
     errors,
     touched,
@@ -141,13 +144,17 @@ const SignUp = (props: Props) => {
     setShowPopup(true)
   }
 
+  const handleCheckAcceptTerms = () => {
+    setCheckAcceptTerms(!checkAcceptTerms)
+  }
+
   return (
     <FullWidthLayout>
       <form className='form-sign-up' onSubmit={handleSubmit}>
         <FormWrapper formTitle='CREATE NEW ACCOUNT' backPageLogin>
           <h4 className='form-sub-title text-center'>
             <span>Already have an account, </span>
-            <Link to='/login' className='text-decoration-none'>
+            <Link to='/' className='text-decoration-none'>
               click here to login.
             </Link>
           </h4>
@@ -155,15 +162,23 @@ const SignUp = (props: Props) => {
             <div className='form__input-wrap-field'>{inputFieldList}</div>
           </div>
           <div className='form__check-terms'>
-            <input type='checkbox' name='remember-pwd' id='remember-pwd' />
-            <label className='ms-3' htmlFor='remember-pwd'>
+            <input
+              type='checkbox'
+              name='remember-pwd'
+              id='remember-pwd'
+              checked={checkAcceptTerms}
+              onClick={handleCheckAcceptTerms}
+            />
+            <label className='ms-3 cursor' htmlFor='remember-pwd'>
               I agree to the{' '}
               <span onClick={handleShowPopup}>
                 terms and conditions. <span>*</span>
               </span>
             </label>
           </div>
-          <ButtonSubmitForm disabled={isSubmitting}>Submit</ButtonSubmitForm>
+          <ButtonSubmitForm disabled={isSubmitting || !checkAcceptTerms}>
+            Submit
+          </ButtonSubmitForm>
         </FormWrapper>
       </form>
       {showPopup ? (
