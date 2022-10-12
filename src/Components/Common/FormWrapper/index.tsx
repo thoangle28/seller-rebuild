@@ -15,7 +15,7 @@ const FormWrapper = (props: Props) => {
   const navigate = useNavigate()
 
   const handleBackPagelogin = () => {
-    navigate('/login')
+    navigate('/')
   }
 
   return (
@@ -30,7 +30,9 @@ const FormWrapper = (props: Props) => {
         </div>
       ) : null}
 
-      <h3 className='form-title mb-3 text-center'>{formTitle}</h3>
+      <h3 className='form-title mb-3 text-center text-text-uppercase'>
+        {formTitle}
+      </h3>
 
       {children}
     </div>

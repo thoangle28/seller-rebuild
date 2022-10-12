@@ -5,6 +5,7 @@
     font-size: 16px;
     margin-bottom: 40px;
     line-height: 20px;
+    font-weight: 400;
 
     span {
       color: rgba(0, 0, 0, 0.6);
@@ -19,16 +20,7 @@
   .form__input-wrap {
     display: flex;
     flex-wrap: wrap;
-    row-gap: 24px;
-  }
-
-  .form__check-remember-pwd {
-    margin-top: 20px;
-    color: #000;
-
-    label {
-      cursor: pointer;
-    }
+    row-gap: 18px;
   }
 
   .link-pwd-validation,

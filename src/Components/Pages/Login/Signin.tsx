@@ -86,13 +86,6 @@ const Signin: FC<Props> = (props: Props) => {
 
           <div className='form__input-wrap'>{inputFieldList}</div>
 
-          <div className='form__check-remember-pwd'>
-            <input type='checkbox' name='remember-pwd' id='remember-pwd' />
-            <label className='ms-3' htmlFor='remember-pwd'>
-              Remember Password
-            </label>
-          </div>
-
           <ButtonSubmitForm disabled={isSubmitting}>CONTINUE</ButtonSubmitForm>
 
           <Link
