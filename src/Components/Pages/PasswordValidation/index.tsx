@@ -23,7 +23,7 @@ const ForgotPassword: FC = (props: Props) => {
     initialValues: {
       newPassword: '',
       passwordConfirm: '',
-      password: '',
+      resetToken: '',
     },
     validationSchema: PasswordValidationSchema,
     onSubmit: async (values) => {
@@ -50,12 +50,12 @@ const ForgotPassword: FC = (props: Props) => {
       isError: errors.passwordConfirm && touched.passwordConfirm,
     },
     {
-      name: 'password',
-      id: 'password',
-      label: 'Password *',
-      type: 'password',
-      textError: errors.password,
-      isError: errors.password && touched.password,
+      name: 'resetToken',
+      id: 'resetToken',
+      label: 'Reset token *',
+      type: 'text',
+      textError: errors.resetToken,
+      isError: errors.resetToken && touched.resetToken,
     },
   ]
 

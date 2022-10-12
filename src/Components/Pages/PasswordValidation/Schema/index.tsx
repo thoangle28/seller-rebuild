@@ -11,11 +11,7 @@ const PasswordValidationSchema = yup.object().shape({
     .string()
     .oneOf([yup.ref('newPassword'), null], 'Passwords must match')
     .required('Confirm password is required'),
-  password: yup
-    .string()
-    .min(3)
-    .matches(pwdRule, 'Invalid password')
-    .required('Password is required'),
+  resetToken: yup.string().required('Reset token is required'),
 })
 
 export default PasswordValidationSchema

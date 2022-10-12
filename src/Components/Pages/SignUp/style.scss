@@ -16,6 +16,11 @@
     a {
       display: inline-block;
       color: $primary;
+
+      &:hover {
+        font-weight: 600;
+        color: #4285f4;
+      }
     }
   }
   .form__input-col {
@@ -26,12 +31,19 @@
     label {
       cursor: pointer;
 
-      span {
+      p {
         color: $primary;
         cursor: pointer;
-        span {
-          color: $danger;
+        display: inline-block;
+
+        &:hover {
+          font-weight: 600;
+          color: #4285f4;
         }
+      }
+
+      span {
+        color: $danger;
       }
     }
   }
