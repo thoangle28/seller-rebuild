@@ -171,9 +171,8 @@ const SignUp = (props: Props) => {
             />
             <label className='ms-3 cursor' htmlFor='remember-pwd'>
               I agree to the{' '}
-              <span onClick={handleShowPopup}>
-                terms and conditions. <span>*</span>
-              </span>
+              <p onClick={handleShowPopup}>terms and conditions.</p>
+              <span> *</span>
             </label>
           </div>
           <ButtonSubmitForm disabled={isSubmitting || !checkAcceptTerms}>
