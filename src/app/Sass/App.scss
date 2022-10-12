@@ -1,16 +1,17 @@
 $enable-gradients: true;
 $primary: #000080;
-$secondary: #87BDD8;
-$info: #B7D7E8;
-$danger: #C5221F;
-$warning: #FBBC04;
+$secondary: #87bdd8;
+$info: #b7d7e8;
+$danger: #c5221f;
+$warning: #fbbc04;
 
 $spacer: 1rem;
-$custom-spacers :(6:$spacer* 3.5,
-    7:$spacer*4,
-    8:$spacer*5,
-    9:$spacer*6,
-    10:$spacer*7,
+$custom-spacers: (
+  6: $spacer * 3.5,
+  7: $spacer * 4,
+  8: $spacer * 5,
+  9: $spacer * 6,
+  10: $spacer * 7,
 );
 
 ::-webkit-scrollbar {
@@ -28,21 +29,47 @@ $custom-spacers :(6:$spacer* 3.5,
 
 @import '~bootstrap/scss/bootstrap';
 $spacers: map-merge($spacers, $custom-spacers);
+
+// Fonts
+@font-face {
+  font-family: 'Montserrat';
+  src: url('./../Fonts/Montserrat-Thin.ttf');
+  font-weight: 300;
+}
+
 @font-face {
   font-family: 'Montserrat';
   src: url('./../Fonts/Montserrat-Regular.ttf');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('./../Fonts/Montserrat-Medium.ttf');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('./../Fonts/Montserrat-SemiBold.ttf');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('./../Fonts/Montserrat-Bold.ttf');
+  font-weight: 700;
 }
 // my own spacer's map
 :root {
-    --bs-body-font-family: 'Montserrat';
-    --bs-body-color: #000;
+  --bs-body-font-family: 'Montserrat';
+  --bs-body-color: #000;
 
-    @each $spacer ,
-    $value in $spacers {
-        --theme-spacer-#{$spacer}:#{$value} !important;
-    }
+  @each $spacer, $value in $spacers {
+    --theme-spacer-#{$spacer}: #{$value} !important;
+  }
 }
 
 .cursor-pointer {
-    cursor: pointer;
+  cursor: pointer;
 }
