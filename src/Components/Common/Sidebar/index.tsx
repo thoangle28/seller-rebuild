@@ -31,7 +31,7 @@ const Sidebar: FC = () => {
     const renderSidemenu = (menu: iMenu[]) => {
         return menu.map((item, i: number) => <li key={i} className={`cursor-pointer sidebar__list-item ${pathname === item.path ? 'active' : ''}`}>
             <p onClick={() => navigate(item.path)}>
-                <FontAwesomeIcon className='item-icon' icon={item.icon} /> <span>{item.name}</span>
+                <FontAwesomeIcon width={24} height={22.75} className='item-icon' icon={item.icon} /> <span>{item.name}</span>
             </p>
         </li>
         )
@@ -41,9 +41,9 @@ const Sidebar: FC = () => {
         <div className='sidebar d-flex flex-column align-items-center bg-light min-vh-100'>
             <div className="sidebar__avatar d-flex  align-items-center flex-column">
                 <div className="user-avatar">
- 
+
                     <img src="https://via.placeholder.com/100" className='rounded-circle' alt='avatar' />
- 
+
                 </div>
                 <p className='mb-0'>User Name</p>
             </div>
@@ -53,12 +53,12 @@ const Sidebar: FC = () => {
                     {renderSidemenu(sideMenu)}
                 </ul>
             </div>
-            <div className="divider"></div>
+            <div className="seperation"></div>
             <div className="sidebar__navigation">
                 <ul className='sidebar__list ps-0'>
                     {renderSidemenu(bottomMenu)}
                 </ul>
-                <button className='btn btn-primary w-100'>Sign Out</button>
+                <button className='signout-button btn btn-primary w-100'>Sign Out</button>
             </div>
         </div>
     )

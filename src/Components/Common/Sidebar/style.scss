@@ -14,11 +14,10 @@
             margin-bottom: 24px;
             line-height: 27px;
             font-weight: 500;
-            position: relative;
+            position: relative; 
 
             &.active {
                 color: #000080;
-                font-weight: 600; 
             }
 
             span {
@@ -42,21 +41,24 @@
             line-height: 24px;
         }
     }
+    .signout-button{
+        padding: 12px 0;
+    }
 }
 
 .seperator {
     display: block;
     width: calc(100% - 40px);
-    height: 0.5px;
-    background-color: #000;
+    height: 1px;
+    background-color: #d9d9d9;
     margin: 0 auto;
 }
 
-.divider {
+.seperation {
     position: relative;
     width: calc(100% - 40px);
-    border: 0.5px solid rgba(0, 0, 0, 0.6);
-    filter: blur(1px);
+    height: 1px;
+    background: #d9d9d9;
     margin: 0 auto;
     margin-top: 150px;
     margin-bottom: 32px;
