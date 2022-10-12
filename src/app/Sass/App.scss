@@ -25,6 +25,7 @@ $custom-spacers :(6:$spacer* 3.5,
   background: #d9d9d9;
   border-radius: 15px;
 }
+$enable-negative-margins: false;
 
 @import '~bootstrap/scss/bootstrap';
 $spacers: map-merge($spacers, $custom-spacers);
