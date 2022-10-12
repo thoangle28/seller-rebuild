@@ -2,9 +2,9 @@ import { FC } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import headerIcon from './../../../app/Images/Addin.png'
 
-type Props = {}
-
-const Header: FC = (props: Props) => {
+ 
+const Header: FC = () => {
+ 
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
