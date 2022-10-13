@@ -1,5 +1,10 @@
 .default-layout {
     background-color: #B7D7E8;
+
+    .sidebar {
+        position: fixed;
+        width: 320px;
+    }
 }
 
 .header {
