@@ -8,6 +8,7 @@ interface Props {
   type?: string
   isError?: boolean
   textError?: string
+  disabled?:boolean,
   onChange: (event: ChangeEvent) => void
   onBlur: (event: ChangeEvent) => void
 }
@@ -19,7 +20,7 @@ const InputField = (props: Props) => {
     label,
     type = 'text',
     isError,
-    textError,
+    textError, 
     onChange,
     onBlur,
   } = props
@@ -37,7 +38,7 @@ const InputField = (props: Props) => {
           placeholder=' '
           name={name}
           onChange={onChange}
-          onBlur={onBlur}
+          onBlur={onBlur} 
         />
         <label className='form__label user-select-none pe-none' htmlFor={id}>
           {label}

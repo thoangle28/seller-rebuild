@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import './style.scss'
 import logo from './../../../app/Images/Addin.png'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 interface Props {
   children: JSX.Element[] | JSX.Element
 }
