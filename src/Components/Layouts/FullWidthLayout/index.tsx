@@ -10,7 +10,7 @@ const FullWidthLayout: FC<Props> = (props: Props) => {
    const profile = localStorage.getItem('profile')
   const { children } = props
 
-  // automatically redirect and prevent user trying to access login page 
+  // automatically redirect and prevent user trying to access login page when they has logged
   if (profile) 
     return <Navigate to="/dashboard" replace />
   
