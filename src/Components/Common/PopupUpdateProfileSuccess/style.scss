@@ -1,0 +1,36 @@
+.update-success {
+  width: 500px;
+  padding: 40px;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 1px 1px 20px 2px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+
+  &__icon {
+    $size: 94px;
+    margin-inline: auto;
+    background: linear-gradient(230.19deg, #000080 30.03%, #87bdd8 84.55%);
+    box-shadow: 0px 1.88px 9.4px rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    width: $size;
+    height: $size;
+
+    svg {
+      font-size: 35px;
+      color: #fff;
+    }
+  }
+
+  &__title {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+    color: #000000;
+  }
+
+  &__sub-title {
+    font-size: 14px;
+    line-height: 17px;
+    color: #000000;
+  }
+}

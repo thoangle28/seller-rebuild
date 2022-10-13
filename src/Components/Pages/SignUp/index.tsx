@@ -41,6 +41,7 @@ const SignUp = (props: Props) => {
       await new Promise((resolve) => setTimeout(resolve, 1000))
     },
   })
+  
   const data = [
     {
       name: 'firstName',
