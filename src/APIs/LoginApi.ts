@@ -1,12 +1,10 @@
 import axiosConfig from './AxiosConfig'
-
-const fetchData = (url: string, config: any) => {
-  return config.get(url)
-}
+import { iLogin } from 'app/Models'
 
 const loginApi = {
-  getAll: () =>
-    fetchData('https://jsonplaceholder.typicode.com/users', axiosConfig),
+  login: (payload: iLogin) => {
+    return axiosConfig.post('/login', payload)
+  }
 }
 
 export default loginApi

@@ -22,23 +22,22 @@ const initialState = {
     isSuccess: false,
     isFailure: false,
     isLoading: false,
-    number: 0,
-    data: []
+    user: {},
+    message: ''
 }
 
 export const loginReducer = (state: any = initialState, action: any) => {
     const { type, payload } = action
     switch (type) {
-        case actionTypes.ADD:
-            return { ...state, number: state.number + payload }
-
-        case actionTypes.CALLING_API_FAILURE:
-            return { ...state, ...requestFailure }
-        case actionTypes.CALLING_API_REQUEST:
+        case actionTypes.LOGIN_FAILURE:
+            return { ...state, ...requestFailure, message: payload }
+        case actionTypes.LOGIN_REQUEST:
             return { ...state, ...requestLoading }
-        case actionTypes.CALLING_API_SUCCESS:
-            return { ...state, ...requestSuccess, data: payload }
-
+        case actionTypes.LOGIN_SUCCESS:
+            return { ...state, ...requestSuccess, user: payload }
+        case actionTypes.LOGOUT: {
+            return { ...state, user: {}, message: '' }
+        }
         default:
             return state
     }

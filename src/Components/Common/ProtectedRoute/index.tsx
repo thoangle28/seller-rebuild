@@ -5,9 +5,10 @@ interface Props {
 }
 
 const ProtectedRoute = (props: Props) => {
-    const user = localStorage.getItem('user')
-    if (!user)
-        return <Navigate to="/login" replace />
+    const profile = localStorage.getItem('profile')
+    if (!profile)
+        return <Navigate to="/" replace />
+
     return <>{props.children}</>
 }
 
