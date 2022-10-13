@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import './style.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChartSimple, faList, faLayerGroup, faToggleOn, faUser, faChartLine, faGear } from '@fortawesome/free-solid-svg-icons'
+import { useAppDispatch } from './../../../app/Hooks/hooks'
+import { logout } from 'Components/Pages/Login/Redux/action'
 interface iMenu {
     icon?: any;
     name: string
@@ -25,7 +27,7 @@ const bottomMenu: iMenu[] = [
 
 const Sidebar: FC = () => {
     const navigate = useNavigate()
-
+    const dispatch = useAppDispatch()
     const { pathname } = useLocation()
 
     const renderSidemenu = (menu: iMenu[]) => {
@@ -35,6 +37,13 @@ const Sidebar: FC = () => {
             </p>
         </li>
         )
+    }
+
+    // Logout Action
+    const signOut = () => { 
+        dispatch(logout)
+        localStorage.clear()
+        navigate('/')
     }
 
     return (
@@ -58,7 +67,7 @@ const Sidebar: FC = () => {
                 <ul className='sidebar__list ps-0'>
                     {renderSidemenu(bottomMenu)}
                 </ul>
-                <button className='signout-button btn btn-primary w-100'>Sign Out</button>
+                <button onClick={signOut} className='signout-button btn btn-primary w-100'>Sign Out</button>
             </div>
         </div>
     )

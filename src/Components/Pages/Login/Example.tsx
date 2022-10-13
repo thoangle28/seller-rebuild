@@ -1,8 +1,7 @@
 import {convertBase64} from 'app/Utils'
 import FullWidthLayout from 'Components/Layouts/FullWidthLayout'
 import {useState} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
-import {add, getData} from './Redux/action'
+import {useDispatch, useSelector} from 'react-redux' 
 // import MainLogo from './../../../app/Images/Addin.png'
 import FormWrapper from 'Components/Common/FormWrapper'
 
@@ -15,11 +14,11 @@ const Example = (props: Props) => {
   )
 
   const onClick = () => {
-    dispatch(add(1))
+    // dispatch(add(1))
   }
 
   const getList = () => {
-    getData(dispatch)
+    // getData(dispatch)
   }
 
   const [baseImage, setBaseImage] = useState('')

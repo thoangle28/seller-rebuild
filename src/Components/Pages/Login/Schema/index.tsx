@@ -2,7 +2,7 @@ import * as yup from 'yup'
 
 const pwdRule = /^(?=.*?[A-Z])(?=.*?[0-9]).{3,}$/
 const LoginSchema = yup.object().shape({
-  email: yup.string().email('Invalid email').required('Email is required'),
+  username: yup.string().email('Invalid email').required('Email is required'),
   password: yup
     .string()
     .min(3)

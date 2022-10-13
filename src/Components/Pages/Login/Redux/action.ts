@@ -1,30 +1,45 @@
 import loginApi from 'APIs/LoginApi'
 import actionTypes from './types'
+import { iLogin } from 'app/Models'
 
-export const add = (payload: number) => ({
-    type: actionTypes.ADD,
+const loginFailure = (payload: string) => ({
+    type: actionTypes.LOGIN_FAILURE,
     payload
 })
 
-const getDataFailure = () => ({
-    type: actionTypes.CALLING_API_FAILURE
-})
-
-const getDataRequest = () => ({
-    type: actionTypes.CALLING_API_REQUEST
-})
-
-const getDataSuccess = (payload: any) => ({
-    type: actionTypes.CALLING_API_SUCCESS,
+const loginSuccess = (payload: any) => ({
+    type: actionTypes.LOGIN_SUCCESS,
     payload
 })
 
-export const getData = async (dispatch: any) => {
-    dispatch(getDataRequest());
-    try { 
-        const data: any = await loginApi.getAll()
-        data ? dispatch(getDataSuccess(data)) : dispatch(getDataFailure())
-    } catch {
-        dispatch(getDataFailure());
+const loginRequest = () => ({
+    type: actionTypes.LOGIN_REQUEST,
+})
+
+const logoutAction = () => ({
+    type: actionTypes.LOGOUT,
+})
+
+// Login action
+export const login = (formValue: iLogin, navigate: any) => async (dispatch: any) => {
+    dispatch(loginRequest())
+    try {
+        const response: any = await loginApi.login(formValue)
+        const { data, code, message } = response.data
+        const { user } = data
+        if (code === 200 && !message) {
+            dispatch(loginSuccess(user))
+            localStorage.setItem('profile', JSON.stringify({ ...data }))
+            navigate('/dashboard')
+        } else {
+            dispatch(loginFailure(message))
+        }
+    } catch (err) {
+        dispatch(loginFailure(err))
     }
+}
+
+// Logout action
+export const logout = () => async (dispatch: any) => {
+    dispatch(logoutAction)
 }
