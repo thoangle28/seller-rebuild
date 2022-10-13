@@ -1,0 +1,229 @@
+@import './../../../app/Sass/App.scss';
+
+.account-settings {
+  margin: 16px 60px 10px 16px;
+  position: relative;
+
+  .settings__title {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    color: #000;
+  }
+
+  .settings {
+    flex: 1;
+    background: #ffffff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    min-height: 420px;
+    padding: 20px;
+
+    &__heading {
+      border-bottom: 1px solid #d9d9d9;
+    }
+
+    &__nav {
+      .page-current {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 20px;
+        color: #000080;
+      }
+
+      a {
+        text-decoration: none;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 20px;
+        color: rgba(0, 0, 0, 0.6);
+        margin-right: 26px;
+      }
+    }
+  }
+
+  .info-details__list {
+    list-style-type: none;
+  }
+
+  .info-details__title {
+    min-width: 200px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    color: #000000;
+  }
+
+  .info-details__text {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    color: #000000;
+  }
+
+  .info-details__img {
+    $size: 84px;
+    width: $size;
+    height: $size;
+    border-radius: 50%;
+  }
+
+  .info-details__input-row {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 8px;
+  }
+
+  .info-details__input {
+    background: rgba(192, 194, 194, 0.3);
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    padding-inline: 16px;
+  }
+
+  .info-details__brand-logo {
+    $size: 84px;
+    border-radius: 50%;
+    margin-right: 40px;
+    width: $size;
+    height: $size;
+  }
+
+  .info-details__input-checkbox-wrap {
+    label {
+      cursor: pointer;
+    }
+  }
+
+  .upload-brand__label {
+    border: 0.5px dashed #000080;
+    border-radius: 10px;
+    padding-inline: 20px;
+    padding-block: 12px;
+    cursor: pointer;
+
+    .upload-brand-icon {
+      margin-right: 12px;
+    }
+
+    .upload-brand-text {
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 15px;
+      color: #000000;
+    }
+  }
+
+  .info-details-text-error {
+    color: $danger;
+    font-size: 12px;
+  }
+
+  .signin-method {
+    width: 290px;
+    background: #ffffff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    min-height: 420px;
+    padding: 20px;
+    position: relative;
+
+    &-actions {
+      position: absolute;
+      right: 20px;
+      bottom: 20px;
+
+      span {
+        cursor: pointer;
+      }
+    }
+
+    &__title {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 20px;
+      color: #000000;
+      border-bottom: 1px solid #d9d9d9;
+    }
+
+    &__password {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: #000000;
+      margin-bottom: 20px;
+
+      &-current {
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 27px;
+        color: #000000;
+      }
+    }
+
+    .pwd-field {
+      &__title {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        color: #000000;
+      }
+
+      &__input {
+        outline: none;
+        border: none;
+        background: rgba(192, 194, 194, 0.3);
+        border-radius: 5px;
+        padding-inline: 16px;
+      }
+    }
+
+    .pwd-note {
+      h3 {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 15px;
+        color: #000000;
+        font-weight: 500;
+      }
+
+      span {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 15px;
+        color: #c5221f;
+        margin-bottom: 20px;
+      }
+    }
+
+    .pwd-text-error {
+      color: $danger;
+      font-size: 12px;
+    }
+  }
+
+  .update-success-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  .update-success-wrap {
+    z-index: 1;
+    animation: showPopup 0.15s linear;
+  }
+
+  @keyframes showPopup {
+    0% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
