@@ -17,9 +17,7 @@ const Signin: FC<Props> = (props: Props) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate();
   const { isLoading, message } = useAppSelector(state => state.loginReducer)
-
-  const profile = localStorage.getItem('profile')
-
+ 
   const {
     errors,
     touched,
@@ -73,7 +71,7 @@ const Signin: FC<Props> = (props: Props) => {
         label={item.label}
         type={item.type}
         textError={item.textError}
-        onBlur={handleBlur}
+        onBlur={handleBlur} 
         onChange={(e) => {
           handleChange(e)
           setFieldTouched(item.name, false, false)

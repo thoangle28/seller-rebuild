@@ -1,70 +1,75 @@
-import {useState, useRef} from 'react'
-import {useFormik} from 'formik'
-import {Link} from 'react-router-dom'
+import { useState, useRef } from 'react'
+import { useFormik } from 'formik'
+import { Link } from 'react-router-dom'
 import ButtonSubmitForm from 'Components/Common/ButtonSubmitForm'
 import FormWrapper from 'Components/Common/FormWrapper'
 import InputField from 'Components/Common/InputField'
 import FullWidthLayout from 'Components/Layouts/FullWidthLayout'
 import './style.scss'
 import SignUpSchema from './Schema'
-import {useOnClickOutside} from 'app/Hooks/UseClickOutSide'
+import { useOnClickOutside } from 'app/Hooks/UseClickOutSide'
+import { useAppDispatch, useAppSelector } from './../../../app/Hooks/hooks'
+import { register } from './Redux/action'
 type Props = {}
 const SignUp = (props: Props) => {
   const [showPopup, setShowPopup] = useState<boolean>(false)
   const [checkAcceptTerms, setCheckAcceptTerms] = useState<boolean>(false)
 
   const modalRef = useRef<HTMLDivElement>(null)
+
+  const { isFailure, message } = useAppSelector(state => state.registerReducer)
+
   useOnClickOutside(modalRef, () => {
     setShowPopup(false)
   })
 
+  const dispatch = useAppDispatch()
+
   const {
     errors,
     touched,
-    isSubmitting,
     handleBlur,
     handleChange,
     handleSubmit,
     setFieldTouched,
   } = useFormik({
     initialValues: {
-      firstName: '',
-      lastName: '',
-      brandName: '',
+      firstname: '',
+      lastname: '',
+      brand: '',
       email: '',
       password: '',
       confirmPassword: '',
     },
     validationSchema: SignUpSchema,
-    onSubmit: async (values) => {
-      console.log(values)
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+    onSubmit: (values) => {
+      dispatch(register(values))
     },
   })
-  const data = [
+  const inputFields = [
     {
-      name: 'firstName',
-      id: 'firstName',
+      name: 'firstname',
+      id: 'firstname',
       label: 'First Name *',
       type: 'text',
-      textError: errors.firstName,
-      isError: errors.firstName && touched.firstName,
+      textError: errors.firstname,
+      isError: errors.firstname && touched.firstname,
     },
     {
-      name: 'lastName',
-      id: 'lastName',
+      name: 'lastname',
+      id: 'lastname',
       label: 'Last Name *',
       type: 'text',
-      textError: errors.lastName,
-      isError: errors.lastName && touched.lastName,
+      textError: errors.lastname,
+      isError: errors.lastname && touched.lastname,
     },
     {
-      name: 'brandName',
-      id: 'brandName',
+      name: 'brand',
+      id: 'brand',
       label: 'Brand Name *',
       type: 'text',
-      textError: errors.brandName,
-      isError: errors.brandName && touched.brandName,
+      textError: errors.brand,
+      isError: errors.brand && touched.brand,
     },
     {
       name: 'email',
@@ -92,7 +97,7 @@ const SignUp = (props: Props) => {
     },
   ]
   // Render list input
-  const inputFieldList = data.map((item) => {
+  const inputFieldList = inputFields.map((item) => {
     return (
       <div className='form__input-col' key={item.id}>
         <InputField
@@ -111,6 +116,7 @@ const SignUp = (props: Props) => {
       </div>
     )
   })
+
   const dataModal = [
     {
       title: '1. General',
@@ -128,6 +134,7 @@ const SignUp = (props: Props) => {
       ],
     },
   ]
+
   // Render list list Modal
   const modalList = dataModal.map((item) => (
     <div className='modal__content' key={item.title}>
@@ -146,6 +153,12 @@ const SignUp = (props: Props) => {
 
   const handleCheckAcceptTerms = () => {
     setCheckAcceptTerms(!checkAcceptTerms)
+  }
+
+  const renderMessage = (message: string) => {
+    if (!message)
+      return <></>
+    return <p className={`text-center text-${isFailure ? 'danger' : 'success'} mt-1 mb-1`}>{message}</p>
   }
 
   return (
@@ -167,17 +180,19 @@ const SignUp = (props: Props) => {
               name='remember-pwd'
               id='remember-pwd'
               checked={checkAcceptTerms}
-              onClick={handleCheckAcceptTerms}
+              onChange={handleCheckAcceptTerms}
             />
             <label className='ms-3 cursor' htmlFor='remember-pwd'>
-              I agree to the{' '}
+              I agree to the
               <p onClick={handleShowPopup}>terms and conditions.</p>
               <span> *</span>
             </label>
           </div>
-          <ButtonSubmitForm disabled={isSubmitting || !checkAcceptTerms}>
+          {renderMessage(message)}
+          <ButtonSubmitForm disabled={!checkAcceptTerms}>
             Submit
           </ButtonSubmitForm>
+          
         </FormWrapper>
       </form>
       {showPopup ? (
