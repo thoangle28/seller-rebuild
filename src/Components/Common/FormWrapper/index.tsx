@@ -1,5 +1,6 @@
 import './style.scss'
 
+import logo from './../../../app/Images/Addin.png'
 import backLoginIcon from './../../../app/Images/icons/arrow-left.svg'
 import {useNavigate} from 'react-router-dom'
 
@@ -19,23 +20,29 @@ const FormWrapper = (props: Props) => {
   }
 
   return (
-    <div className='form-wrap'>
-      {backPageLogin ? (
-        <div className='back-login' onClick={handleBackPagelogin}>
-          <img
-            src={backLoginIcon}
-            alt='back-login'
-            className='back-login-icon'
-          />
-        </div>
-      ) : null}
+    <>
+      <img src={logo} alt='logo' className='logo mx-auto d-block' />
+      <div
+        className={
+          backPageLogin ? 'form-wrap' : 'form-wrap form-wrap--not-icon-back'
+        }>
+        {backPageLogin ? (
+          <div className='back-login' onClick={handleBackPagelogin}>
+            <img
+              src={backLoginIcon}
+              alt='back-login'
+              className='back-login-icon'
+            />
+          </div>
+        ) : null}
 
-      <h3 className='form-title mb-3 text-center text-text-uppercase'>
-        {formTitle}
-      </h3>
+        <h3 className={'form-title mb-3 text-center text-text-uppercase'}>
+          {formTitle}
+        </h3>
 
-      {children}
-    </div>
+        {children}
+      </div>
+    </>
   )
 }
 

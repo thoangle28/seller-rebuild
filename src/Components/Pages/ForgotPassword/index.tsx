@@ -87,9 +87,7 @@ const ForgotPassword: FC = (props: Props) => {
             <span>Enter your email to reset your password.</span>
           </h4>
 
-          <div className='form__input-wrap'>
-            <div className='form__input-wrap-field'>{inputFieldList}</div>
-          </div>
+          <div className='form__input-wrap'>{inputFieldList}</div>
 
           <>
             {validateFailureMessage && (

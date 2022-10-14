@@ -9,7 +9,7 @@ const ButtonSubmitForm = (props: Props) => {
   const {children, disabled} = props
   return (
     <button
-      className='button-submit-form mt-4'
+      className='button-submit-form mt-3'
       type='submit'
       disabled={disabled}>
       {children}
