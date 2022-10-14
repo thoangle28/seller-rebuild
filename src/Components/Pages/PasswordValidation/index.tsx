@@ -49,9 +49,7 @@ const ForgotPassword: FC = (props: Props) => {
           setValidateFailureMessage(data.message)
         }
       } catch (error) {
-        setValidateFailureMessage(
-          'Something went wrong, please try again later'
-        )
+        setValidateFailureMessage('Something went wrong, please try again')
       }
     },
   })
