@@ -5,7 +5,7 @@ import InputField from 'Components/Common/InputField'
 import FullWidthLayout from 'Components/Layouts/FullWidthLayout'
 import {useFormik} from 'formik'
 import {FC, useState} from 'react'
-import {Navigate, useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import PasswordValidationSchema from './Schema'
 
 import './style.scss'
