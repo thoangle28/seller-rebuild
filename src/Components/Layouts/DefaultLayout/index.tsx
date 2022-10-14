@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import Header from "./Header";
 import Footer from './Footer';
 import Sidebar from "Components/Common/Sidebar";
@@ -10,22 +10,28 @@ interface Props {
 
 const DefaultLayout: FC<Props> = (props: Props) => {
   const { children } = props
+  useEffect(() => {
+
+  }, [])
   return <ProtectedRoute>
     <div className="default-layout container-fluid min-vh-100" >
       <div className="row">
-        <div className="col-md-2 col-lg-2 ps-0 pe-0">
-          <div className="default-layout__sidebar">
-            <Sidebar />
+        <Header />
+        <div className="container-wrapper">
+          <div className="row">
+            <div className="sidebar-wrapper col-lg-3 col-md-3">
+              <div className="default-layout__sidebar">
+                <Sidebar />
+              </div>
+              <div className="col-lg-9 col-md-9">
+                {children}
+                <Footer />
+              </div>
+            </div>
           </div>
-
-        </div>
-        <div className="col-md-10 col-lg-10 ps-0 pe-0">
-          <Header />
-          {children}
-          <Footer />
         </div>
       </div>
-    </div >
+    </div>
   </ProtectedRoute>
 };
 

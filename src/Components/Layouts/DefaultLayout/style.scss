@@ -1,9 +1,18 @@
 .default-layout {
     background-color: #B7D7E8;
 
-    .sidebar {
-        position: fixed;
-        width: 320px;
+    // .sidebar {
+    //     position: fixed;
+    //     width: 320px;
+    // }
+    .container-wrapper {
+        max-width: 83.33%;
+        margin: 0 auto;
+        position: relative;
+        .sidebar-wrapper{
+            position: absolute;
+            top: -120px;
+        }
     }
 }
 
