@@ -4,7 +4,7 @@ import backLoginIcon from './../../../app/Images/icons/arrow-left.svg'
 import {useNavigate} from 'react-router-dom'
 
 type Props = {
-  children: JSX.Element | JSX.Element[]
+  children: any
   formTitle: string
   backPageLogin?: boolean
 }
