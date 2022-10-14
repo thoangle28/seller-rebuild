@@ -1,9 +1,11 @@
+import axiosConfig from 'APIs/AxiosConfig'
 import ButtonSubmitForm from 'Components/Common/ButtonSubmitForm'
 import FormWrapper from 'Components/Common/FormWrapper'
 import InputField from 'Components/Common/InputField'
 import FullWidthLayout from 'Components/Layouts/FullWidthLayout'
 import {useFormik} from 'formik'
-import {FC} from 'react'
+import {FC, useState} from 'react'
+import {Navigate, useNavigate} from 'react-router-dom'
 import PasswordValidationSchema from './Schema'
 
 import './style.scss'
@@ -11,6 +13,10 @@ import './style.scss'
 type Props = {}
 
 const ForgotPassword: FC = (props: Props) => {
+  const [validateFailureMessage, setValidateFailureMessage] =
+    useState<string>('')
+  const navigate = useNavigate()
+
   const {
     errors,
     touched,
@@ -27,8 +33,26 @@ const ForgotPassword: FC = (props: Props) => {
     },
     validationSchema: PasswordValidationSchema,
     onSubmit: async (values) => {
-      console.log(values)
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      try {
+        const {data} = await axiosConfig.post(
+          '/user/profile/password-recovery',
+          {
+            new_password: values.newPassword,
+            password_confirm: values.passwordConfirm,
+            reset_token: values.resetToken,
+          }
+        )
+
+        if (data.code === 200 && !data.message) {
+          navigate('/')
+        } else {
+          setValidateFailureMessage(data.message)
+        }
+
+        console.log(data)
+      } catch (error) {
+        console.log(error)
+      }
     },
   })
 
@@ -86,10 +110,17 @@ const ForgotPassword: FC = (props: Props) => {
           <h4 className='form-sub-title text-center'>
             <span>Enter your email to reset your password.</span>
           </h4>
-
           <div className='form__input-wrap'>
             <div className='form__input-wrap-field'>{inputFieldList}</div>
           </div>
+
+          <>
+            {validateFailureMessage && (
+              <p className='text-danger text-center mt-4'>
+                {validateFailureMessage}
+              </p>
+            )}
+          </>
 
           <ButtonSubmitForm disabled={isSubmitting}>Submit</ButtonSubmitForm>
         </FormWrapper>
