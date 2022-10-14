@@ -114,11 +114,13 @@ const ForgotPassword: FC = (props: Props) => {
             <div className='form__input-wrap-field'>{inputFieldList}</div>
           </div>
 
-          {validateFailureMessage && (
-            <p className='text-danger text-center mt-4'>
-              {validateFailureMessage}
-            </p>
-          )}
+          <>
+            {validateFailureMessage && (
+              <p className='text-danger text-center mt-4'>
+                {validateFailureMessage}
+              </p>
+            )}
+          </>
 
           <ButtonSubmitForm disabled={isSubmitting}>Submit</ButtonSubmitForm>
         </FormWrapper>
