@@ -1,23 +1,23 @@
-import { FC } from 'react'
-import { useFormik } from 'formik'
-import { useAppSelector, useAppDispatch } from '../../../app/Hooks/hooks'
+import {FC} from 'react'
+import {useFormik} from 'formik'
+import {useAppSelector, useAppDispatch} from '../../../app/Hooks/hooks'
 import FullWidthLayout from 'Components/Layouts/FullWidthLayout'
 import FormWrapper from 'Components/Common/FormWrapper'
-import { Link, useNavigate } from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import './style.scss'
 import InputField from 'Components/Common/InputField'
 import ButtonSubmitForm from 'Components/Common/ButtonSubmitForm'
 import LoginSchema from './Schema/index'
-import { login } from './Redux/action'
+import {login} from './Redux/action'
 interface Props {
   ex?: string
 }
 
 const Signin: FC<Props> = (props: Props) => {
   const dispatch = useAppDispatch()
-  const navigate = useNavigate();
-  const { isLoading, message } = useAppSelector(state => state.loginReducer)
- 
+  const navigate = useNavigate()
+  const {isLoading, message} = useAppSelector((state) => state.loginReducer)
+
   const {
     errors,
     touched,
@@ -37,8 +37,7 @@ const Signin: FC<Props> = (props: Props) => {
   })
 
   const renderErrorMessage = (message: string) => {
-    if (!message)
-      return <></>
+    if (!message) return <></>
     return <p className='text-danger text-center mt-4'>{message}</p>
   }
 
@@ -71,7 +70,7 @@ const Signin: FC<Props> = (props: Props) => {
         label={item.label}
         type={item.type}
         textError={item.textError}
-        onBlur={handleBlur} 
+        onBlur={handleBlur}
         onChange={(e) => {
           handleChange(e)
           setFieldTouched(item.name, false, false)
@@ -97,14 +96,9 @@ const Signin: FC<Props> = (props: Props) => {
           <ButtonSubmitForm disabled={isLoading}>CONTINUE</ButtonSubmitForm>
 
           <Link
-            className='link-forgot-pwd text-center mt-4 mb-1 text-decoration-none d-block'
+            className='link-forgot-pwd text-center mt-3 text-decoration-none d-block'
             to='/forgot-password'>
             Forgot Password?
-          </Link>
-          <Link
-            to='/password-validation'
-            className='link-pwd-validation text-center text-decoration-none d-block'>
-            Password Validation
           </Link>
         </FormWrapper>
       </form>

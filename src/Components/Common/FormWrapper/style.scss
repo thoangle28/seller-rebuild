@@ -3,27 +3,35 @@
   background: #ffffff;
   box-shadow: 1px 1px 20px 2px rgba(0, 0, 0, 0.15);
   border-radius: 15px;
-  padding: 44px;
+  padding: 18px;
   color: #000000;
+
+  &.form-wrap--not-icon-back {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
 }
 
 .form-title {
   font-weight: 600;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .back-login {
-  margin-bottom: 20px;
+  height: 36px;
   cursor: pointer;
   position: relative;
 
   &-icon {
     position: absolute;
-    top: -5px;
-    left: 7px;
+    left: 5px;
     width: 16px;
     height: 14px;
     display: inline-block;
     fill: #000000;
   }
+}
+
+.logo {
+  margin-bottom: 18px;
 }

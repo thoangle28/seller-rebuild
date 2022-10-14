@@ -1,15 +1,15 @@
-import { useState, useRef } from 'react'
-import { useFormik } from 'formik'
-import { Link } from 'react-router-dom'
+import {useState, useRef} from 'react'
+import {useFormik} from 'formik'
+import {Link} from 'react-router-dom'
 import ButtonSubmitForm from 'Components/Common/ButtonSubmitForm'
 import FormWrapper from 'Components/Common/FormWrapper'
 import InputField from 'Components/Common/InputField'
 import FullWidthLayout from 'Components/Layouts/FullWidthLayout'
 import './style.scss'
 import SignUpSchema from './Schema'
-import { useOnClickOutside } from 'app/Hooks/UseClickOutSide'
-import { useAppDispatch, useAppSelector } from './../../../app/Hooks/hooks'
-import { register } from './Redux/action'
+import {useOnClickOutside} from 'app/Hooks/UseClickOutSide'
+import {useAppDispatch, useAppSelector} from './../../../app/Hooks/hooks'
+import {register} from './Redux/action'
 type Props = {}
 const SignUp = (props: Props) => {
   const [showPopup, setShowPopup] = useState<boolean>(false)
@@ -17,7 +17,7 @@ const SignUp = (props: Props) => {
 
   const modalRef = useRef<HTMLDivElement>(null)
 
-  const { isFailure, message } = useAppSelector(state => state.registerReducer)
+  const {isFailure, message} = useAppSelector((state) => state.registerReducer)
 
   useOnClickOutside(modalRef, () => {
     setShowPopup(false)
@@ -156,9 +156,15 @@ const SignUp = (props: Props) => {
   }
 
   const renderMessage = (message: string) => {
-    if (!message)
-      return <></>
-    return <p className={`text-center text-${isFailure ? 'danger' : 'success'} mt-1 mb-1`}>{message}</p>
+    if (!message) return <></>
+    return (
+      <p
+        className={`text-center text-${
+          isFailure ? 'danger' : 'success'
+        } mt-1 mb-1`}>
+        {message}
+      </p>
+    )
   }
 
   return (
@@ -174,7 +180,7 @@ const SignUp = (props: Props) => {
           <div className='form__input-wrap'>
             <div className='form__input-wrap-field'>{inputFieldList}</div>
           </div>
-          <div className='form__check-terms'>
+          <div className='form__check-terms mt-3'>
             <input
               type='checkbox'
               name='remember-pwd'
@@ -182,9 +188,11 @@ const SignUp = (props: Props) => {
               checked={checkAcceptTerms}
               onChange={handleCheckAcceptTerms}
             />
-            <label className='ms-3 cursor' htmlFor='remember-pwd'>
+            <label className='ms-3 cursor m-0' htmlFor='remember-pwd'>
               I agree to the
-              <p onClick={handleShowPopup}>terms and conditions.</p>
+              <p onClick={handleShowPopup} className='m-0'>
+                &nbsp;terms and conditions.
+              </p>
               <span> *</span>
             </label>
           </div>
@@ -192,7 +200,6 @@ const SignUp = (props: Props) => {
           <ButtonSubmitForm disabled={!checkAcceptTerms}>
             Submit
           </ButtonSubmitForm>
-          
         </FormWrapper>
       </form>
       {showPopup ? (
