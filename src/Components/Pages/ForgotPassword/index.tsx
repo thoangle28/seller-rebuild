@@ -38,15 +38,11 @@ const ForgotPassword: FC = (props: Props) => {
           user_email: email,
         })
 
-        if (data.code === 200) {
-          navigate('/password')
-        } else {
-          setValidateFailureMessage(data.message)
-        }
+        data.code === 200
+          ? navigate('/password-validation')
+          : setValidateFailureMessage(data.message)
       } catch (error) {
-        setValidateFailureMessage(
-          'Something went wrong, please try again later'
-        )
+        setValidateFailureMessage('Something went wrong, please try again')
       }
     },
   })

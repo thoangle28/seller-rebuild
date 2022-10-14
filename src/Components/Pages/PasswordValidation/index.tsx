@@ -33,25 +33,21 @@ const ForgotPassword: FC = (props: Props) => {
     },
     validationSchema: PasswordValidationSchema,
     onSubmit: async (values) => {
+      const {newPassword, passwordConfirm, resetToken} = values
+      const endPoint = '/user/profile/password-recovery'
+      const payload = {
+        new_password: newPassword,
+        password_confirm: passwordConfirm,
+        reset_token: resetToken,
+      }
       try {
-        const {data} = await axiosConfig.post(
-          '/user/profile/password-recovery',
-          {
-            new_password: values.newPassword,
-            password_confirm: values.passwordConfirm,
-            reset_token: values.resetToken,
-          }
-        )
+        const {data} = await axiosConfig.post(endPoint, payload)
 
-        if (data.code === 200 && !data.message) {
-          navigate('/')
-        } else {
-          setValidateFailureMessage(data.message)
-        }
-
-        console.log(data)
+        data.code === 200
+          ? navigate('/')
+          : setValidateFailureMessage(data.message)
       } catch (error) {
-        console.log(error)
+        setValidateFailureMessage('Something went wrong, please try again')
       }
     },
   })
@@ -96,6 +92,7 @@ const ForgotPassword: FC = (props: Props) => {
         onBlur={handleBlur}
         onChange={(e) => {
           handleChange(e)
+          setValidateFailureMessage('')
           setFieldTouched(item.name, false, false)
         }}
         isError={item.isError ? true : false}
