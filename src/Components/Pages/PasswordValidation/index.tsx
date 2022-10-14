@@ -43,11 +43,9 @@ const ForgotPassword: FC = (props: Props) => {
       try {
         const {data} = await axiosConfig.post(endPoint, payload)
 
-        if (data.code === 200) {
-          navigate('/')
-        } else {
-          setValidateFailureMessage(data.message)
-        }
+        data.code === 200
+          ? navigate('/')
+          : setValidateFailureMessage(data.message)
       } catch (error) {
         setValidateFailureMessage('Something went wrong, please try again')
       }
