@@ -39,7 +39,7 @@ const ForgotPassword: FC = (props: Props) => {
         })
 
         if (data.code === 200) {
-          navigate('/password')
+          navigate('/password-validation')
         } else {
           setValidateFailureMessage(data.message)
         }
