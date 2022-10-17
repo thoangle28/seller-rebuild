@@ -1,37 +1,29 @@
 .default-layout {
     background-color: #B7D7E8;
+    padding: 180px 0;
 
-    .sidebar {
-        position: fixed;
-        width: 320px;
+    .container-wrapper {
+        max-width: 83.33%;
+        margin: 0 auto;
+        position: relative;
     }
 }
 
-.header {
-    background: url('./../../../app/Images/background.png');
-    background-size: cover;
-    min-height: 242px;
-    background-position: center center;
-    background-repeat: no-repeat;
-
-    &__image {
-        img {
-            width: 201px;
-            height: 79px;
-            object-fit: contain;
+.page-content {
+    position: relative;
+    .header {
+        &__breadscrumb {
+            font-weight: 600;
+            font-size: 20px;
         }
     }
 
-    &__breadscrumb {
-        position: relative;
-        top: 36px;
-        font-weight: 600;
-        font-size: 20px;
+    .footer {
+        position: absolute;
+        bottom: -24px;
+        font-size: 12px;
+        line-height: 15px;
+        font-weight: 400;
     }
-}
 
-.footer {
-    font-size: 12px;
-    line-height: 15px;
-    font-weight: 400;
 }

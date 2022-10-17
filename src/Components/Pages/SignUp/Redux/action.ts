@@ -21,8 +21,8 @@ export const register = (formValue: iRegister) => async (dispatch: any) => {
     dispatch(registerRequest())
     try {
         const response = await registerApi.register(formValue);
-        const { data, message, code } = response.data
-        code === 200 ? dispatch(registerSuccess(data)) : dispatch(registerFailure(message))
+        const { message, code } = response.data
+        code === 200 ? dispatch(registerSuccess(message)) : dispatch(registerFailure(message))
     } catch (error) {
         dispatch(registerFailure(error))
     }
