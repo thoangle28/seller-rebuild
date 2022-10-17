@@ -1,0 +1,33 @@
+.monthly-bussiness-data {
+    .result-wrapper {
+        width: 208px;
+        height: 208px;
+        border-radius: 50%;
+        transition: all 0.5s ease-out;
+
+        .profit {
+            font-weight: 600;
+            font-size: 35px;
+            line-height: 43px;
+        }
+
+        .month {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 17px;
+        }
+    }
+
+    .month-list {
+        &__item {
+            width: 40%;
+
+            span {
+                display: block;
+                width: 20px;
+                height: 20px;
+                border-radius: 5px;
+            }
+        }
+    }
+}

@@ -1,9 +1,8 @@
 .sidebar {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-
+    border-radius: 5px;
     &__navigation {
-        padding-top: 27px;
-
+        padding-top: 27px; 
     }
 
     &__list {
@@ -16,7 +15,7 @@
             font-weight: 500;
             position: relative; 
 
-            &.active {
+            &.active { 
                 color: #000080;
             }
 

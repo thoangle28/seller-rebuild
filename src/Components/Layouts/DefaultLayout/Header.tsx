@@ -25,7 +25,7 @@ const Header: FC = () => {
   }
 
   return (
-    <div className="header d-flex p-3">
+    <div className="header d-flex">
       <div className="header__breadscrumb w-100 d-flex flex-row justify-content-between align-items-center">
         {renderBreadcrumbs()}
         <div>

@@ -4,3 +4,9 @@ export interface iResponse {
     message: string,
     data: any
 }
+
+export interface iMonthData {
+    fullName: string,
+    name: string,
+    color: string
+}
