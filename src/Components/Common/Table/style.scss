@@ -1,0 +1,119 @@
+@import './../../../app/Sass/App.scss';
+
+.table {
+  th,
+  td {
+    vertical-align: middle;
+    padding-inline: 8px !important;
+  }
+
+  td {
+    padding-block: 16px !important;
+  }
+
+  thead tr th {
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.4);
+    padding-bottom: 22px !important;
+    background: #ffffff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    color: #000000;
+    box-shadow: none;
+  }
+
+  tbody tr td {
+    border-bottom: 0.5px dashed rgba(0, 0, 0, 0.4);
+    font-size: 14px;
+    line-height: 17px;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  &__product-id {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #000000;
+  }
+
+  &__product img {
+    $size: 51px;
+    width: $size;
+    height: $size;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+
+  &__product-info {
+    flex-grow: 1;
+
+    h3 {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 17px;
+      color: #000080;
+    }
+
+    p {
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 15px;
+      color: rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  &__product-type {
+    font-size: 14px;
+    line-height: 17px;
+    color: #000000;
+  }
+
+  &__product-sku {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #000000;
+  }
+
+  &__product-price {
+    &-new {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 17px;
+      color: #000000;
+    }
+
+    &-old {
+      font-size: 14px;
+      line-height: 17px;
+      text-decoration-line: line-through;
+      color: rgba(0, 0, 0, 0.6);
+      padding-left: 12px;
+    }
+  }
+
+  &__product-date {
+    font-size: 14px;
+    line-height: 17px;
+    color: #000000;
+  }
+
+  &__product-status {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+
+    &--pending {
+      color: $warning;
+    }
+
+    &--darft {
+      color: $primary;
+    }
+  }
+}
