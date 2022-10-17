@@ -14,20 +14,22 @@ const Table: FC<Props> = (props: Props) => {
   //   Render table header
   const RenderTableHeader = () => {
     return (
-      <>
-        {dataTableHead.map((item) => (
-          <th className={`${item.className} p-0 px-8`} key={item.name}>
-            {item.name}
-          </th>
-        ))}
-      </>
+      <thead>
+        <tr>
+          {dataTableHead.map((item) => (
+            <th className={`${item.className} p-0 px-8`} key={item.name}>
+              {item.name}
+            </th>
+          ))}
+        </tr>
+      </thead>
     )
   }
 
   //   Render table body
   const RenderTableBody = () => {
     return (
-      <>
+      <tbody>
         {dataTableBody.map((item) => (
           <tr key={item.id}>
             <td className='text-center'>
@@ -88,20 +90,14 @@ const Table: FC<Props> = (props: Props) => {
             </td>
           </tr>
         ))}
-      </>
+      </tbody>
     )
   }
 
   return (
     <table className='table m-0'>
-      <thead>
-        <tr>
-          <RenderTableHeader />
-        </tr>
-      </thead>
-      <tbody>
-        <RenderTableBody />
-      </tbody>
+      <RenderTableHeader />
+      <RenderTableBody />
     </table>
   )
 }
