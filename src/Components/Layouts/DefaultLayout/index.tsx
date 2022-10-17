@@ -18,7 +18,7 @@ const DefaultLayout: FC<Props> = (props: Props) => {
       <div className="container-wrapper">
         <div className="bg-img"></div>
         <div className="row">
-          <div className="sidebar-wrapper col-lg-3 col-md-3">
+          <div className="sidebar-wrapper col-lg-3 col-md-3 p-0">
             <div className="default-layout__sidebar">
               <Sidebar />
             </div>
