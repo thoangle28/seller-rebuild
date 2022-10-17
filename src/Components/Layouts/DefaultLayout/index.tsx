@@ -15,19 +15,18 @@ const DefaultLayout: FC<Props> = (props: Props) => {
   }, [])
   return <ProtectedRoute>
     <div className="default-layout container-fluid min-vh-100" >
-      <div className="row">
-        <Header />
-        <div className="container-wrapper">
-          <div className="row">
-            <div className="sidebar-wrapper col-lg-3 col-md-3">
-              <div className="default-layout__sidebar">
-                <Sidebar />
-              </div>
-              <div className="col-lg-9 col-md-9">
-                {children}
-                <Footer />
-              </div>
+      <div className="container-wrapper">
+        <div className="bg-img"></div>
+        <div className="row">
+          <div className="sidebar-wrapper col-lg-3 col-md-3">
+            <div className="default-layout__sidebar">
+              <Sidebar />
             </div>
+          </div>
+          <div className="page-content col-lg-9 col-md-9">
+            <Header />
+            {children}
+            <Footer />
           </div>
         </div>
       </div>

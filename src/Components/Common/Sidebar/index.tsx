@@ -1,10 +1,11 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import './style.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChartSimple, faList, faLayerGroup, faToggleOn, faUser, faChartLine, faGear } from '@fortawesome/free-solid-svg-icons'
 import { useAppDispatch } from './../../../app/Hooks/hooks'
 import { logout } from 'Components/Pages/Login/Redux/action'
+import triangle from './../../../app/Images/triangle.png'
 interface iMenu {
     icon?: any;
     name: string
@@ -29,6 +30,11 @@ const Sidebar: FC = () => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const { pathname } = useLocation()
+    const [isDisplaying, setIsDisplaying] = useState<boolean>(false)
+
+    const displayProfileMenu = () => {
+        setIsDisplaying(!isDisplaying)
+    }
 
     const renderSidemenu = (menu: iMenu[]) => {
         return menu.map((item, i: number) => <li key={i} className={`cursor-pointer sidebar__list-item ${pathname === item.path ? 'active' : ''}`}>
@@ -39,8 +45,17 @@ const Sidebar: FC = () => {
         )
     }
 
+    const renderProfileMenu = () => {
+        return isDisplaying ? <div className="sidebar__navigation pb-4">
+            <ul className='sidebar__list ps-0'>
+                {renderSidemenu(bottomMenu)}
+            </ul>
+            <button onClick={signOut} className='signout-button btn btn-primary w-100'>Sign Out</button>
+        </div> : <></>
+    }
+
     // Logout Action
-    const signOut = () => { 
+    const signOut = () => {
         dispatch(logout)
         localStorage.clear()
         navigate('/')
@@ -50,24 +65,20 @@ const Sidebar: FC = () => {
         <div className='sidebar d-flex flex-column align-items-center bg-light min-vh-100'>
             <div className="sidebar__avatar d-flex  align-items-center flex-column">
                 <div className="user-avatar">
-
                     <img src="https://via.placeholder.com/100" className='rounded-circle' alt='avatar' />
-
                 </div>
-                <p className='mb-0'>User Name</p>
+                <div className="user-name d-flex justify-content-center align-items-center">
+                    <p className='mb-0'>User Name</p>
+                    <img className='cursor-pointer ps-3' onClick={displayProfileMenu} src={triangle} alt="triangle" />
+                </div>
             </div>
+            <div className="seperator"></div> 
+            {renderProfileMenu()}
             <div className="seperator"></div>
             <div className="sidebar__navigation">
                 <ul className='sidebar__list ps-3'>
                     {renderSidemenu(sideMenu)}
                 </ul>
-            </div>
-            <div className="seperation"></div>
-            <div className="sidebar__navigation">
-                <ul className='sidebar__list ps-0'>
-                    {renderSidemenu(bottomMenu)}
-                </ul>
-                <button onClick={signOut} className='signout-button btn btn-primary w-100'>Sign Out</button>
             </div>
         </div>
     )

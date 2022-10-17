@@ -1,10 +1,9 @@
 import { FC } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
-import headerIcon from './../../../app/Images/Addin.png'
+import logo from './../../../app/Images/logo.png'
 
- 
 const Header: FC = () => {
- 
+
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -21,18 +20,16 @@ const Header: FC = () => {
   const renderBreadcrumbs = () => {
     return pathnames.map((item, i, arr) => {
       const fullPath = arr.slice(0, i + 1).join('/')
-      return <span className='cursor-pointer text-capitalize fw-600 text-white' key={item} onClick={() => { navigate(`/${fullPath}`) }}>{formatPathname(item)}</span>
+      return <p className='cursor-pointer text-capitalize fw-600 text-white mb-0' key={item} onClick={() => { navigate(`/${fullPath}`) }}>{formatPathname(item)}</p>
     })
   }
 
   return (
-    <div className="header d-flex justify-content-start p-3">
-      <div className="header__wrapper d-flex flex-column justify-content-center">
-        <div className="header__image">
-          <img src={headerIcon} alt="header" />
-        </div>
-        <div className="header__breadscrumb">
-          {renderBreadcrumbs()}
+    <div className="header d-flex p-3">
+      <div className="header__breadscrumb w-100 d-flex flex-row justify-content-between align-items-center">
+        {renderBreadcrumbs()}
+        <div>
+          <img src={logo} alt="LOGO" />
         </div>
       </div>
     </div>
