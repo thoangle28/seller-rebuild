@@ -1,5 +1,3 @@
-@import './../../../app/Sass/App.scss';
-
 .form__input-field-wrap {
   width: 100%;
 }
@@ -23,6 +21,10 @@
     -webkit-box-shadow: 0 0 0 1000px white inset !important;
   }
 
+  &.form__input--show-pwd {
+    padding-right: 60px !important;
+  }
+
   &.form__input--error {
     border-color: var(--danger);
   }
@@ -33,6 +35,10 @@
 
   &:focus {
     border-color: var(--primary);
+  }
+
+  &.form__input--error:focus + .form__label {
+    color: var(--primary) !important;
   }
 
   &:not(:placeholder-shown) + .form__label,
@@ -62,4 +68,15 @@
   font-size: 12px;
   line-height: 15px;
   margin-top: 4px;
+}
+
+.show-pwd,
+.hide-pwd {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 24px;
+  color: rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  z-index: 1;
 }
