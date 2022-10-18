@@ -15,7 +15,7 @@ const FormWrapper = (props: Props) => {
 
   const navigate = useNavigate()
 
-  const handleBackPagelogin = () => {
+  const handleBackPageLogin = () => {
     navigate('/')
   }
 
@@ -27,7 +27,7 @@ const FormWrapper = (props: Props) => {
           backPageLogin ? 'form-wrap' : 'form-wrap form-wrap--not-icon-back'
         }>
         {backPageLogin ? (
-          <div className='back-login' onClick={handleBackPagelogin}>
+          <div className='back-login' onClick={handleBackPageLogin}>
             <img
               src={backLoginIcon}
               alt='back-login'
