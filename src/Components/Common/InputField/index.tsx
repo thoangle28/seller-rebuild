@@ -1,3 +1,6 @@
+import {useState} from 'react'
+import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {ChangeEvent} from 'react'
 import './style.scss'
 
@@ -5,15 +8,22 @@ interface Props {
   name: string
   id: string
   label: string
-  type?: string
-  isError?: boolean
-  textError?: string
+  type: string
+  isError: boolean
+  textError: string | undefined
   disabled?: boolean
   onChange: (event: ChangeEvent) => void
   onBlur: (event: ChangeEvent) => void
+  iconShowPassword?: boolean
 }
 
 const InputField = (props: Props) => {
+  const [showPassword, setShowPassword] = useState<boolean>(false)
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword)
+  }
+
   const {
     name,
     id,
@@ -21,6 +31,7 @@ const InputField = (props: Props) => {
     type = 'text',
     isError,
     textError,
+    iconShowPassword = false,
     onChange,
     onBlur,
   } = props
@@ -30,11 +41,15 @@ const InputField = (props: Props) => {
         <input
           className={
             isError
-              ? 'form__input form__input--error py-3 pe-4'
+              ? iconShowPassword
+                ? 'form__input form__input--error py-3 pe-4 form__input--show-pwd'
+                : 'form__input form__input--error py-3 pe-4'
+              : iconShowPassword
+              ? 'form__input py-3 pe-4 form__input--show-pwd'
               : 'form__input py-3 pe-4'
           }
           id={id}
-          type={type}
+          type={iconShowPassword ? (showPassword ? 'text' : 'password') : type}
           placeholder=' '
           name={name}
           onChange={onChange}
@@ -43,6 +58,24 @@ const InputField = (props: Props) => {
         <label className='form__label user-select-none pe-none' htmlFor={id}>
           {label}
         </label>
+
+        {iconShowPassword && (
+          <>
+            {showPassword ? (
+              <FontAwesomeIcon
+                icon={faEye}
+                className='show-pwd'
+                onClick={handleShowPassword}
+              />
+            ) : (
+              <FontAwesomeIcon
+                icon={faEyeSlash}
+                className='hide-pwd'
+                onClick={handleShowPassword}
+              />
+            )}
+          </>
+        )}
       </div>
       {isError ? (
         <div className='form__input-text-error text-danger'>{textError}</div>

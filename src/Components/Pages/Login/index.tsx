@@ -57,6 +57,7 @@ const Signin: FC<Props> = (props: Props) => {
       type: 'password',
       textError: errors.password,
       isError: errors.password && touched.password,
+      iconShowPassword: true,
     },
   ]
 
@@ -76,6 +77,7 @@ const Signin: FC<Props> = (props: Props) => {
           setFieldTouched(item.name, false, false)
         }}
         isError={item.isError ? true : false}
+        iconShowPassword={item?.iconShowPassword}
       />
     )
   })
