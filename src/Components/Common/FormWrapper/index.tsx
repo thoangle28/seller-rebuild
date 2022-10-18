@@ -1,6 +1,6 @@
 import './style.scss'
 
-import logo from './../../../app/Images/Addin.png'
+import logo from './../../../app/Images/logo.png'
 import backLoginIcon from './../../../app/Images/icons/arrow-left.svg'
 import {useNavigate} from 'react-router-dom'
 
