@@ -1,4 +1,3 @@
-@import './../../../app/Sass/App.scss';
 .form-sign-up {
   .form__input-wrap-field {
     display: flex;
@@ -15,11 +14,10 @@
     }
     a {
       display: inline-block;
-      color: $primary;
 
       &:hover {
         font-weight: 600;
-        color: #4285f4;
+        color: #4285f4 !important;
       }
     }
   }
@@ -32,18 +30,13 @@
       cursor: pointer;
 
       p {
-        color: $primary;
         cursor: pointer;
         display: inline-block;
 
         &:hover {
           font-weight: 600;
-          color: #4285f4;
+          color: #4285f4 !important;
         }
-      }
-
-      span {
-        color: $danger;
       }
     }
   }
@@ -71,7 +64,6 @@
   font-weight: 600;
   font-size: 35px;
   line-height: 43px;
-  color: #000;
 }
 .modal__sub-heading {
   font-weight: 600;
@@ -90,8 +82,6 @@
   }
 }
 .modal__content {
-  color: #000;
-
   &-title {
     font-weight: 600;
     font-size: 16px;
