@@ -65,6 +65,11 @@ $spacers: map-merge($spacers, $custom-spacers);
 :root {
   --bs-body-font-family: 'Montserrat';
   --bs-body-color: #000;
+  --primary: #000080;
+  --secondary: #87bdd8;
+  --info: #b7d7e8;
+  --danger: #c5221f;
+  --warning: #fbbc04;
 
   @each $spacer, $value in $spacers {
     --theme-spacer-#{$spacer}: #{$value} !important;

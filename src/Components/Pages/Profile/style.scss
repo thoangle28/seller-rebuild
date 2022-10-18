@@ -5,7 +5,6 @@
     font-weight: 600;
     font-size: 16px;
     line-height: 20px;
-    color: #000;
   }
 
   .overview {
@@ -23,7 +22,7 @@
         font-weight: 600;
         font-size: 16px;
         line-height: 20px;
-        color: #000080;
+        color: var(--primary);
       }
 
       a {
@@ -46,14 +45,12 @@
     font-weight: 400;
     font-size: 16px;
     line-height: 20px;
-    color: #000000;
   }
 
   .info-details__text {
     font-weight: 600;
     font-size: 16px;
     line-height: 20px;
-    color: #000000;
   }
 
   .info-details__img {

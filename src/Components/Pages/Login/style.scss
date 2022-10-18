@@ -1,5 +1,3 @@
-@import './../../../app/Sass/App.scss';
-
 .form-login {
   .form-sub-title {
     font-size: 14px;
@@ -13,11 +11,10 @@
 
     a {
       display: inline-block;
-      color: $primary;
 
       &:hover {
         font-weight: 600;
-        color: #4285f4;
+        color: #4285f4 !important;
       }
     }
   }
@@ -28,15 +25,13 @@
     row-gap: 16px;
   }
 
-  .link-pwd-validation,
   .link-forgot-pwd {
-    color: $primary;
     font-size: 16px;
     line-height: 20px;
 
     &:hover {
       font-weight: 600;
-      color: #4285f4;
+      color: #4285f4 !important;
     }
   }
 }
