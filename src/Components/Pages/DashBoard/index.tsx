@@ -1,11 +1,13 @@
-import DefaultLayout from 'Components/Layouts/DefaultLayout'
 import { FC, useState } from 'react'
+import DefaultLayout from 'Components/Layouts/DefaultLayout'
 import InfoTag from './../../Common/InfoTag'
+import BarChart from 'Components/Common/Chart'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChartSimple } from '@fortawesome/free-solid-svg-icons'
+import { faChartSimple, faUserPlus, faListSquares, faTicketSimple } from '@fortawesome/free-solid-svg-icons'
 import { iMonthData } from 'app/Models'
-import { MONTHS } from 'app/Constants'
+import { CURRENT_MONTH, CURRENT_YEAR, MONTHS, Data } from 'app/Constants'
 import { dataTableBody, dataTableHead } from './../../../app/Constants/dataProductList'
+import addToQueue from './../../../app/Images/icons/bxs_add-to-queue.svg'
 import './style.scss'
 import Table from 'Components/Common/Table'
 type Props = {}
@@ -19,20 +21,29 @@ const initialMonthData: iMonthData = {
 const DashBoard: FC<Props> = (props: Props) => {
     // Declare Use State
     const [currentMonth, setCurrentMonth] = useState<iMonthData>(initialMonthData)
-
+    const [userData, SetUserData] = useState({
+        labels: Data.map(data => data.month),
+        datasets: [
+            {
+                label: "Gained",
+                data: Data.map(data => data.benefit),
+                backgroundColor: ['rgba(0, 0, 128, 1)']
+            }
+        ]
+    })
     const renderInfoTags = () => {
         return <div className="row">
-            <div className="col-sm-6 mb-3 pe-0">
-                <InfoTag title='New Users' subTitle='in month' icon={<FontAwesomeIcon icon={faChartSimple} />} number={12} />
+            <div className="col-sm-3 mb-3 pe-0">
+                <InfoTag title='New Users' subTitle='in month' icon={<FontAwesomeIcon icon={faChartSimple} />} number={3} />
             </div>
-            <div className="col-sm-6 mb-3 pe-0">
-                <InfoTag title='New Users' subTitle='in month' icon={<FontAwesomeIcon icon={faChartSimple} />} number={12} />
+            <div className="col-sm-3 mb-3 pe-0">
+                <InfoTag title='New Users' subTitle='in month' icon={<FontAwesomeIcon icon={faUserPlus} />} number={3} />
             </div>
-            <div className="col-sm-6 mb-3 pe-0">
-                <InfoTag title='Item Order' subTitle='in month' icon={<FontAwesomeIcon icon={faChartSimple} />} number={13} />
+            <div className="col-sm-3 mb-3 pe-0">
+                <InfoTag title='Item Order' subTitle='in month' icon={<FontAwesomeIcon icon={faListSquares} />} number={14} />
             </div>
-            <div className="col-sm-6 mb-3 pe-0">
-                <InfoTag title='Tickets Reports' subTitle='products' icon={<FontAwesomeIcon icon={faChartSimple} />} number={22} />
+            <div className="col-sm-3 mb-3 pe-0">
+                <InfoTag title='Tickets Reports' subTitle='products' icon={<FontAwesomeIcon icon={faTicketSimple} />} number={22} />
             </div>
         </div>
     }
@@ -53,7 +64,7 @@ const DashBoard: FC<Props> = (props: Props) => {
                             <p className='month-list-title text-end text-primary'>Top 2/12</p>
                             <div className="month-list d-flex justify-content-center align-items-center flex-wrap flex-row">
                                 {MONTHS.map(month => {
-                                    return <div className='cursor-pointer month-list__item' onClick={() => setCurrentMonth(month)}>
+                                    return <div key={month.name} className='cursor-pointer month-list__item' onClick={() => setCurrentMonth(month)}>
                                         <p className='mb-0 d-flex text-capitalize align-items-center'><span className='me-2' style={{ background: month.color }}></span>{month.name}</p>
                                     </div>
                                 })}
@@ -66,29 +77,48 @@ const DashBoard: FC<Props> = (props: Props) => {
     }
 
     const renderTable = () => {
-        return <div className=''>
-
+        return <div className='bg-white'>
+            <Table dataTableBody={dataTableBody} dataTableHead={dataTableHead} />
         </div>
     }
 
     return (
         <DefaultLayout>
-            <div className="dashboard-wrapper">
-                <div className='dashboard-title'>
-                    <p className=''>SALE STATIC</p>
+            <div className="row">
+                <div className="col-md-12">
+                    {renderInfoTags()}
                 </div>
-                <div className="row">
-                    <div className="col-md-5">
-                        {renderInfoTags()}
-                        {renderMonthlyBussinessData()}
-                    </div>
-                    <div className="col-md-7">
-
-                    </div>
-                </div>
-                <Table dataTableBody={dataTableBody} dataTableHead={dataTableHead} />
             </div>
-        </DefaultLayout >
+            <div className="row">
+                <div className="col-md-6">
+                    <div className='dashboard-header pt-3'>
+                        <p className='dashboard-header__title mb-2'>SALE STATICS</p>
+                        <p className='dashboard-header__subtitle'>{CURRENT_MONTH} {parseInt(CURRENT_YEAR) - 1} - {CURRENT_MONTH} {CURRENT_YEAR}</p>
+                    </div>
+                    {renderMonthlyBussinessData()}
+                </div>
+                <div className="col-md-6">
+                    {<BarChart chartData={userData} />}
+                </div>
+            </div>
+            <div className="row">
+                <div className="header-wrapper d-flex justify-content-between align-items-center">
+                    <div className='dashboard-header pt-3'>
+                        <p className='dashboard-header__title mb-2'>PRODUCTS LISTING</p>
+                        <p className='dashboard-header__subtitle'>Over 11 product(s)</p>
+                    </div>
+                    <button className='add-new-btn btn bg-white'><img src={addToQueue} alt="add new product" /> New Product</button>
+                </div>
+                <div className="col-md-12">
+                    <div className="table-wrapper bg-white p-3">
+                        {renderTable()}
+                        <div className="text-center my-3">
+                            <button className='view-more-button btn btn-primary px-3'>View More Products</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </DefaultLayout>
     )
 }
 
