@@ -13,7 +13,7 @@ const ButtonPrimary = (props: Props) => {
   return (
     <button
       disabled={disabled}
-      className='button-primary text-center text-capitalize'
+      className='button-primary bg-primary text-center text-capitalize'
       type={type}
       onClick={onClick}
       {...passProps}>

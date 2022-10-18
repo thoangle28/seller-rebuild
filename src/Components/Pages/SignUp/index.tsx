@@ -173,7 +173,7 @@ const SignUp = (props: Props) => {
         <FormWrapper formTitle='CREATE NEW ACCOUNT' backPageLogin>
           <h4 className='form-sub-title text-center'>
             <span>Already have an account, </span>
-            <Link to='/' className='text-decoration-none'>
+            <Link to='/' className='text-decoration-none text-primary'>
               click here to login.
             </Link>
           </h4>
@@ -190,10 +190,10 @@ const SignUp = (props: Props) => {
             />
             <label className='ms-3 cursor m-0' htmlFor='remember-pwd'>
               I agree to the
-              <p onClick={handleShowPopup} className='m-0'>
+              <p onClick={handleShowPopup} className='m-0 text-primary'>
                 &nbsp;terms and conditions.
               </p>
-              <span> *</span>
+              <span className='text-danger'> *</span>
             </label>
           </div>
           {renderMessage(message)}

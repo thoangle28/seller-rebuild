@@ -12,6 +12,6 @@ export interface iTableBody {
   sku: string
   price: {old: number; new: number}
   date: string
-  status: 'pending' | 'darft'
+  status: 'pending' | 'draft'
   actions: JSX.Element
 }

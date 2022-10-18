@@ -125,7 +125,9 @@ const AccountSettings = () => {
         }}
         onBlur={handleBlurUpdatePwd}
       />
-      {item.isError && <p className='m-0 pwd-text-error'>{item.textError}</p>}
+      {item.isError && (
+        <p className='m-0 pwd-text-error text-danger'>{item.textError}</p>
+      )}
     </div>
   ))
 
@@ -178,7 +180,7 @@ const AccountSettings = () => {
                     />
 
                     {errors.brandName && touched.brandName && (
-                      <p className='m-0 pt-1 info-details-text-error'>
+                      <p className='m-0 pt-1 info-details-text-error text-danger'>
                         {errors.brandName}
                       </p>
                     )}
@@ -235,7 +237,7 @@ const AccountSettings = () => {
                         onBlur={handleBlur}
                       />
                       {errors.firstName && touched.firstName ? (
-                        <p className='m-0 pt-1 info-details-text-error'>
+                        <p className='m-0 pt-1 info-details-text-error text-danger'>
                           {errors.firstName}
                         </p>
                       ) : null}
@@ -252,7 +254,7 @@ const AccountSettings = () => {
                         onBlur={handleBlur}
                       />
                       {errors.lastName && touched.lastName ? (
-                        <p className='m-0 pt-1 info-details-text-error'>
+                        <p className='m-0 pt-1 info-details-text-error text-danger'>
                           {errors.lastName}
                         </p>
                       ) : null}
@@ -277,7 +279,7 @@ const AccountSettings = () => {
                     />
 
                     {errors.contactPhone && touched.contactPhone && (
-                      <p className='m-0 info-details-text-error'>
+                      <p className='m-0 pt-1 info-details-text-error text-danger'>
                         {errors.contactPhone}
                       </p>
                     )}
@@ -300,7 +302,7 @@ const AccountSettings = () => {
                       onBlur={handleBlur}
                     />
                     {errors.contactEmail && touched.contactEmail && (
-                      <p className='m-0 pt-1 info-details-text-error'>
+                      <p className='m-0 pt-1 info-details-text-error text-danger'>
                         {errors.contactEmail}
                       </p>
                     )}
@@ -324,7 +326,7 @@ const AccountSettings = () => {
                     />
 
                     {errors.address && touched.address && (
-                      <p className='m-0 pt-1 info-details-text-error'>
+                      <p className='m-0 pt-1 info-details-text-error text-danger'>
                         {errors.address}
                       </p>
                     )}

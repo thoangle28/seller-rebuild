@@ -86,7 +86,7 @@ const Signin: FC<Props> = (props: Props) => {
         <FormWrapper formTitle='SIGN IN TO SELLER PORTAL'>
           <h4 className='form-sub-title text-center'>
             <span>New here? </span>
-            <Link to='/signup' className='text-decoration-none'>
+            <Link to='/signup' className='text-decoration-none text-primary'>
               Create new account
             </Link>
           </h4>
@@ -96,7 +96,7 @@ const Signin: FC<Props> = (props: Props) => {
           <ButtonSubmitForm disabled={isLoading}>CONTINUE</ButtonSubmitForm>
 
           <Link
-            className='link-forgot-pwd text-center mt-3 text-decoration-none d-block'
+            className='link-forgot-pwd text-center mt-3 text-decoration-none text-primary d-block'
             to='/forgot-password'>
             Forgot Password?
           </Link>
