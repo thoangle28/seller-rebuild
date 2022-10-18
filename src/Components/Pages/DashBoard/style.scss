@@ -1,0 +1,72 @@
+.monthly-bussiness-data {
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+
+    .result-wrapper {
+        width: 208px;
+        height: 208px;
+        border-radius: 50%;
+        transition: all 0.5s ease-out;
+
+        .profit {
+            transition: all 0.5s ease-out;
+            font-weight: 600;
+            font-size: 35px;
+            line-height: 43px;
+        }
+
+        .month {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 17px;
+        }
+    }
+
+    .month-list {
+        &-title {
+            font-weight: 600;
+            font-size: 20px;
+            line-height: 24px;
+        }
+
+        &__item {
+            width: 40%;
+
+            span {
+                display: block;
+                width: 20px;
+                height: 20px;
+                border-radius: 5px;
+            }
+        }
+    }
+}
+
+.dashboard-header {
+    &__title {
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    &__subtitle {
+        font-weight: 500;
+        line-height: 20px;
+        color: rgba(0, 0, 0, 0.6);
+        font-size: 16px;
+    }
+}
+
+.table-wrapper {
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+
+    .add-new-btn {
+        font-weight: 600;
+        line-height: 20px;
+    }
+
+    .view-more-button {
+        padding: 8px 0;
+    }
+}

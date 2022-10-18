@@ -72,7 +72,7 @@ const Sidebar: FC = () => {
                     <img className='cursor-pointer ps-3' onClick={displayProfileMenu} src={triangle} alt="triangle" />
                 </div>
             </div>
-            <div className="seperator"></div> 
+            <div className="seperator"></div>
             {renderProfileMenu()}
             <div className="seperator"></div>
             <div className="sidebar__navigation">
