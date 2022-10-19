@@ -23,7 +23,7 @@ const DefaultLayout: FC<Props> = (props: Props) => {
                 <Sidebar />
               </div>
             </div>
-            <div className="page-content col-lg-10 col-md-10">
+            <div className="page-content col-lg-10 col-md-10 px-0">
               <Header />
               <div className="content-wrapper p-3 pe-5">
                 {children}
