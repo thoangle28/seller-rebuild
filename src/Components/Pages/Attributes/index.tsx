@@ -1,10 +1,10 @@
-import {faPenToSquare} from '@fortawesome/free-solid-svg-icons'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {useAppDispatch, useAppSelector} from 'app/Hooks/hooks'
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useAppDispatch, useAppSelector } from 'app/Hooks/hooks'
 import ButtonPrimary from 'Components/Common/ButtonPrimary'
 import DefaultLayout from 'Components/Layouts/DefaultLayout'
-import {useFormik} from 'formik'
-import {Fragment, useEffect, useState} from 'react'
+import { useFormik } from 'formik'
+import { Fragment, useEffect, useState } from 'react'
 import {
   createNewAttribute,
   createNewChildrenAttribute,
@@ -20,18 +20,21 @@ const Attributes = () => {
   >('')
 
   const dispatch = useAppDispatch()
-  const {isLoading, attributeList} = useAppSelector(
+  const { isLoading, attributeList } = useAppSelector(
     (state) => state.attributesReducer
   )
 
   // Get user_id and access_token from localStorage
   const profile = JSON.parse(localStorage.getItem('profile') || '{}')
-  const {ID} = profile.user
-  const {access_token} = profile
-
+  const { ID } = profile.user
+  const { access_token } = profile
+  const getAllDataPayload = {
+    user_id: ID, access_token
+  }
   // Get all attributes
   useEffect(() => {
-    dispatch(getAttributeList(ID, access_token))
+
+    dispatch(getAttributeList(getAllDataPayload))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -46,14 +49,15 @@ const Attributes = () => {
 
   // Handle submit form create new attribute
   const handleAddNewAttribute = (values: any, actions: any) => {
-    const {newAttribute} = values
+    const { newAttribute } = values
     const payload = {
       user_id: ID,
       access_token: access_token,
       label_name: newAttribute,
     }
+
     if (!selectParentAttribute) {
-      dispatch(createNewAttribute(payload, actions))
+      dispatch(createNewAttribute(payload, actions, getAllDataPayload))
     } else {
       handleAddNewChildrenAttribute(newAttribute, actions)
     }
@@ -68,8 +72,8 @@ const Attributes = () => {
       parent_id: selectParentAttribute,
       access_token: access_token,
       term_name: newAttribute,
-    }
-    dispatch(createNewChildrenAttribute(payload, attributeList, actions))
+    } 
+    dispatch(createNewChildrenAttribute(payload, actions, getAllDataPayload))
   }
 
   const toggleAttr = (index: number) => {
@@ -84,7 +88,7 @@ const Attributes = () => {
     handleChange,
     handleBlur,
     handleSubmit,
-    isSubmitting,
+    isSubmitting, 
   } = useFormik({
     initialValues: {
       newAttribute: '',
@@ -92,9 +96,7 @@ const Attributes = () => {
     validationSchema: createNewAttributeSchema,
     onSubmit: handleAddNewAttribute,
   })
-
-  console.log(attributeList)
-
+ 
   // Render list attributes
   const listAttributes = attributeList.map((item: any, index: number) => {
     const checkOpen = isActiveIndex === index

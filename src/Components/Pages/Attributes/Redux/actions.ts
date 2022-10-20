@@ -1,6 +1,5 @@
-import {attributesReducer} from './reducer'
-import {useAppSelector} from './../../../../app/Hooks/hooks'
-import axiosConfig from 'APIs/AxiosConfig'
+import attributeApis from 'APIs/Attributes'
+import { iCreateAttributePayload, iCreateChildAttrPayload, iGetAttributePayload, iUpdateAttr } from 'app/Models'
 import actionTypes from './types'
 
 const getAttributesListRequest = () => ({
@@ -39,82 +38,101 @@ const createNewChildrenAttributeFailure = (message: string) => ({
   type: actionTypes.CREATE_NEW_CHILDREN_ATTRIBUTE_FAILURE,
 })
 
-const createNewChildrenAttributeSuccess = (payload: any, message?: string) => ({
+const createNewChildrenAttributeSuccess = (message?: string) => ({
   type: actionTypes.CREATE_NEW_CHILDREN_ATTRIBUTE_SUCCESS,
-  payload,
+  payload: message
 })
 
-export const getAttributeList =
-  (user_id: any, access_token: any) => async (dispatch: any) => {
-    dispatch(getAttributesListRequest())
-    try {
-      const endPoint = '/product/get-attribute-created-by-brand'
-      const payload = {
-        user_id,
-        access_token,
-      }
+const updateAttrSuccess = (payload: string) => ({
+  type: actionTypes.UPDATE_ATTRIBUTE_SUCCESS,
+  payload
+})
+const updateAttrFailure = () => ({
+  type: actionTypes.UPDATE_ATTRIBUTE_FAILURE
+})
+const updateAttrRequest = () => ({
+  type: actionTypes.UPDATE_ATTRIBUTE_REQUEST
+})
 
-      const {data} = await axiosConfig.post(endPoint, payload)
+const updateChildAttrSuccess = (payload: any) => ({
+  type: actionTypes.UPDATE_CHILDREN_ATTRIBUTE_SUCCESS,
+  payload
+})
 
-      if (data.code === 200) {
-        dispatch(getAttributesListSuccess(data.data))
-      } else {
-        dispatch(getAttributesListFailure(data.message))
-      }
-    } catch (error) {
-      dispatch(getAttributesListFailure(error.message))
-    }
+const updateChildAttrFailure = () => ({
+  type: actionTypes.UPDATE_CHILDREN_ATTRIBUTE_FAILURE
+})
+
+const updateChildAttrRequest = () => ({
+  type: actionTypes.UPDATE_CHILDREN_ATTRIBUTE_REQUEST
+})
+
+
+
+export const getAttributeList = (formData: iGetAttributePayload) => async (dispatch: any) => {
+  dispatch(getAttributesListRequest())
+  try {
+    const response = await attributeApis.getAll(formData)
+    const { code, data, message } = response.data
+
+    code === 200 ? dispatch(getAttributesListSuccess(data)) : dispatch(getAttributesListFailure(message))
+  } catch (error) {
+    dispatch(getAttributesListFailure(error.message))
   }
+}
 
-export const createNewAttribute =
-  (payload: any, actions: any) => async (dispatch: any) => {
-    dispatch(createNewAttributeRequest())
-
-    try {
-      const endPoint = '/product/create-product-attributes-brand'
-      const {data} = await axiosConfig.post(endPoint, payload)
-
-      if (data.code === 200) {
-        dispatch(createNewAttributeSuccess(data.data, data.message))
-        actions.resetForm()
-      } else {
-        dispatch(createNewAttributeFailure(data.message))
-      }
-    } catch (err) {
-      dispatch(createNewAttributeFailure(err.message))
-    } finally {
-      actions.setSubmitting(false)
+export const createNewAttribute = (formData: iCreateAttributePayload, actions: any, getAllPayload: iGetAttributePayload) => async (dispatch: any) => {
+  dispatch(createNewAttributeRequest())
+  try {
+    const response = await attributeApis.createAttribute(formData)
+    const { code, data, message } = response.data
+    if (code === 200) {
+      dispatch(createNewAttributeSuccess(data, message))
+      dispatch(getAttributeList(getAllPayload))
+      actions.resetForm()
+    } else {
+      dispatch(createNewAttributeFailure(message))
     }
+  } catch (err) {
+    dispatch(createNewAttributeFailure(err.message))
+  } finally {
+    actions.setSubmitting(false)
   }
+}
 
-export const createNewChildrenAttribute =
-  (payload: any, attributeList: any, actions: any) => async (dispatch: any) => {
-    dispatch(createNewChildrenAttributeRequest())
+export const createNewChildrenAttribute = (payload: iCreateChildAttrPayload, actions: any, getAllPayload: iGetAttributePayload) => async (dispatch: any) => {
+  dispatch(createNewChildrenAttributeRequest())
 
-    try {
-      const endPoint = '/product/create-terms-product-attribute'
-      const {data} = await axiosConfig.post(endPoint, payload)
-      console.log(data.data)
-      console.log(payload)
+  try {
+    const response = await attributeApis.createChildAttribute(payload)
+    const { code, message } = response.data
+    if (code === 200) {
+      dispatch(createNewChildrenAttributeSuccess(message))
+      dispatch(getAttributeList(getAllPayload))
+      actions.resetForm()
 
-      if (data.code === 200) {
-        const findParentAttribute = attributeList.find(
-          (attribute: any) => attribute.id === Number(payload.parent_id)
-        )
-
-        const newChildrenAttributeList = {
-          ...findParentAttribute,
-          options: [...findParentAttribute.options, data.data],
-        }
-
-        dispatch(createNewChildrenAttributeSuccess(newChildrenAttributeList))
-        actions.resetForm()
-      } else {
-        dispatch(createNewChildrenAttributeFailure(data.message))
-      }
-    } catch (error) {
-      dispatch(createNewChildrenAttributeFailure(error.message))
-    } finally {
-      actions.setSubmitting(false)
+    } else {
+      dispatch(createNewChildrenAttributeFailure(message))
     }
+  } catch (error) {
+    dispatch(createNewChildrenAttributeFailure(error.message))
+  } finally {
+    actions.setSubmitting(false)
   }
+}
+
+export const updateAttribute = (formData: iUpdateAttr , resetForm:any) => async (dispatch: any) => {
+  dispatch(updateAttrRequest())
+  try {
+    const response = await attributeApis.updateAttribute(formData)
+    const { data, message, code } = response.data
+    if (code === 200) {
+      dispatch(updateAttrSuccess(message)) 
+      resetForm()
+    } else {
+      dispatch(updateAttrFailure())
+    }
+  } catch (error) {
+    dispatch(updateAttrFailure())
+  }
+}
