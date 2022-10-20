@@ -19,6 +19,7 @@ const ForgotPassword: FC = (props: Props) => {
   const {
     errors,
     touched,
+    values,
     isSubmitting,
     handleBlur,
     handleChange,
@@ -53,6 +54,7 @@ const ForgotPassword: FC = (props: Props) => {
       id: 'email',
       label: 'Email',
       type: 'email',
+      value: values.email,
       textError: errors.email,
       isError: errors.email && touched.email,
     },
@@ -66,6 +68,7 @@ const ForgotPassword: FC = (props: Props) => {
         id={item.id}
         name={item.name}
         label={item.label}
+        value={item.value}
         type={item.type}
         textError={item.textError}
         onBlur={handleBlur}

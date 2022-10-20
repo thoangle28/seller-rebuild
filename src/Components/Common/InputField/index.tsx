@@ -11,6 +11,7 @@ interface Props {
   type: string
   isError: boolean
   textError: string | undefined
+  value: string
   disabled?: boolean
   onChange: (event: ChangeEvent) => void
   onBlur: (event: ChangeEvent) => void
@@ -32,6 +33,7 @@ const InputField = (props: Props) => {
     isError,
     textError,
     iconShowPassword = false,
+    value,
     onChange,
     onBlur,
   } = props
@@ -42,15 +44,16 @@ const InputField = (props: Props) => {
           className={
             isError
               ? iconShowPassword
-                ? 'form__input form__input--error py-3 pe-4 form__input--show-pwd'
-                : 'form__input form__input--error py-3 pe-4'
+                ? 'form__input form__input--error px-4 form__input--show-pwd'
+                : 'form__input form__input--error px-4'
               : iconShowPassword
-              ? 'form__input py-3 pe-4 form__input--show-pwd'
-              : 'form__input py-3 pe-4'
+              ? 'form__input px-4 form__input--show-pwd'
+              : 'form__input px-4'
           }
           id={id}
           type={iconShowPassword ? (showPassword ? 'text' : 'password') : type}
           placeholder=' '
+          value={value}
           name={name}
           onChange={onChange}
           onBlur={onBlur}

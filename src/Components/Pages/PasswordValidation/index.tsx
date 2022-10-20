@@ -21,6 +21,7 @@ const ForgotPassword: FC = (props: Props) => {
     errors,
     touched,
     isSubmitting,
+    values,
     handleBlur,
     handleChange,
     handleSubmit,
@@ -57,6 +58,7 @@ const ForgotPassword: FC = (props: Props) => {
       name: 'newPassword',
       id: 'newPassword',
       label: 'New Password',
+      value: values.newPassword,
       type: 'password',
       textError: errors.newPassword,
       isError: errors.newPassword && touched.newPassword,
@@ -65,6 +67,7 @@ const ForgotPassword: FC = (props: Props) => {
       name: 'passwordConfirm',
       id: 'passwordConfirm',
       label: 'Password Confirm',
+      value: values.passwordConfirm,
       type: 'password',
       textError: errors.passwordConfirm,
       isError: errors.passwordConfirm && touched.passwordConfirm,
@@ -73,6 +76,7 @@ const ForgotPassword: FC = (props: Props) => {
       name: 'resetToken',
       id: 'resetToken',
       label: 'Reset token *',
+      value: values.resetToken,
       type: 'text',
       textError: errors.resetToken,
       isError: errors.resetToken && touched.resetToken,
@@ -88,6 +92,7 @@ const ForgotPassword: FC = (props: Props) => {
         name={item.name}
         label={item.label}
         type={item.type}
+        value={item.value}
         textError={item.textError}
         onBlur={handleBlur}
         onChange={(e) => {
