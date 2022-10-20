@@ -1,0 +1,137 @@
+.attributes {
+  &__title {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  &__content {
+    background: #ffffff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    height: 712px;
+    overflow: hidden;
+
+    &-title {
+      font-size: 16px;
+      line-height: 20px;
+    }
+
+    &-select {
+      padding: 12px;
+      outline: none;
+      border: 0.5px solid rgba(0, 0, 0, 0.4);
+      border-radius: 5px;
+      background: #ffffff;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%237e8299' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 16px 12px;
+      appearance: none;
+
+      option {
+        cursor: pointer;
+
+        &:hover {
+          background-color: var(--primary);
+        }
+      }
+    }
+
+    &-input {
+      padding: 12px;
+      border: 0.5px solid rgba(0, 0, 0, 0.4);
+      border-radius: 5px;
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.3s linear;
+
+      &.attributes__content-input--error {
+        border-color: var(--danger);
+      }
+
+      &:focus {
+        border-color: var(--primary);
+      }
+    }
+
+    &-text-error {
+      color: var(--danger);
+      font-size: 14px;
+      line-height: 17px;
+    }
+
+    &-btn {
+      padding-inline: 64px;
+    }
+
+    &-list {
+      height: 100%;
+      overflow: auto;
+    }
+
+    &-item {
+      background: #ffffff;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      padding: 12px 24px;
+      transition: background-color 0.3s linear;
+
+      &:hover {
+        background-color: #e5f4fc;
+
+        h3 {
+          color: var(--primary);
+        }
+      }
+
+      &:last-child {
+        margin: 0 !important;
+      }
+
+      &-left {
+        cursor: pointer;
+      }
+
+      h3 {
+        font-size: 14px;
+        line-height: 17px;
+        transition: color 0.3s linear;
+      }
+
+      svg {
+        cursor: pointer;
+      }
+    }
+  }
+
+  &__children {
+    &-options {
+      padding: 2px 16px;
+      border-radius: 5px;
+    }
+
+    &-list {
+      margin-top: -3px;
+      background: #ffffff;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+      border-radius: 0px 0px 5px 5px;
+      padding-inline: 20px;
+      margin-inline: 20px;
+    }
+
+    &-item {
+      border-bottom: 1px solid rgba(192, 194, 194, 0.2);
+
+      &:last-child {
+        border: none;
+      }
+
+      h3 {
+        font-size: 14px;
+        line-height: 17px;
+      }
+    }
+  }
+}
