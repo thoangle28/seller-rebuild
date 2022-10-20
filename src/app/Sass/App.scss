@@ -6,13 +6,6 @@ $danger: #c5221f;
 $warning: #fbbc04;
 
 $spacer: 1rem;
-$custom-spacers: (
-  6: $spacer * 3.5,
-  7: $spacer * 4,
-  8: $spacer * 5,
-  9: $spacer * 6,
-  10: $spacer * 7,
-);
 
 ::-webkit-scrollbar {
   width: 8px;
@@ -26,10 +19,10 @@ $custom-spacers: (
   background: #d9d9d9;
   border-radius: 15px;
 }
+
 $enable-negative-margins: false;
 
 @import '~bootstrap/scss/bootstrap';
-$spacers: map-merge($spacers, $custom-spacers);
 
 // Fonts
 @font-face {
@@ -61,6 +54,7 @@ $spacers: map-merge($spacers, $custom-spacers);
   src: url('./../Fonts/Montserrat-Bold.ttf');
   font-weight: 700;
 }
+
 // my own spacer's map
 :root {
   --bs-body-font-family: 'Montserrat';
@@ -70,10 +64,6 @@ $spacers: map-merge($spacers, $custom-spacers);
   --info: #b7d7e8;
   --danger: #c5221f;
   --warning: #fbbc04;
-
-  @each $spacer, $value in $spacers {
-    --theme-spacer-#{$spacer}: #{$value} !important;
-  }
 }
 
 .cursor-pointer {
