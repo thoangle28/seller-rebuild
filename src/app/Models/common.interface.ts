@@ -10,3 +10,10 @@ export interface iMonthData {
     name: string,
     color: string
 }
+
+export interface iInfoData {
+    title: string,
+    subtitle: string,
+    icon: any,
+    number: number
+}

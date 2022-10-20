@@ -1,10 +1,11 @@
 .monthly-bussiness-data {
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
+    padding: 38px;
 
     .result-wrapper {
-        width: 208px;
-        height: 208px;
+        width: 260px;
+        height: 260px;
         border-radius: 50%;
         transition: all 0.5s ease-out;
 
@@ -72,4 +73,3 @@
 .view-more-button {
     padding: 8px 0;
 }
- 
