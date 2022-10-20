@@ -26,7 +26,7 @@ const Header: FC = (props: Props) => {
   }
 
   return (
-    <div className="header d-flex justify-content-start p-3">
+    <div className="header d-flex justify-content-start px-3">
       <div className="header__wrapper d-flex flex-column justify-content-center">
         <div className="header__image">
           <img src={headerIcon} alt="header" />
