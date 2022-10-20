@@ -24,19 +24,85 @@
   .form__input-col {
     width: calc(50% - 5px);
   }
-  .form__check-terms {
-    label {
-      font-size: 14px;
+  // .form__check-terms {
+  //   input {
+  //     padding: 4px;
+  //   }
+
+  //   label {
+  //     font-size: 14px;
+  //     cursor: pointer;
+
+  //     p {
+  //       cursor: pointer;
+  //       display: inline-block;
+
+  //       &:hover {
+  //         font-weight: 600;
+  //         color: #4285f4 !important;
+  //       }
+  //     }
+  //   }
+  // }
+
+  .check__terms {
+    $box-size: 20px;
+    display: flex;
+    position: relative;
+    padding-left: $box-size;
+    cursor: pointer;
+    font-size: 14px;
+    height: 20px;
+    user-select: none;
+
+    input {
+      position: absolute;
+      opacity: 0;
       cursor: pointer;
+      height: 0;
+      width: 0;
+      display: none;
 
-      p {
-        cursor: pointer;
-        display: inline-block;
+      &:hover ~ .checkmark {
+        background-color: #f8f8f8;
+      }
 
-        &:hover {
-          font-weight: 600;
-          color: #4285f4 !important;
+      &:checked ~ .checkmark {
+        background-color: #2196f3;
+        border-color: #2196f3;
+
+        svg {
+          display: block;
         }
+      }
+    }
+
+    label {
+      margin-left: 18px !important;
+      line-height: 17px;
+      cursor: pointer;
+    }
+
+    .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: calc($box-size - 1px);
+      height: calc($box-size - 1px);
+      background-color: #fff;
+      border: 1px solid #000000;
+      filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.25));
+      border-radius: 5px;
+
+      svg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        width: 12px;
+        display: none;
+        transition: all 0.3s linear;
       }
     }
   }

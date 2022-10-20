@@ -22,10 +22,7 @@ const FormWrapper = (props: Props) => {
   return (
     <>
       <img src={logo} alt='logo' className='logo mx-auto d-block' />
-      <div
-        className={
-          backPageLogin ? 'form-wrap' : 'form-wrap form-wrap--not-icon-back'
-        }>
+      <div className='form-wrap'>
         {backPageLogin ? (
           <div className='back-login' onClick={handleBackPageLogin}>
             <img
@@ -36,7 +33,7 @@ const FormWrapper = (props: Props) => {
           </div>
         ) : null}
 
-        <h3 className={'form-title mb-3 text-center text-text-uppercase'}>
+        <h3 className={'form-title m-0 mb-3 text-center text-text-uppercase'}>
           {formTitle}
         </h3>
 
