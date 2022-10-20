@@ -12,6 +12,7 @@ import {
 } from './Redux/actions'
 import createNewAttributeSchema from './Schema'
 import './style.scss'
+import UpdateAttr from './UpdateAttr'
 
 const Attributes = () => {
   const [isActiveIndex, setActiveIndex] = useState<number>()
@@ -19,6 +20,9 @@ const Attributes = () => {
     string | number
   >('')
 
+  const [isUpdate, setIsUpdate] = useState<boolean>(true)
+  const [isChildUpdate, setIsChildUpdate] = useState<boolean>(false)
+  const [oldAttrName, setOldAttrName] = useState<string>('')
   const dispatch = useAppDispatch()
   const { isLoading, attributeList } = useAppSelector(
     (state) => state.attributesReducer
@@ -72,8 +76,12 @@ const Attributes = () => {
       parent_id: selectParentAttribute,
       access_token: access_token,
       term_name: newAttribute,
-    } 
+    }
     dispatch(createNewChildrenAttribute(payload, actions, getAllDataPayload))
+  }
+
+  const handleShowEditForm = () => {
+    setIsUpdate(!isUpdate)
   }
 
   const toggleAttr = (index: number) => {
@@ -88,7 +96,7 @@ const Attributes = () => {
     handleChange,
     handleBlur,
     handleSubmit,
-    isSubmitting, 
+    isSubmitting,
   } = useFormik({
     initialValues: {
       newAttribute: '',
@@ -96,7 +104,7 @@ const Attributes = () => {
     validationSchema: createNewAttributeSchema,
     onSubmit: handleAddNewAttribute,
   })
- 
+
   // Render list attributes
   const listAttributes = attributeList.map((item: any, index: number) => {
     const checkOpen = isActiveIndex === index
@@ -112,7 +120,9 @@ const Attributes = () => {
               {item.options?.length || 0}
             </ButtonPrimary>
           </div>
-          <FontAwesomeIcon icon={faPenToSquare} />
+          <div onClick={handleShowEditForm}>
+            <FontAwesomeIcon icon={faPenToSquare} />
+          </div>
         </div>
 
         {checkOpen && item.options.length > 0 && (
@@ -229,7 +239,7 @@ const Attributes = () => {
       <div className='attributes'>
         <div className='row'>
           <div className='col-sm-12 col-md-6 col-lg-6'>
-            {renderContentAddNewAttribute()}
+            {isUpdate ? <UpdateAttr isChildUpdate={isChildUpdate} getAllDataPayload={getAllDataPayload} oldAttribute={oldAttrName} /> : renderContentAddNewAttribute()}
           </div>
 
           <div className='col-sm-12 col-md-6 col-lg-6'>

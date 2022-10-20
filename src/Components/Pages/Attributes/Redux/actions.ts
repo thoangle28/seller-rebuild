@@ -1,5 +1,5 @@
 import attributeApis from 'APIs/Attributes'
-import { iCreateAttributePayload, iCreateChildAttrPayload, iGetAttributePayload, iUpdateAttr } from 'app/Models'
+import { iCreateAttributePayload, iCreateChildAttrPayload, iGetAttributePayload, iUpdateAttr, iUpdateChildAttribute } from 'app/Models'
 import actionTypes from './types'
 
 const getAttributesListRequest = () => ({
@@ -59,8 +59,9 @@ const updateChildAttrSuccess = (payload: any) => ({
   payload
 })
 
-const updateChildAttrFailure = () => ({
-  type: actionTypes.UPDATE_CHILDREN_ATTRIBUTE_FAILURE
+const updateChildAttrFailure = (payload: string) => ({
+  type: actionTypes.UPDATE_CHILDREN_ATTRIBUTE_FAILURE,
+  payload
 })
 
 const updateChildAttrRequest = () => ({
@@ -121,18 +122,31 @@ export const createNewChildrenAttribute = (payload: iCreateChildAttrPayload, act
   }
 }
 
-export const updateAttribute = (formData: iUpdateAttr , resetForm:any) => async (dispatch: any) => {
+export const updateAttribute = (formData: iUpdateAttr, resetForm: any) => async (dispatch: any) => {
   dispatch(updateAttrRequest())
   try {
     const response = await attributeApis.updateAttribute(formData)
     const { data, message, code } = response.data
     if (code === 200) {
-      dispatch(updateAttrSuccess(message)) 
+      dispatch(updateAttrSuccess(message))
       resetForm()
     } else {
       dispatch(updateAttrFailure())
     }
   } catch (error) {
     dispatch(updateAttrFailure())
+  }
+}
+
+export const updateChildAttr = (formData: iUpdateChildAttribute, resetForm: any) => async (dispatch: any) => {
+  dispatch(updateChildAttrRequest())
+  try {
+    const response = await attributeApis.updateChildAttribute(formData)
+    const { data, message, code } = response.data
+    if (code === 200) {
+
+    }
+  } catch (err) {
+    dispatch(updateChildAttrFailure(err.message))
   }
 }
