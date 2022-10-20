@@ -10,6 +10,9 @@ import SignUpSchema from './Schema'
 import {useOnClickOutside} from 'app/Hooks/UseClickOutSide'
 import {useAppDispatch, useAppSelector} from './../../../app/Hooks/hooks'
 import {register} from './Redux/action'
+import {dataModal} from 'app/Constants'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faCheck} from '@fortawesome/free-solid-svg-icons'
 type Props = {}
 const SignUp = (props: Props) => {
   const [showPopup, setShowPopup] = useState<boolean>(false)
@@ -28,6 +31,7 @@ const SignUp = (props: Props) => {
   const {
     errors,
     touched,
+    values,
     handleBlur,
     handleChange,
     handleSubmit,
@@ -46,11 +50,13 @@ const SignUp = (props: Props) => {
       dispatch(register(values))
     },
   })
+
   const inputFields = [
     {
       name: 'firstname',
       id: 'firstname',
       label: 'First Name *',
+      value: values.firstname,
       type: 'text',
       textError: errors.firstname,
       isError: errors.firstname && touched.firstname,
@@ -59,6 +65,7 @@ const SignUp = (props: Props) => {
       name: 'lastname',
       id: 'lastname',
       label: 'Last Name *',
+      value: values.lastname,
       type: 'text',
       textError: errors.lastname,
       isError: errors.lastname && touched.lastname,
@@ -67,6 +74,7 @@ const SignUp = (props: Props) => {
       name: 'brand',
       id: 'brand',
       label: 'Brand Name *',
+      value: values.brand,
       type: 'text',
       textError: errors.brand,
       isError: errors.brand && touched.brand,
@@ -75,6 +83,7 @@ const SignUp = (props: Props) => {
       name: 'email',
       id: 'email',
       label: 'Email *',
+      value: values.email,
       type: 'email',
       textError: errors.email,
       isError: errors.email && touched.email,
@@ -83,6 +92,7 @@ const SignUp = (props: Props) => {
       name: 'password',
       id: 'password',
       label: 'Password *',
+      value: values.password,
       type: 'password',
       textError: errors.password,
       isError: errors.password && touched.password,
@@ -91,11 +101,41 @@ const SignUp = (props: Props) => {
       name: 'confirmPassword',
       id: 'confirmPassword',
       label: 'Confirm Password *',
+      value: values.confirmPassword,
       type: 'password',
       textError: errors.confirmPassword,
       isError: errors.confirmPassword && touched.confirmPassword,
     },
   ]
+
+  const handleShowPopup = () => {
+    setShowPopup(true)
+  }
+
+  const handleCheckAcceptTerms = () => {
+    setCheckAcceptTerms(!checkAcceptTerms)
+  }
+
+  // Render popup terms and service
+  const renderPopupTermsAndServices = () => {
+    return (
+      <>
+        {showPopup && (
+          <div className='overlay d-flex justify-content-center align-items-center'>
+            <div className='modal-terms' ref={modalRef}>
+              <h3 className='modal__heading text-center m-0'>
+                Terms and Conditions
+              </h3>
+              <h4 className='modal__sub-heading text-center mt-1'>
+                Our Policy
+              </h4>
+              <div className='modal__content-wrap'>{modalList}</div>
+            </div>
+          </div>
+        )}
+      </>
+    )
+  }
   // Render list input
   const inputFieldList = inputFields.map((item) => {
     return (
@@ -105,6 +145,7 @@ const SignUp = (props: Props) => {
           name={item.name}
           label={item.label}
           type={item.type}
+          value={item.value}
           textError={item.textError}
           onBlur={handleBlur}
           onChange={(e) => {
@@ -117,24 +158,6 @@ const SignUp = (props: Props) => {
     )
   })
 
-  const dataModal = [
-    {
-      title: '1. General',
-      body: [
-        '1.1 These Terms & Conditions apply when you access and/or use www.addin.sg (the “Website”), which is operated by AddIn (“us”, “we”, “our”).',
-        '1.2 You should read these Terms & Conditions, and the Privacy Policy very carefully. The Privacy Policy is incorporated into these Terms & Conditions by reference. By accessing and/or using the Website or any part of it, you agree that you have read these Terms & Conditions and that you accept them and agree to be bound by them.',
-        '1.3 We may also, from time to time, post on the Website, guidelines and rules relating to the use of the Website. All such guidelines or rules are hereby incorporated by reference into these Terms & Conditions.',
-        '1.4 You agree that we may modify these Terms & Conditions without liability and without prior notice to you. The modified Terms & Conditions will be posted on the Website and will come into effect from the date of such posting. You are advised to check for updates to these Terms & Conditions regularly, prior to accessing and/or using the Website.',
-      ],
-    },
-    {
-      title: '2. Territory',
-      body: [
-        '2.1 The information on the Website is directed solely at persons accessing the Website from Singapore. We make no representation that any product or service referred to on the Website is available, or appropriate for use for any other location.',
-      ],
-    },
-  ]
-
   // Render list list Modal
   const modalList = dataModal.map((item) => (
     <div className='modal__content' key={item.title}>
@@ -146,14 +169,6 @@ const SignUp = (props: Props) => {
       ))}
     </div>
   ))
-
-  const handleShowPopup = () => {
-    setShowPopup(true)
-  }
-
-  const handleCheckAcceptTerms = () => {
-    setCheckAcceptTerms(!checkAcceptTerms)
-  }
 
   const renderMessage = (message: string) => {
     if (!message) return <></>
@@ -177,10 +192,19 @@ const SignUp = (props: Props) => {
               click here to login.
             </Link>
           </h4>
+
           <div className='form__input-wrap'>
             <div className='form__input-wrap-field'>{inputFieldList}</div>
           </div>
-          <div className='form__check-terms mt-3'>
+
+          <label className='check__terms mt-3 d-flex align-items-center'>
+            <label className='cursor m-0 d-flex' htmlFor='remember-pwd'>
+              I agree to the
+              <p onClick={handleShowPopup} className='m-0 text-primary'>
+                &nbsp;terms and conditions.
+              </p>
+              <span className='text-danger'> *</span>
+            </label>
             <input
               type='checkbox'
               name='remember-pwd'
@@ -188,33 +212,21 @@ const SignUp = (props: Props) => {
               checked={checkAcceptTerms}
               onChange={handleCheckAcceptTerms}
             />
-            <label className='ms-3 cursor m-0' htmlFor='remember-pwd'>
-              I agree to the
-              <p onClick={handleShowPopup} className='m-0 text-primary'>
-                &nbsp;terms and conditions.
-              </p>
-              <span className='text-danger'> *</span>
-            </label>
-          </div>
+
+            <span className='checkmark'>
+              <FontAwesomeIcon icon={faCheck} />
+            </span>
+          </label>
+
           {renderMessage(message)}
+
           <ButtonSubmitForm disabled={!checkAcceptTerms}>
             Submit
           </ButtonSubmitForm>
         </FormWrapper>
       </form>
-      {showPopup ? (
-        <div className='overlay d-flex justify-content-center align-items-center'>
-          <div className='modal-terms' ref={modalRef}>
-            <h3 className='modal__heading text-center m-0'>
-              Terms and Conditions
-            </h3>
-            <h4 className='modal__sub-heading text-center mt-1'>Our Policy</h4>
-            <div className='modal__content-wrap'>{modalList}</div>
-          </div>
-        </div>
-      ) : (
-        <></>
-      )}
+
+      {renderPopupTermsAndServices()}
     </FullWidthLayout>
   )
 }

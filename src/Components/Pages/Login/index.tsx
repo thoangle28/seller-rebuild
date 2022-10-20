@@ -19,6 +19,7 @@ const Signin: FC<Props> = (props: Props) => {
   const {isLoading, message} = useAppSelector((state) => state.loginReducer)
 
   const {
+    values,
     errors,
     touched,
     handleBlur,
@@ -47,6 +48,7 @@ const Signin: FC<Props> = (props: Props) => {
       id: 'username',
       label: 'Email/Username',
       type: 'email',
+      value: values.username,
       textError: errors.username,
       isError: errors.username && touched.username,
     },
@@ -55,9 +57,10 @@ const Signin: FC<Props> = (props: Props) => {
       id: 'password',
       label: 'Password',
       type: 'password',
+      value: values.password,
       textError: errors.password,
       isError: errors.password && touched.password,
-      iconShowPassword: true,
+      iconShowPassword: values.password.length > 0 && true,
     },
   ]
 
@@ -71,6 +74,7 @@ const Signin: FC<Props> = (props: Props) => {
         label={item.label}
         type={item.type}
         textError={item.textError}
+        value={item.value}
         onBlur={handleBlur}
         onChange={(e) => {
           handleChange(e)
@@ -88,7 +92,9 @@ const Signin: FC<Props> = (props: Props) => {
         <FormWrapper formTitle='SIGN IN TO SELLER PORTAL'>
           <h4 className='form-sub-title text-center'>
             <span>New here? </span>
-            <Link to='/signup' className='text-decoration-none text-primary'>
+            <Link
+              to='/signup'
+              className='text-decoration-none text-primary text-capitalize'>
               Create new account
             </Link>
           </h4>
