@@ -1,9 +1,12 @@
 import axiosConfig from './AxiosConfig'
-import { iLogin } from 'app/Models'
+import { iLogin, iVerifyToken } from 'app/Models'
 
 const loginApi = {
   login: (payload: iLogin) => {
     return axiosConfig.post('/login', payload)
+  },
+  verifyToken: (payload: iVerifyToken) => {
+    return axiosConfig.post('/verify_token', payload)
   }
 }
 

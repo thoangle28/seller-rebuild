@@ -4,15 +4,29 @@ const apiCalling = {
     CALLING_API_REQUEST: "CALLING_API_REQUEST",
 }
 const loginActions = {
-    LOGIN_SUCCESS:"LOGIN_SUCCESS",
-    LOGIN_FAILURE:"LOGIN_FAILURE",
-    LOGIN_REQUEST:"LOGIN_REQUEST"
+    LOGIN_SUCCESS: "LOGIN_SUCCESS",
+    LOGIN_FAILURE: "LOGIN_FAILURE",
+    LOGIN_REQUEST: "LOGIN_REQUEST"
 }
+const verifyToken = {
+    VERIFY_TOKEN_SUCCESS: "VERIFY_TOKEN_SUCCESS",
+    VERIFY_TOKEN_FAILURE: "VERIFY_TOKEN_FAILURE",
+    VERIFY_TOKEN_REQUEST: "VERIFY_TOKEN_REQUEST",
+}
+
+const getUserDetail = {
+    GET_USER_DETAIL_SUCCESS: 'GET_USER_DETAIL_SUCCESS',
+    GET_USER_DETAIL_FAILURE: 'GET_USER_DETAIL_FAILURE',
+    GET_USER_DETAIL_REQUEST: 'GET_USER_DETAIL_REQUEST'
+}
+
 // Example 
 const actionTypes = {
     LOGOUT: "LOGOUT",
     ...apiCalling,
-    ...loginActions
+    ...loginActions,
+    ...verifyToken,
+    ...getUserDetail
 }
 
 export default actionTypes 

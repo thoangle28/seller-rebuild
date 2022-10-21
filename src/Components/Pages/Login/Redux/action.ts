@@ -1,6 +1,6 @@
 import loginApi from 'APIs/LoginApi'
 import actionTypes from './types'
-import { iLogin } from 'app/Models'
+import { iLogin, iVerifyToken } from 'app/Models'
 
 const loginFailure = (payload: string) => ({
     type: actionTypes.LOGIN_FAILURE,
@@ -20,15 +20,36 @@ const logoutAction = () => ({
     type: actionTypes.LOGOUT,
 })
 
+const verifyTokenSuccess = () => ({
+    type: actionTypes.VERIFY_TOKEN_SUCCESS
+}) 
+const verifyTokenFailure = () => ({
+    type: actionTypes.VERIFY_TOKEN_FAILURE
+})
+const verifyTokenRequest = () => ({
+    type: actionTypes.VERIFY_TOKEN_FAILURE
+})
+
+export const verifyToken = (payload: iVerifyToken) => async (dispatch: any) => {
+    dispatch(verifyTokenRequest())
+    try {
+        const response = await loginApi.verifyToken(payload)
+        const { code } = response.data
+        code === 200 ? dispatch(verifyTokenSuccess()) : dispatch(verifyTokenFailure())
+    } catch (error) {
+        dispatch(verifyTokenFailure())
+    }
+}
+
 // Login action
 export const login = (formValue: iLogin, navigate: any) => async (dispatch: any) => {
     dispatch(loginRequest())
     try {
         const response: any = await loginApi.login(formValue)
         const { data, code, message } = response.data
-        const { user } = data
+
         if (code === 200 && !message) {
-            dispatch(loginSuccess(user))
+            dispatch(loginSuccess(data))
             localStorage.setItem('profile', JSON.stringify({ ...data }))
             navigate('/dashboard')
         } else {
