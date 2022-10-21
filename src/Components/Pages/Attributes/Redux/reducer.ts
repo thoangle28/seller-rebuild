@@ -25,6 +25,7 @@ const initialState = {
   ...request,
   attributeList: [],
   message: '',
+  isUpdate: false
 }
 
 export const attributesReducer = (state: any = initialState, action: any) => {
@@ -51,6 +52,23 @@ export const attributesReducer = (state: any = initialState, action: any) => {
       return { ...state, ...requestLoading }
     case actionTypes.CREATE_NEW_CHILDREN_ATTRIBUTE_SUCCESS:
       return { ...state, ...requestSuccess, message: payload }
+
+    case actionTypes.UPDATE_ATTRIBUTE_FAILURE:
+      return { ...state, ...requestFailure, message: payload }
+    case actionTypes.UPDATE_ATTRIBUTE_REQUEST:
+      return { ...state, ...requestLoading }
+    case actionTypes.UPDATE_ATTRIBUTE_SUCCESS:
+      return { ...state, ...requestSuccess, message: payload }
+
+    case actionTypes.UPDATE_CHILDREN_ATTRIBUTE_FAILURE:
+      return { ...state, ...requestFailure, mesage: payload }
+    case actionTypes.UPDATE_CHILDREN_ATTRIBUTE_SUCCESS:
+      return { ...state, ...requestSuccess, mesage: payload }
+    case actionTypes.UPDATE_CHILDREN_ATTRIBUTE_REQUEST:
+      return { ...state, ...requestLoading }
+
+    case actionTypes.IS_UPDATE_FORM:
+      return { ...state, isUpdate: payload }
 
     default:
       return state

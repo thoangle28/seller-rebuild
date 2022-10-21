@@ -8,7 +8,7 @@ import { Fragment, useEffect, useState } from 'react'
 import {
   createNewAttribute,
   createNewChildrenAttribute,
-  getAttributeList,
+  getAttributeList, changeUpdateMode
 } from './Redux/actions'
 import createNewAttributeSchema from './Schema'
 import './style.scss'
@@ -20,11 +20,12 @@ const Attributes = () => {
     string | number
   >('')
 
-  const [isUpdate, setIsUpdate] = useState<boolean>(true)
   const [isChildUpdate, setIsChildUpdate] = useState<boolean>(false)
   const [oldAttrName, setOldAttrName] = useState<string>('')
+  const [idTerm, setIdTerm] = useState<number>(0) 
+
   const dispatch = useAppDispatch()
-  const { isLoading, attributeList } = useAppSelector(
+  const { isLoading, attributeList, isUpdate } = useAppSelector(
     (state) => state.attributesReducer
   )
 
@@ -80,8 +81,10 @@ const Attributes = () => {
     dispatch(createNewChildrenAttribute(payload, actions, getAllDataPayload))
   }
 
-  const handleShowEditForm = () => {
-    setIsUpdate(!isUpdate)
+  const handleShowEditForm = (oldAttrName: string) => {
+    dispatch(changeUpdateMode(true))
+    setIsChildUpdate(false)
+    setOldAttrName(oldAttrName)
   }
 
   const toggleAttr = (index: number) => {
@@ -114,13 +117,15 @@ const Attributes = () => {
         <div className='attributes__content-item d-flex align-items-center justify-content-between mb-2'>
           <div
             className='attributes__content-item-left d-flex align-items-center'
-            onClick={() => toggleAttr(index)}>
+            onClick={() => {
+              toggleAttr(index) 
+            }}>
             <h3 className='m-0'>{item.label}</h3>
             <ButtonPrimary className='attributes__children-options ms-3'>
               {item.options?.length || 0}
             </ButtonPrimary>
           </div>
-          <div onClick={handleShowEditForm}>
+          <div onClick={() => handleShowEditForm(item.label)}>
             <FontAwesomeIcon icon={faPenToSquare} />
           </div>
         </div>
@@ -129,22 +134,30 @@ const Attributes = () => {
           <div className='attributes__children-list mb-4' key={item.id}>
             {item.options.map((item: any) => (
               <div
-                className='attributes__children-item d-flex align-items-center justify-content-between py-2'
+                className='attributes__children-item d-flex align-items-center justify-content-between py-2 cursor-pointer'
+
                 key={item.id}>
-                <h3 className='m-0'>{item.label}</h3>
-                <FontAwesomeIcon icon={faPenToSquare} />
+                <h3 className='m-0 '>{item.label} </h3>
+                <div onClick={() => {
+                  dispatch(changeUpdateMode(true))
+                  setIsChildUpdate(true)
+                  setIdTerm(item.id)
+                }}>
+                  <FontAwesomeIcon icon={faPenToSquare} />
+                </div>
               </div>
             ))}
           </div>
-        )}
-      </Fragment>
+        )
+        }
+      </Fragment >
     )
   })
 
   // Render list options
   const renderListOptions = attributeList.map((item: any) => {
     return (
-      <option value={item.id} key={item.id}>
+      <option value={item.id} key={item.id}  >
         {item.label}
       </option>
     )
@@ -239,7 +252,9 @@ const Attributes = () => {
       <div className='attributes'>
         <div className='row'>
           <div className='col-sm-12 col-md-6 col-lg-6'>
-            {isUpdate ? <UpdateAttr isChildUpdate={isChildUpdate} getAllDataPayload={getAllDataPayload} oldAttribute={oldAttrName} /> : renderContentAddNewAttribute()}
+            {isUpdate
+              ? <UpdateAttr isChildUpdate={isChildUpdate} getAllDataPayload={getAllDataPayload} oldAttribute={oldAttrName} idTerm={idTerm} />
+              : renderContentAddNewAttribute()}
           </div>
 
           <div className='col-sm-12 col-md-6 col-lg-6'>

@@ -47,14 +47,15 @@ const updateAttrSuccess = (payload: string) => ({
   type: actionTypes.UPDATE_ATTRIBUTE_SUCCESS,
   payload
 })
-const updateAttrFailure = () => ({
-  type: actionTypes.UPDATE_ATTRIBUTE_FAILURE
+const updateAttrFailure = (payload: string) => ({
+  type: actionTypes.UPDATE_ATTRIBUTE_FAILURE,
+  payload
 })
 const updateAttrRequest = () => ({
   type: actionTypes.UPDATE_ATTRIBUTE_REQUEST
 })
 
-const updateChildAttrSuccess = (payload: any) => ({
+const updateChildAttrSuccess = (payload: string) => ({
   type: actionTypes.UPDATE_CHILDREN_ATTRIBUTE_SUCCESS,
   payload
 })
@@ -68,7 +69,10 @@ const updateChildAttrRequest = () => ({
   type: actionTypes.UPDATE_CHILDREN_ATTRIBUTE_REQUEST
 })
 
-
+const isUpdateMode = (payload: boolean) => ({
+  type: actionTypes.IS_UPDATE_FORM,
+  payload
+})
 
 export const getAttributeList = (formData: iGetAttributePayload) => async (dispatch: any) => {
   dispatch(getAttributesListRequest())
@@ -122,31 +126,40 @@ export const createNewChildrenAttribute = (payload: iCreateChildAttrPayload, act
   }
 }
 
-export const updateAttribute = (formData: iUpdateAttr, resetForm: any) => async (dispatch: any) => {
+export const updateAttribute = (formData: iUpdateAttr, resetForm: any, getAllPayload: iGetAttributePayload) => async (dispatch: any) => {
   dispatch(updateAttrRequest())
   try {
     const response = await attributeApis.updateAttribute(formData)
-    const { data, message, code } = response.data
+    const { message, code } = response.data
     if (code === 200) {
       dispatch(updateAttrSuccess(message))
+      dispatch(getAttributeList(getAllPayload))
       resetForm()
     } else {
-      dispatch(updateAttrFailure())
+      dispatch(updateAttrFailure(message))
     }
   } catch (error) {
-    dispatch(updateAttrFailure())
+    dispatch(updateAttrFailure(error.message))
   }
 }
 
-export const updateChildAttr = (formData: iUpdateChildAttribute, resetForm: any) => async (dispatch: any) => {
+export const updateChildAttr = (formData: iUpdateChildAttribute, resetForm: any, getAllPayload: iGetAttributePayload) => async (dispatch: any) => {
   dispatch(updateChildAttrRequest())
   try {
     const response = await attributeApis.updateChildAttribute(formData)
-    const { data, message, code } = response.data
+    const { message, code } = response.data
     if (code === 200) {
-
+      dispatch(updateChildAttrSuccess(message))
+      dispatch(getAttributeList(getAllPayload))
+      resetForm();
+    } else {
+      dispatch(updateChildAttrFailure(message))
     }
   } catch (err) {
     dispatch(updateChildAttrFailure(err.message))
   }
+}
+
+export const changeUpdateMode = (payload: boolean) => async (dispatch: any) => {
+  dispatch(isUpdateMode(payload))
 }

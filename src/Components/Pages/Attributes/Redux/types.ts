@@ -28,12 +28,17 @@ const updateChilrenAttribute = {
   UPDATE_CHILDREN_ATTRIBUTE_REQUEST: 'UPDATE_CHILDREN_ATTRIBUTE_REQUEST',
 }
 
+const uiActions = {
+  IS_UPDATE_FORM: 'IS_UPDATE_FORM'
+}
+
 const actionTypes = {
   ...createNewAttribute,
   ...createNewChildrenAttribute,
   ...getAttributeList,
   ...updateAttribute,
-  ...updateChilrenAttribute
+  ...updateChilrenAttribute,
+  ...uiActions
 
 }
 
