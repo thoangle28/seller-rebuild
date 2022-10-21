@@ -7,6 +7,11 @@
   flex-shrink: 0;
 }
 
+.content-wrapper {
+  padding-right: 60px;
+  padding-left: 32px;
+}
+
 .page-content {
   position: relative;
   background-image: url(./../../../app/Images/background-baner.png);
@@ -16,8 +21,9 @@
   flex: 1;
 
   .header {
-    margin-bottom: 47px;
-    margin-top: 31px;
+    margin-bottom: 56px;
+    margin-top: 99px;
+    padding-left: 30px;
 
     &__image img {
       width: 200px;
