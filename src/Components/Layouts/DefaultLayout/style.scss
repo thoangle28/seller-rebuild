@@ -2,12 +2,18 @@
   background-color: #e5f4fc;
 }
 
+.sidebar-wrapper {
+  width: 333px;
+  flex-shrink: 0;
+}
+
 .page-content {
   position: relative;
   background-image: url(./../../../app/Images/background-baner.png);
   background-repeat: no-repeat;
   background-size: 100%;
   object-fit: cover;
+  flex: 1;
 
   .header {
     margin-bottom: 47px;
@@ -30,5 +36,17 @@
     font-size: 12px;
     line-height: 15px;
     font-weight: 400;
+  }
+}
+
+@media (max-width: 1399px) {
+  .sidebar-wrapper {
+    width: 280px;
+  }
+}
+
+@media (max-width: 1199px) {
+  .sidebar-wrapper {
+    width: 240px;
   }
 }
