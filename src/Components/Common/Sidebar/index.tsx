@@ -1,7 +1,7 @@
-import {FC, useState} from 'react'
-import {useLocation, useNavigate} from 'react-router-dom'
+import { FC, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import './style.scss'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faChartSimple,
   faList,
@@ -11,8 +11,8 @@ import {
   faChartLine,
   faGear,
 } from '@fortawesome/free-solid-svg-icons'
-import {useAppDispatch} from './../../../app/Hooks/hooks'
-import {logout} from 'Components/Pages/Login/Redux/action'
+import { useAppDispatch, useAppSelector } from './../../../app/Hooks/hooks'
+import { logout } from 'Components/Pages/Login/Redux/action'
 import triangle from './../../../app/Images/triangle.png'
 interface iMenu {
   icon?: any
@@ -21,23 +21,25 @@ interface iMenu {
 }
 
 const sideMenu: iMenu[] = [
-  {icon: faChartSimple, name: 'Dashboard', path: '/dashboard'},
-  {icon: faList, name: 'Product Listing', path: '/product-listing'},
-  {icon: faPlus, name: 'Create New Product', path: '/new-product'},
-  {icon: faToggleOn, name: 'Attributes', path: '/attributes'},
-  {icon: faChartLine, name: 'Sale Reports', path: '/sale-reports'},
+  { icon: faChartSimple, name: 'Dashboard', path: '/dashboard' },
+  { icon: faList, name: 'Product Listing', path: '/product-listing' },
+  { icon: faPlus, name: 'Create New Product', path: '/new-product' },
+  { icon: faToggleOn, name: 'Attributes', path: '/attributes' },
+  { icon: faChartLine, name: 'Sale Reports', path: '/sale-reports' },
 ]
 
 const bottomMenu: iMenu[] = [
-  {icon: faUser, name: 'My Profile', path: '/profile'},
-  {icon: faGear, name: 'Account Settings', path: '/settings'},
+  { icon: faUser, name: 'My Profile', path: '/profile' },
+  { icon: faGear, name: 'Account Settings', path: '/settings' },
 ]
 
 const Sidebar: FC = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const {pathname} = useLocation()
+  const { pathname } = useLocation()
   const [isDisplaying, setIsDisplaying] = useState<boolean>(false)
+  const { user } = useAppSelector(state => state.loginReducer)
+  const { avatar ,display_name } = user
 
   const displayProfileMenu = () => {
     setIsDisplaying(!isDisplaying)
@@ -47,9 +49,8 @@ const Sidebar: FC = () => {
     return menu.map((item, i: number) => (
       <li
         key={i}
-        className={`cursor-pointer sidebar__list-item ${
-          pathname === item.path ? 'active' : ''
-        }`}>
+        className={`cursor-pointer sidebar__list-item ${pathname === item.path ? 'active' : ''
+          }`}>
         <p
           className='d-flex align-items-center'
           onClick={() => navigate(item.path)}>
@@ -92,13 +93,13 @@ const Sidebar: FC = () => {
       <div className='sidebar__avatar d-flex  align-items-center flex-column'>
         <div className='user-avatar'>
           <img
-            src='https://via.placeholder.com/100'
+            src={ avatar ? avatar : 'https://via.placeholder.com/100' }
             className='rounded-circle'
             alt='avatar'
           />
         </div>
         <div className='user-name d-flex justify-content-center align-items-center'>
-          <p className='mb-0'>User Name</p>
+          <p className='mb-0'>{display_name}</p>
           <img
             className='cursor-pointer ps-3'
             onClick={displayProfileMenu}
