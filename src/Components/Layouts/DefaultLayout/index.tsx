@@ -1,4 +1,4 @@
-import {FC, useEffect} from 'react'
+import { FC } from 'react'
 import Header from './Header'
 import Footer from './Footer'
 import Sidebar from 'Components/Common/Sidebar'
@@ -9,8 +9,7 @@ interface Props {
 }
 
 const DefaultLayout: FC<Props> = (props: Props) => {
-  const {children} = props
-  useEffect(() => {}, [])
+  const { children } = props
   return (
     <ProtectedRoute>
       <div className='default-layout min-vh-100'>
