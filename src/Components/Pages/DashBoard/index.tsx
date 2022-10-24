@@ -1,4 +1,4 @@
-import {FC, useState} from 'react'
+import { FC, useState, useEffect } from 'react'
 import DefaultLayout from 'Components/Layouts/DefaultLayout'
 import InfoTag from './../../Common/InfoTag'
 import BarChart from 'Components/Common/Chart'
@@ -8,8 +8,8 @@ import {
   faListSquares,
   faTicketSimple,
 } from '@fortawesome/free-solid-svg-icons'
-import {iInfoData, iMonthData} from 'app/Models'
-import {CURRENT_MONTH, CURRENT_YEAR, MONTHS, Data} from 'app/Constants'
+import { iGeneral, iInfoData, iMonthData } from 'app/Models'
+import { CURRENT_MONTH, CURRENT_YEAR, MONTHS, Data } from 'app/Constants'
 import {
   dataTableBody,
   dataTableHead,
@@ -17,6 +17,8 @@ import {
 import addToQueue from './../../../app/Images/icons/bxs_add-to-queue.svg'
 import './style.scss'
 import Table from 'Components/Common/Table'
+import { useAppDispatch, useAppSelector } from 'app/Hooks/hooks'
+import { getChartData, getTotalData } from './redux/actions'
 type Props = {}
 
 const initialMonthData: iMonthData = {
@@ -25,52 +27,50 @@ const initialMonthData: iMonthData = {
   name: 'Jan',
 }
 
-const dumpmyData = {
-  labels: Data.map((data) => data.month),
-  datasets: [
-    {
-      label: 'Gained',
-      data: Data.map((data) => data.benefit),
-      backgroundColor: ['rgba(0, 0, 128, 1)'],
-    },
-  ],
-}
 
-const infoData: iInfoData[] = [
-  {
-    title: 'Promotion Products',
-    subtitle: 'Products',
-    icon: faChartSimple,
-    number: 10,
-  },
-  {title: 'New Users', subtitle: 'in month', icon: faUserPlus, number: 10},
-  {title: 'Item Order', subtitle: 'Products', icon: faListSquares, number: 3},
-  {
-    title: 'Tickets Report',
-    subtitle: 'Products',
-    icon: faTicketSimple,
-    number: 3,
-  },
-]
 
 const DashBoard: FC<Props> = (props: Props) => {
   // Declare Use State
+  const { isLoading, totalOrder, newCustomerByProduct, totalProductSale, totalTickets, data12Months } = useAppSelector(state => state.generalReducer)
   const [currentMonth, setCurrentMonth] = useState<iMonthData>(initialMonthData)
-  const [userData] = useState(dumpmyData)
+
+
+
+  const dispatch = useAppDispatch()
+
+  const profile: any = JSON.parse(localStorage.getItem('profile') || '{}')
+  const userId = profile.user.ID
+
+
+  useEffect(() => {
+    const payload: iGeneral = {
+      user_id: userId
+    }
+    dispatch(getChartData(payload))
+    dispatch(getTotalData(payload))
+
+  }, [])
+
+  const infoData: iInfoData[] = [
+    { title: 'Promotion Products', subtitle: 'Products', icon: faChartSimple, number: totalOrder?.total_orders || 0 },
+    { title: 'New Users', subtitle: 'in month', icon: faUserPlus, number: newCustomerByProduct?.total_customer || 0 },
+    { title: 'Item Order', subtitle: 'Products', icon: faListSquares, number: totalProductSale?.total_product || 0 },
+    { title: 'Tickets Report', subtitle: 'in month', icon: faTicketSimple, number: totalTickets?.total_tickets || 0 },
+  ]
 
   const renderInfoTags = () => {
     return (
       <div className='row'>
         {infoData.map((item, index) => {
-          const {icon, number, subtitle, title} = item
+          const { icon, number, subtitle, title } = item
           return (
             <div className='col-sm-6 col-md-3 pe-0' key={index}>
-              <InfoTag
+              {isLoading ? <p>Loading...</p> : <InfoTag
                 icon={icon}
                 number={number}
                 subTitle={subtitle}
                 title={title}
-              />
+              />}
             </div>
           )
         })}
@@ -94,11 +94,11 @@ const DashBoard: FC<Props> = (props: Props) => {
               <div className='row'>
                 <div className='col-md-4'>
                   <div
-                    style={{border: `18px solid ${currentMonth.color}`}}
+                    style={{ border: `18px solid ${currentMonth.color}` }}
                     className='result-wrapper text-center d-flex justify-content-center align-items-center flex-column'>
                     <p className='month mb-0'>{currentMonth.fullName}</p>
                     <p
-                      style={{color: `${currentMonth.color}`}}
+                      style={{ color: `${currentMonth.color}` }}
                       className='profit my-1'>
                       $10.000
                     </p>
@@ -120,7 +120,7 @@ const DashBoard: FC<Props> = (props: Props) => {
                             <p className='mb-0 d-flex text-capitalize justify-content-between align-items-center'>
                               <span
                                 className='me-2'
-                                style={{background: month.color}}></span>
+                                style={{ background: month.color }}></span>
                               {month.name}
                             </p>
                           </div>
@@ -166,18 +166,28 @@ const DashBoard: FC<Props> = (props: Props) => {
     )
   }
 
-  const renderChart = () => {
+  const renderChart = () => { 
+    const chartData = {
+      labels: data12Months?.list.map((data: any) => data.month),
+      datasets: [
+        {
+          label: 'Total',
+          data: data12Months?.list.map((data: any) => data.total),
+          backgroundColor: ['rgba(0, 0, 128, 1)'],
+        },
+      ],
+    }
     return (
       <div className='chart-wrapper'>
         <div className='dashboard-header'>
           <p className='dashboard-header__title mb-2'>SALE STATICS</p>
           <p className='dashboard-header__subtitle'>
-            {CURRENT_MONTH} {parseInt(CURRENT_YEAR) - 1} - {CURRENT_MONTH}{' '}
+            {CURRENT_MONTH} {parseInt(CURRENT_YEAR) - 1} - {CURRENT_MONTH}
             {CURRENT_YEAR}
           </p>
         </div>
         <div className='chart-section bg-white p-2'>
-          {<BarChart chartData={userData} />}
+          {isLoading ? <p>Loading ... </p> : <BarChart chartData={chartData} />}
         </div>
       </div>
     )
