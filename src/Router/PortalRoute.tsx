@@ -7,6 +7,7 @@ import PasswordValidation from '../Components/Pages/PasswordValidation'
 import Profile from 'Components/Pages/Profile'
 import AccountSettings from 'Components/Pages/AccountSettings'
 import ProductListing from 'Components/Pages/ProductListing'
+import Attributes from 'Components/Pages/Attributes'
 
 import {Routes, Route} from 'react-router-dom'
 
@@ -25,6 +26,7 @@ const Router = (props: Props) => {
       <Route path='/forgot-password' element={<ForgotPassword />} />
       <Route path='/password-validation' element={<PasswordValidation />} />
       <Route path='/product-listing' element={<ProductListing />} />
+      <Route path='/Attributes' element={<Attributes />} />
     </Routes>
   )
 }

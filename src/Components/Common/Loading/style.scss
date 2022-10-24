@@ -1,0 +1,47 @@
+.loading {
+  &__icon {
+    $size: 60px;
+    width: $size;
+    height: $size;
+    background: conic-gradient(
+      from 180deg at 50% 50%,
+      #000080 0deg,
+      rgba(0, 0, 128, 0) 360deg
+    );
+    border-radius: 50%;
+    position: relative;
+    animation: loading 1s linear infinite;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 6.6px;
+      background-color: #fff;
+      border-radius: inherit;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 6.6px;
+      height: 6.6px;
+      background-color: var(--primary);
+      z-index: 1;
+      border-radius: inherit;
+    }
+  }
+
+  &__text {
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
+
+@keyframes loading {
+  to {
+    transform: rotate(-360deg);
+  }
+}
