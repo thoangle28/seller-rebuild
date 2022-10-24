@@ -3,7 +3,7 @@ import './style.scss';
 
 const Footer = () => {
   return (
-    <div className='footer py-4'>
+    <div className='footer'>
       <span>{CURRENT_YEAR} &copy; Addin SG</span>
     </div>
   )

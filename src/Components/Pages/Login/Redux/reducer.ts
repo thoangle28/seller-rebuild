@@ -35,9 +35,15 @@ export const loginReducer = (state: any = initialState, action: any) => {
             return { ...state, ...requestLoading }
         case actionTypes.LOGIN_SUCCESS:
             return { ...state, ...requestSuccess, user: payload }
-        case actionTypes.LOGOUT: {
+        case actionTypes.LOGOUT:
             return { ...state, user: {}, message: '' }
-        }
+
+        case actionTypes.VERIFY_TOKEN_FAILURE:
+            return { ...state, ...requestFailure }
+        case actionTypes.VERIFY_TOKEN_REQUEST:
+            return { ...state, ...requestLoading }
+        case actionTypes.VERIFY_TOKEN_SUCCESS:
+            return { ...state, ...requestSuccess, user: payload }
         default:
             return state
     }
