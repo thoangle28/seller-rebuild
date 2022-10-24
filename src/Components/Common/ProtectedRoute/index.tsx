@@ -1,8 +1,9 @@
-import { iVerifyToken } from 'app/Models'
+import { iUserProfile, iVerifyToken } from 'app/Models'
 import { verifyToken } from 'Components/Pages/Login/Redux/action'
 import { useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from './../../../app/Hooks/hooks'
+import { getUserProfile } from '../Sidebar/Redux/actions'
+import { useAppDispatch } from './../../../app/Hooks/hooks'
 interface Props {
     children: JSX.Element[] | JSX.Element
 }
@@ -12,7 +13,7 @@ const ProtectedRoute = (props: Props) => {
 
     const accessToken = profile.access_token;
     const userId = profile.user.ID
-    
+    const userEmail = profile.user.user_email
     const dispatch = useAppDispatch()
 
     useEffect(() => {
@@ -20,7 +21,12 @@ const ProtectedRoute = (props: Props) => {
             access_token: accessToken,
             user_id: userId
         }
+        const getUserProfilePayload: iUserProfile = {
+            user_email: userEmail,
+            user_id: userId
+        }
         dispatch(verifyToken(payload))
+        dispatch(getUserProfile(getUserProfilePayload))
     }, [])
 
     // const { access_token, user, expire_time } = useAppSelector(state => state.loginReducer.user)
@@ -28,7 +34,7 @@ const ProtectedRoute = (props: Props) => {
     // if (!access_token && !user) {
     //     //dispatch(user ...)
     // }
- 
+
     if (!profile)
         return <Navigate to="/" replace />
 

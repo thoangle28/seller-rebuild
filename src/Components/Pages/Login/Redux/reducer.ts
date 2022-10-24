@@ -39,11 +39,11 @@ export const loginReducer = (state: any = initialState, action: any) => {
             return { ...state, user: {}, message: '' }
 
         case actionTypes.VERIFY_TOKEN_FAILURE:
-            return { ...state, requestFailure }
+            return { ...state, ...requestFailure }
         case actionTypes.VERIFY_TOKEN_REQUEST:
-            return { ...state, requestLoading }
+            return { ...state, ...requestLoading }
         case actionTypes.VERIFY_TOKEN_SUCCESS:
-            return { ...state, requestSuccess }
+            return { ...state, ...requestSuccess, user: payload }
         default:
             return state
     }

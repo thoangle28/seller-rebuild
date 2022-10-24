@@ -20,11 +20,12 @@ const logoutAction = () => ({
     type: actionTypes.LOGOUT,
 })
 
-const verifyTokenSuccess = () => ({
-    type: actionTypes.VERIFY_TOKEN_SUCCESS
-}) 
+const verifyTokenSuccess = (payload?: any) => ({
+    type: actionTypes.VERIFY_TOKEN_SUCCESS,
+    payload
+})
 const verifyTokenFailure = () => ({
-    type: actionTypes.VERIFY_TOKEN_FAILURE
+    type: actionTypes.VERIFY_TOKEN_FAILURE,
 })
 const verifyTokenRequest = () => ({
     type: actionTypes.VERIFY_TOKEN_FAILURE
@@ -34,8 +35,8 @@ export const verifyToken = (payload: iVerifyToken) => async (dispatch: any) => {
     dispatch(verifyTokenRequest())
     try {
         const response = await loginApi.verifyToken(payload)
-        const { code } = response.data
-        code === 200 ? dispatch(verifyTokenSuccess()) : dispatch(verifyTokenFailure())
+        const { code, data } = response.data
+        code === 200 ? dispatch(verifyTokenSuccess(data)) : dispatch(verifyTokenFailure())
     } catch (error) {
         dispatch(verifyTokenFailure())
     }
