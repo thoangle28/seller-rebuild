@@ -124,10 +124,18 @@ const ForgotPassword: FC = (props: Props) => {
               </p>
             )}
           </>
-          <p className='message-success text-center m-0 mt-4'>
-            {messageSuccess}
-          </p>
-          <ButtonSubmitForm disabled={isSubmitting}>Submit</ButtonSubmitForm>
+
+          <>
+            {messageSuccess && (
+              <p className='message-success text-center m-0 mt-4'>
+                {messageSuccess}
+              </p>
+            )}
+          </>
+
+          <ButtonSubmitForm disabled={messageSuccess ? true : isSubmitting}>
+            Submit
+          </ButtonSubmitForm>
         </FormWrapper>
       </form>
     </FullWidthLayout>
