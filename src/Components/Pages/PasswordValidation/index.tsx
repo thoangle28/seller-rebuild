@@ -40,7 +40,6 @@ const ForgotPassword: FC = (props: Props) => {
       }
       try {
         const {data} = await axiosConfig.post(endPoint, payload)
-        console.log(data)
         data.code === 200
           ? setMessageSucess(
               data.message +
