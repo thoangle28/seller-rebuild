@@ -100,7 +100,7 @@ const ForgotPassword: FC = (props: Props) => {
             )}
           </>
 
-          <ButtonSubmitForm disabled={isSubmitting}>Submit</ButtonSubmitForm>
+          <ButtonSubmitForm disabled={isSubmitting}>Continue</ButtonSubmitForm>
         </FormWrapper>
       </form>
     </FullWidthLayout>
