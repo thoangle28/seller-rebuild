@@ -15,6 +15,8 @@ type Props = {}
 const ForgotPassword: FC = (props: Props) => {
   const [validateFailureMessage, setValidateFailureMessage] =
     useState<string>('')
+  const [messageSuccess, setMessageSucess] = useState<string>('')
+
   const navigate = useNavigate()
   const {
     errors,
@@ -39,14 +41,27 @@ const ForgotPassword: FC = (props: Props) => {
           user_email: email,
         })
 
-        data.code === 200
-          ? navigate('/password-validation')
-          : setValidateFailureMessage(data.message)
+        data.code === 200 ? (
+          <>
+            {setMessageSucess(
+              data.message +
+                `! This page will be redirected automatically in a few seconds.`
+            )}
+          </>
+        ) : (
+          setValidateFailureMessage(data.message)
+        )
       } catch (error) {
         setValidateFailureMessage('Something went wrong, please try again')
       }
     },
   })
+
+  if (messageSuccess) {
+    setTimeout(() => {
+      navigate('/password-validation')
+    }, 4000)
+  }
 
   const data = [
     {
@@ -100,7 +115,17 @@ const ForgotPassword: FC = (props: Props) => {
             )}
           </>
 
-          <ButtonSubmitForm disabled={isSubmitting}>Continue</ButtonSubmitForm>
+          <>
+            {messageSuccess && (
+              <p className='message-success text-center m-0 mt-4'>
+                {messageSuccess}
+              </p>
+            )}
+          </>
+
+          <ButtonSubmitForm disabled={messageSuccess ? true : isSubmitting}>
+            Continue
+          </ButtonSubmitForm>
         </FormWrapper>
       </form>
     </FullWidthLayout>
