@@ -134,4 +134,39 @@
       }
     }
   }
+
+  .mess-get-error {
+    background: rgba(197, 34, 31, 0.2);
+    border-radius: 5px;
+    margin-right: -24px;
+
+    h3 {
+      font-size: 16px;
+    }
+  }
+
+  .mess-box {
+    border-radius: 5px;
+    animation: fadeIn 0.15s linear;
+
+    img {
+      width: 30px;
+    }
+
+    h3 {
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0.5;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

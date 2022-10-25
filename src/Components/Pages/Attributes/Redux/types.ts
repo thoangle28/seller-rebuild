@@ -5,9 +5,12 @@ const createNewAttribute = {
 }
 
 const createNewChildrenAttribute = {
-  CREATE_NEW_CHILDREN_ATTRIBUTE_FAILURE: 'CREATE_NEW_CHILDREN_ATTRIBUTE_FAILURE',
-  CREATE_NEW_CHILDREN_ATTRIBUTE_SUCCESS: 'CREATE_NEW_ATTRIBUTE_SUCCESS',
-  CREATE_NEW_CHILDREN_ATTRIBUTE_REQUEST: 'CREATE_NEW_CHILDREN_ATTRIBUTE_REQUEST',
+  CREATE_NEW_CHILDREN_ATTRIBUTE_FAILURE:
+    'CREATE_NEW_CHILDREN_ATTRIBUTE_FAILURE',
+  CREATE_NEW_CHILDREN_ATTRIBUTE_SUCCESS:
+    'CREATE_NEW_CHILDREN_ATTRIBUTE_SUCCESS',
+  CREATE_NEW_CHILDREN_ATTRIBUTE_REQUEST:
+    'CREATE_NEW_CHILDREN_ATTRIBUTE_REQUEST',
 }
 
 const getAttributeList = {
@@ -29,7 +32,8 @@ const updateChilrenAttribute = {
 }
 
 const uiActions = {
-  IS_UPDATE_FORM: 'IS_UPDATE_FORM'
+  IS_UPDATE_FORM: 'IS_UPDATE_FORM',
+  DELETE_MESSAGE: 'DELETE_MESSAGE',
 }
 
 const actionTypes = {
@@ -38,8 +42,7 @@ const actionTypes = {
   ...getAttributeList,
   ...updateAttribute,
   ...updateChilrenAttribute,
-  ...uiActions
-
+  ...uiActions,
 }
 
 export default actionTypes
