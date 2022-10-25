@@ -7,16 +7,13 @@ import {useFormik} from 'formik'
 import {FC, useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import PasswordValidationSchema from './Schema'
-
 import './style.scss'
-
 type Props = {}
-
 const ForgotPassword: FC = (props: Props) => {
   const [validateFailureMessage, setValidateFailureMessage] =
     useState<string>('')
+  const [messageSuccess, setMessageSucess] = useState<string>('')
   const navigate = useNavigate()
-
   const {
     errors,
     touched,
@@ -43,16 +40,22 @@ const ForgotPassword: FC = (props: Props) => {
       }
       try {
         const {data} = await axiosConfig.post(endPoint, payload)
-
         data.code === 200
-          ? navigate('/')
+          ? setMessageSucess(
+              data.message +
+                `! This page will be redirected automatically in a few seconds.`
+            )
           : setValidateFailureMessage(data.message)
       } catch (error) {
         setValidateFailureMessage('Something went wrong, please try again')
       }
     },
   })
-
+  if (messageSuccess) {
+    setTimeout(() => {
+      navigate('/')
+    }, 4000)
+  }
   const data = [
     {
       name: 'newPassword',
@@ -82,7 +85,6 @@ const ForgotPassword: FC = (props: Props) => {
       isError: errors.resetToken && touched.resetToken,
     },
   ]
-
   // Render list input
   const inputFieldList = data.map((item) => {
     return (
@@ -104,10 +106,10 @@ const ForgotPassword: FC = (props: Props) => {
       />
     )
   })
-
   return (
     <FullWidthLayout>
       <form className='form-pwd-validation' onSubmit={handleSubmit}>
+        <h3></h3>
         <FormWrapper formTitle='FORGOT PASSWORD VALIDATION' backPageLogin>
           <h4 className='form-sub-title text-center'>
             <span>Enter your email to reset your password.</span>
@@ -115,7 +117,6 @@ const ForgotPassword: FC = (props: Props) => {
           <div className='form__input-wrap'>
             <div className='form__input-wrap-field'>{inputFieldList}</div>
           </div>
-
           <>
             {validateFailureMessage && (
               <p className='text-danger text-center mt-4'>
@@ -123,12 +124,13 @@ const ForgotPassword: FC = (props: Props) => {
               </p>
             )}
           </>
-
+          <p className='message-success text-center m-0 mt-4'>
+            {messageSuccess}
+          </p>
           <ButtonSubmitForm disabled={isSubmitting}>Submit</ButtonSubmitForm>
         </FormWrapper>
       </form>
     </FullWidthLayout>
   )
 }
-
 export default ForgotPassword
