@@ -58,6 +58,7 @@ const InputField = (props: Props) => {
           onChange={onChange}
           onBlur={onBlur}
         />
+
         <label className='form__label user-select-none pe-none' htmlFor={id}>
           {label}
         </label>
