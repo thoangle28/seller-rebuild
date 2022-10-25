@@ -23,6 +23,7 @@ const initialState = {
     isFailure: false,
     isLoading: false,
     user: {},
+    isLogin: false,
     message: ''
 }
 
@@ -44,6 +45,8 @@ export const loginReducer = (state: any = initialState, action: any) => {
             return { ...state, ...requestLoading }
         case actionTypes.VERIFY_TOKEN_SUCCESS:
             return { ...state, ...requestSuccess, user: payload }
+        case actionTypes.IS_LOGIN:
+            return { ...state, isLogin: payload }
         default:
             return state
     }
