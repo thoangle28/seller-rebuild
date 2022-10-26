@@ -31,17 +31,16 @@ const verifyTokenRequest = () => ({
     type: actionTypes.VERIFY_TOKEN_FAILURE
 })
 
-const isLogin = (payload: boolean) => ({
-    type: actionTypes.IS_LOGIN,
-    payload
-})
-
 export const verifyToken = (payload: iVerifyToken) => async (dispatch: any) => {
     dispatch(verifyTokenRequest())
     try {
         const response = await loginApi.verifyToken(payload)
         const { code, data } = response.data
-        code === 200 ? dispatch(verifyTokenSuccess(data)) : dispatch(verifyTokenFailure())
+        if (code === 200) {
+            dispatch(verifyTokenSuccess(data))
+        } else {
+            dispatch(verifyTokenFailure())
+        }
     } catch (error) {
         dispatch(verifyTokenFailure())
     }
@@ -56,7 +55,6 @@ export const login = (formValue: iLogin, navigate: any) => async (dispatch: any)
 
         if (code === 200 && !message) {
             dispatch(loginSuccess(data))
-            dispatch(isLogin(true))
             localStorage.setItem('profile', JSON.stringify({ ...data }))
             navigate('/dashboard')
         } else {
@@ -69,6 +67,6 @@ export const login = (formValue: iLogin, navigate: any) => async (dispatch: any)
 
 // Logout action
 export const logout = () => async (dispatch: any) => {
-    dispatch(logoutAction)
-    dispatch(isLogin(false))
+    dispatch(logoutAction())
+    window.localStorage.clear() 
 }

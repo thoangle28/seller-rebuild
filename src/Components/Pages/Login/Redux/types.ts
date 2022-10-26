@@ -12,8 +12,7 @@ const verifyToken = {
 
 // Example 
 const actionTypes = {
-    LOGOUT: "LOGOUT",
-    IS_LOGIN:"IS_LOGIN",
+    LOGOUT: "LOGOUT", 
     ...loginActions,
     ...verifyToken, 
 }
