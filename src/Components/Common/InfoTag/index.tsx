@@ -18,7 +18,7 @@ const InfoTag: FC<Props> = (props: Props) => {
             </div>
             <div className="info-tag__data">
                 <p className='subtitle text-primary mb-0'>{number} <span>{subTitle}</span></p>
-                <p className='title text-primary mb-0'>{title}</p>
+                <p className='title mb-0'>{title}</p>
             </div>
         </div>
     )

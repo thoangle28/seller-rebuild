@@ -72,7 +72,7 @@ const Sidebar: FC = () => {
         <ul className='sidebar__list ps-0'>{renderSidemenu(bottomMenu)}</ul>
         <button
           onClick={signOut}
-          className='signout-button btn btn-primary w-100'>
+          className='signout-button btn btn-primary'>
           Sign Out
         </button>
       </div>
