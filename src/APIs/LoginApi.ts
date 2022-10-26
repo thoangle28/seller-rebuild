@@ -9,8 +9,8 @@ const loginApi = {
     return axiosConfig.post('/verify_token', payload)
   },
   getUserProfileById: (payload: iUserProfile) => {
-    return axiosConfig.post('/user/profile', payload)
-  }, 
+    return axiosConfig.post('/user/profile', { user: payload })
+  },
   getUserProfileUpdate: (payload: iUserUpdate) => {
     return axiosConfig.post('/user/profile/update', payload)
   },

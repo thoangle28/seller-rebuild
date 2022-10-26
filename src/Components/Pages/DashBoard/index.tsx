@@ -19,6 +19,7 @@ import './style.scss'
 import Table from 'Components/Common/Table'
 import { useAppDispatch, useAppSelector } from 'app/Hooks/hooks'
 import { getChartData, getTotalData } from './redux/actions'
+import Loading from 'Components/Common/Loading'
 type Props = {}
 
 const initialMonthData: iMonthData = {
@@ -34,20 +35,19 @@ const DashBoard: FC<Props> = (props: Props) => {
   const { isLoading, totalOrder, newCustomerByProduct, totalProductSale, totalTickets, data12Months } = useAppSelector(state => state.generalReducer)
   const [currentMonth, setCurrentMonth] = useState<iMonthData>(initialMonthData)
 
-
-
   const dispatch = useAppDispatch()
 
   const profile: any = JSON.parse(localStorage.getItem('profile') || '{}')
-  const userId = profile.user.ID
-
+  const userId: string = profile.user?.ID || ''
 
   useEffect(() => {
-    const payload: iGeneral = {
-      user_id: userId
+    if (userId) {
+      const payload: iGeneral = {
+        user_id: userId
+      }
+      dispatch(getChartData(payload))
+      dispatch(getTotalData(payload)) 
     }
-    dispatch(getChartData(payload))
-    dispatch(getTotalData(payload))
 
   }, [])
 
@@ -65,7 +65,7 @@ const DashBoard: FC<Props> = (props: Props) => {
           const { icon, number, subtitle, title } = item
           return (
             <div className='col-sm-6 col-md-3 pe-0' key={index}>
-              {isLoading ? <p>Loading...</p> : <InfoTag
+              {isLoading ? <Loading /> : <InfoTag
                 icon={icon}
                 number={number}
                 subTitle={subtitle}
@@ -166,7 +166,7 @@ const DashBoard: FC<Props> = (props: Props) => {
     )
   }
 
-  const renderChart = () => { 
+  const renderChart = () => {
     const chartData = {
       labels: data12Months?.list.map((data: any) => data.month),
       datasets: [
@@ -187,7 +187,7 @@ const DashBoard: FC<Props> = (props: Props) => {
           </p>
         </div>
         <div className='chart-section bg-white p-2'>
-          {isLoading ? <p>Loading ... </p> : <BarChart chartData={chartData} />}
+          {isLoading ? <Loading /> : <BarChart chartData={chartData} />}
         </div>
       </div>
     )

@@ -5,6 +5,7 @@ import {
   faPhoneFlip,
 } from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import { FC } from 'react'
 import defaultUploadImg from './../../../app/Images/default-upload-img.png'
 import uploadIcon from './../../../app/Images/icons/upload-icon.svg'
 import './style.scss'
@@ -28,7 +29,7 @@ const infoUser = [
   },
 ]
 
-const MyProfile = () => {
+const MyProfile:FC = () => {
   // Render list info
   const infoUserList = infoUser.map((item) => (
     <li className='user-info__item' key={item.text}>

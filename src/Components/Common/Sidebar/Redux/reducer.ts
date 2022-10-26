@@ -25,3 +25,16 @@ const initialState = {
     user: {},
     message: ''
 }
+
+
+export const profileReducer = (state: any = initialState, action: any) => {
+    const { type, payload } = action
+
+    switch (type) {
+        case actionTypes.GET_USER_PROFILE_FAILURE:
+            return { ...state }
+
+        default:
+            return state
+    }
+}
