@@ -46,7 +46,7 @@ const DashBoard: FC<Props> = (props: Props) => {
         user_id: userId
       }
       dispatch(getChartData(payload))
-      dispatch(getTotalData(payload)) 
+      dispatch(getTotalData(payload))
     }
 
   }, [])
@@ -60,11 +60,11 @@ const DashBoard: FC<Props> = (props: Props) => {
 
   const renderInfoTags = () => {
     return (
-      <div className='row g-0'>
+      <div className='row g-0 d-flex justify-content-between'>
         {infoData.map((item, index) => {
           const { icon, number, subtitle, title } = item
           return (
-            <div className='col-sm-6 col-md-3 pe-3' key={index}>
+            <div className='col-sm-6 col-md-3 px-2' key={index}>
               {isLoading ? <Loading /> : <InfoTag
                 icon={icon}
                 number={number}
@@ -199,8 +199,8 @@ const DashBoard: FC<Props> = (props: Props) => {
         <div className='col-md-12'>{renderInfoTags()}</div>
       </div>
       <div className='row pt-4 g-0'>
-        <div className='col-md-6'>{renderMonthlyBussinessData()}</div>
-        <div className='col-md-6'>{renderChart()}</div>
+        <div className='col-md-6 pe-3'>{renderMonthlyBussinessData()}</div>
+        <div className='col-md-6 ps-3'>{renderChart()}</div>
       </div>
       <div className='row'>{renderTable()}</div>
     </DefaultLayout>
