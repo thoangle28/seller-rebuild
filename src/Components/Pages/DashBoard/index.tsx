@@ -46,7 +46,7 @@ const DashBoard: FC<Props> = (props: Props) => {
         user_id: userId
       }
       dispatch(getChartData(payload))
-      dispatch(getTotalData(payload)) 
+      dispatch(getTotalData(payload))
     }
 
   }, [])
@@ -60,11 +60,11 @@ const DashBoard: FC<Props> = (props: Props) => {
 
   const renderInfoTags = () => {
     return (
-      <div className='row'>
+      <div className='row g-4'>
         {infoData.map((item, index) => {
           const { icon, number, subtitle, title } = item
           return (
-            <div className='col-sm-6 col-md-3 pe-0' key={index}>
+            <div className='col-sm-6 col-md-3' key={index}>
               {isLoading ? <Loading /> : <InfoTag
                 icon={icon}
                 number={number}
@@ -82,17 +82,17 @@ const DashBoard: FC<Props> = (props: Props) => {
     return (
       <>
         <div className='dashboard-header'>
-          <p className='dashboard-header__title mb-2'>SALE STATICS</p>
+          <p className='dashboard-header__title mb-2 text-capitalize'>sale statics</p>
           <p className='dashboard-header__subtitle'>
             {CURRENT_MONTH} {parseInt(CURRENT_YEAR) - 1} - {CURRENT_MONTH}{' '}
             {CURRENT_YEAR}
           </p>
         </div>
-        <div className='row'>
-          <div className='col-sm-12 pe-0'>
+        <div className='row g-0'>
+          <div className='col-sm-12'>
             <div className='monthly-bussiness-data bg-white'>
-              <div className='row'>
-                <div className='col-md-4'>
+              <div className='row g-0'>
+                <div className='col-md-5'>
                   <div
                     style={{ border: `18px solid ${currentMonth.color}` }}
                     className='result-wrapper text-center d-flex justify-content-center align-items-center flex-column'>
@@ -105,7 +105,7 @@ const DashBoard: FC<Props> = (props: Props) => {
                     <span>Net Profilt</span>
                   </div>
                 </div>
-                <div className='col-md-8'>
+                <div className='col-md-7'>
                   <div className='d-flex justify-content-end flex-column'>
                     <p className='month-list-title text-end text-primary'>
                       Top 2/12
@@ -142,7 +142,7 @@ const DashBoard: FC<Props> = (props: Props) => {
       <div className='col-md-12'>
         <div className='header-wrapper d-flex justify-content-between align-items-center'>
           <div className='dashboard-header pt-3'>
-            <p className='dashboard-header__title mb-2'>PRODUCTS LISTING</p>
+            <p className='dashboard-header__title mb-2 text-capitalize'>Products Listing</p>
             <p className='dashboard-header__subtitle'>Over 11 product(s)</p>
           </div>
           <button className='add-new-btn btn bg-white'>
@@ -180,7 +180,7 @@ const DashBoard: FC<Props> = (props: Props) => {
     return (
       <div className='chart-wrapper'>
         <div className='dashboard-header'>
-          <p className='dashboard-header__title mb-2'>SALE STATICS</p>
+          <p className='dashboard-header__title mb-2 text-capitalize'>sale statics</p>
           <p className='dashboard-header__subtitle'>
             {CURRENT_MONTH} {parseInt(CURRENT_YEAR) - 1} - {CURRENT_MONTH}
             {CURRENT_YEAR}
@@ -195,10 +195,10 @@ const DashBoard: FC<Props> = (props: Props) => {
 
   return (
     <DefaultLayout>
-      <div className='row'>
+      <div className='row g-0'>
         <div className='col-md-12'>{renderInfoTags()}</div>
       </div>
-      <div className='row pt-4'>
+      <div className='row pt-4 g-4'>
         <div className='col-md-6'>{renderMonthlyBussinessData()}</div>
         <div className='col-md-6'>{renderChart()}</div>
       </div>
