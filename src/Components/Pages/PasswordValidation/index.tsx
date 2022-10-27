@@ -69,7 +69,7 @@ const ForgotPassword: FC = (props: Props) => {
     {
       name: 'passwordConfirm',
       id: 'passwordConfirm',
-      label: 'Password Confirm',
+      label: 'Confirm Password',
       value: values.passwordConfirm,
       type: 'password',
       textError: errors.passwordConfirm,

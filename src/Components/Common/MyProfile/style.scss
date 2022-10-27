@@ -2,24 +2,32 @@
   background: #ffffff;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  width: 438px;
-  min-height: 420px;
-  padding: 20px;
+  width: 579px;
+  padding-top: 24px;
+  padding-bottom: 80px;
+  margin-right: 32px;
+  flex-shrink: 0;
 
   .user-avatar {
-    $size: 175px;
+    $size: 350px;
     width: $size;
     height: $size;
     background: #d9d9d9;
     border-radius: 10px;
     position: relative;
+
+    img {
+      width: 83px;
+      border-radius: inherit;
+      object-fit: cover;
+    }
   }
 
   .upload__wrap {
-    $size: 32px;
+    $size: 50px;
     position: absolute;
-    bottom: -10px;
-    right: -10px;
+    right: -20px;
+    bottom: -20px;
     width: $size;
     height: $size;
     border-radius: 50%;
@@ -34,11 +42,15 @@
     label {
       cursor: pointer;
       position: absolute;
-      top: calc(50% - 2px);
+      top: 50%;
       left: 50%;
-      padding: 12px;
       transform: translate(-50%, -50%);
       display: block;
+      padding: 12px;
+
+      img {
+        width: 31.25px;
+      }
     }
   }
 
@@ -46,26 +58,68 @@
     font-weight: 600;
     font-size: 20px;
     line-height: 24px;
+    margin-bottom: 69px;
   }
 
-  .user-info__list {
-    list-style-type: none;
-  }
+  .user-info {
+    &__list {
+      list-style-type: none;
+      padding-left: 117.5px !important;
+    }
 
-  .user-info__item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-  }
+    &__item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
 
-  .user-info__icon {
-    min-width: 35px;
-  }
+      &:last-child {
+        margin: 0;
+      }
+    }
 
-  .user-info__text {
-    flex: 1;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 20px;
+    &__icon {
+      min-width: 35px;
+      max-height: 20px;
+      font-size: 17px;
+    }
+
+    &__text {
+      flex: 1;
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+}
+
+@media (max-width: 1699px) {
+  .my-profile {
+    width: 300px;
+
+    .user-avatar {
+      $size: 200px;
+      width: $size;
+      height: $size;
+    }
+
+    .upload__wrap {
+      $size: 30px;
+      right: -10px;
+      bottom: -10px;
+      width: $size;
+      height: $size;
+
+      label {
+        img {
+          width: 16.25px;
+        }
+      }
+    }
+
+    .user-info {
+      &__list {
+        list-style-type: none;
+        padding-left: 32px !important;
+      }
+    }
   }
 }
