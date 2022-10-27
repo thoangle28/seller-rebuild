@@ -79,11 +79,9 @@ export const changePassword =
       const res = await axiosConfig.post(endPoint, payload)
       const {code, message} = res.data
 
-      if (code === 200) {
-        dispatch(changePasswordSuccess(message))
-      } else {
-        dispatch(changePasswordFailure(message))
-      }
+      code === 200
+        ? dispatch(changePasswordSuccess(message))
+        : dispatch(changePasswordFailure(message))
     } catch (error) {
       dispatch(changePasswordFailure(error.message))
     }
