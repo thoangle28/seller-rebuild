@@ -21,6 +21,7 @@ import {useAppDispatch, useAppSelector} from 'app/Hooks/hooks'
 import {getChartData, getTotalData} from './redux/actions'
 import Loading from 'Components/Common/Loading'
 import editIcon from './../../../app/Images/icons/edit-icon.svg'
+import { Link } from 'react-router-dom'
 
 type Props = {}
 
@@ -267,9 +268,9 @@ const DashBoard: FC<Props> = (props: Props) => {
             <Table dataTableHead={dataTableHead}>{renderTableBody()}</Table>
           </div>
           <div className='text-center'>
-            <button className='view-more-button btn btn-primary'>
+            <Link to={'/product-listing'} className='view-more-button btn btn-primary'>
               View More Products
-            </button>
+            </Link>
           </div>
         </div>
       </div>

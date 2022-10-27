@@ -4,7 +4,7 @@ import './style.scss';
 const Footer = () => {
   return (
     <div className='footer'>
-      <span><span style={{color:"background: rgba(0, 0, 0, 0.6)"}}>{CURRENT_YEAR} &copy;</span> Addin SG</span>
+      <span><span style={{color:"rgba(0, 0, 0, 0.6)"}}>{CURRENT_YEAR} &copy;</span> Addin SG</span>
     </div>
   )
 }
