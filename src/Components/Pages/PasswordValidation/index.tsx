@@ -9,7 +9,8 @@ import {useNavigate} from 'react-router-dom'
 import PasswordValidationSchema from './Schema'
 import './style.scss'
 type Props = {}
-const ForgotPassword: FC = (props: Props) => {
+
+const PasswordValidation: FC = (props: Props) => {
   const [validateFailureMessage, setValidateFailureMessage] =
     useState<string>('')
   const [messageSuccess, setMessageSucess] = useState<string>('')
@@ -54,7 +55,7 @@ const ForgotPassword: FC = (props: Props) => {
   if (messageSuccess) {
     setTimeout(() => {
       navigate('/')
-    }, 4000)
+    }, 3000)
   }
   const data = [
     {
@@ -141,4 +142,4 @@ const ForgotPassword: FC = (props: Props) => {
     </FullWidthLayout>
   )
 }
-export default ForgotPassword
+export default PasswordValidation

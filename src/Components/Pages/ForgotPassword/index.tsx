@@ -6,6 +6,7 @@ import FullWidthLayout from 'Components/Layouts/FullWidthLayout'
 import {useFormik} from 'formik'
 import {FC, useState} from 'react'
 import {useNavigate} from 'react-router-dom'
+import PasswordValidation from '../PasswordValidation'
 import ForgotPasswordSchema from './Schema'
 
 import './style.scss'
@@ -16,8 +17,9 @@ const ForgotPassword: FC = (props: Props) => {
   const [validateFailureMessage, setValidateFailureMessage] =
     useState<string>('')
   const [messageSuccess, setMessageSucess] = useState<string>('')
+  const [showPasswordValidation, setShowPasswordValidation] =
+    useState<boolean>(false)
 
-  const navigate = useNavigate()
   const {
     errors,
     touched,
@@ -41,16 +43,12 @@ const ForgotPassword: FC = (props: Props) => {
           user_email: email,
         })
 
-        data.code === 200 ? (
-          <>
-            {setMessageSucess(
+        data.code === 200
+          ? setMessageSucess(
               data.message +
                 `! This page will be redirected automatically in a few seconds.`
-            )}
-          </>
-        ) : (
-          setValidateFailureMessage(data.message)
-        )
+            )
+          : setValidateFailureMessage(data.message)
       } catch (error) {
         setValidateFailureMessage('Something went wrong, please try again')
       }
@@ -59,8 +57,8 @@ const ForgotPassword: FC = (props: Props) => {
 
   if (messageSuccess) {
     setTimeout(() => {
-      navigate('/password-validation')
-    }, 4000)
+      setShowPasswordValidation(true)
+    }, 3000)
   }
 
   const data = [
@@ -99,35 +97,39 @@ const ForgotPassword: FC = (props: Props) => {
 
   return (
     <FullWidthLayout>
-      <form className='form-forgot-password' onSubmit={handleSubmit}>
-        <FormWrapper formTitle='FORGOT PASSWORD' backPageLogin>
-          <h4 className='form-sub-title text-center'>
-            <span>Enter your email to reset your password.</span>
-          </h4>
+      {showPasswordValidation ? (
+        <PasswordValidation />
+      ) : (
+        <form className='form-forgot-password' onSubmit={handleSubmit}>
+          <FormWrapper formTitle='FORGOT PASSWORD' backPageLogin>
+            <h4 className='form-sub-title text-center'>
+              <span>Enter your email to reset your password.</span>
+            </h4>
 
-          <div className='form__input-wrap'>{inputFieldList}</div>
+            <div className='form__input-wrap'>{inputFieldList}</div>
 
-          <>
-            {validateFailureMessage && (
-              <p className='text-danger text-center mt-4'>
-                {validateFailureMessage}
-              </p>
-            )}
-          </>
+            <>
+              {validateFailureMessage && (
+                <p className='text-danger text-center mt-4'>
+                  {validateFailureMessage}
+                </p>
+              )}
+            </>
 
-          <>
-            {messageSuccess && (
-              <p className='message-success text-center m-0 mt-4'>
-                {messageSuccess}
-              </p>
-            )}
-          </>
+            <>
+              {messageSuccess && (
+                <p className='message-success text-center m-0 mt-4'>
+                  {messageSuccess}
+                </p>
+              )}
+            </>
 
-          <ButtonSubmitForm disabled={messageSuccess ? true : isSubmitting}>
-            Continue
-          </ButtonSubmitForm>
-        </FormWrapper>
-      </form>
+            <ButtonSubmitForm disabled={messageSuccess ? true : isSubmitting}>
+              Continue
+            </ButtonSubmitForm>
+          </FormWrapper>
+        </form>
+      )}
     </FullWidthLayout>
   )
 }
