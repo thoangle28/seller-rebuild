@@ -9,7 +9,7 @@ $warning: #fbbc04;
 $spacer: 1rem;
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -17,12 +17,10 @@ $spacer: 1rem;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d9d9d9;
+  background: #ebebeb;
   border-radius: 15px;
 }
-
-$enable-negative-margins: false;
-
+ 
 @import '~bootstrap/scss/bootstrap';
 
 // Fonts

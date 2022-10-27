@@ -60,11 +60,11 @@ const DashBoard: FC<Props> = (props: Props) => {
 
   const renderInfoTags = () => {
     return (
-      <div className='row g-0'>
+      <div className='row g-4'>
         {infoData.map((item, index) => {
           const { icon, number, subtitle, title } = item
           return (
-            <div className='col-sm-6 col-md-3 pe-3' key={index}>
+            <div className='col-sm-6 col-md-3' key={index}>
               {isLoading ? <Loading /> : <InfoTag
                 icon={icon}
                 number={number}
@@ -89,7 +89,7 @@ const DashBoard: FC<Props> = (props: Props) => {
           </p>
         </div>
         <div className='row g-0'>
-          <div className='col-sm-12 pe-0'>
+          <div className='col-sm-12'>
             <div className='monthly-bussiness-data bg-white'>
               <div className='row g-0'>
                 <div className='col-md-5'>
@@ -198,7 +198,7 @@ const DashBoard: FC<Props> = (props: Props) => {
       <div className='row g-0'>
         <div className='col-md-12'>{renderInfoTags()}</div>
       </div>
-      <div className='row pt-4 g-0'>
+      <div className='row pt-4 g-4'>
         <div className='col-md-6'>{renderMonthlyBussinessData()}</div>
         <div className='col-md-6'>{renderChart()}</div>
       </div>
