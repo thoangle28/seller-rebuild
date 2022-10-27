@@ -13,6 +13,7 @@ import {register} from './Redux/action'
 import {dataModal} from 'app/Constants'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCheck} from '@fortawesome/free-solid-svg-icons'
+import Loading from 'Components/Common/Loading'
 type Props = {}
 const SignUp = (props: Props) => {
   const [showPopup, setShowPopup] = useState<boolean>(false)
@@ -20,7 +21,9 @@ const SignUp = (props: Props) => {
 
   const modalRef = useRef<HTMLDivElement>(null)
 
-  const {isFailure, message} = useAppSelector((state) => state.registerReducer)
+  const {isFailure, message, isLoading} = useAppSelector(
+    (state) => state.registerReducer
+  )
 
   useOnClickOutside(modalRef, () => {
     setShowPopup(false)
@@ -84,7 +87,7 @@ const SignUp = (props: Props) => {
       id: 'email',
       label: 'Email *',
       value: values.email,
-      type: 'email',
+      type: 'text',
       textError: errors.email,
       isError: errors.email && touched.email,
     },
@@ -159,7 +162,7 @@ const SignUp = (props: Props) => {
   })
 
   // Render list list Modal
-  const modalList = dataModal.map((item) => (
+  const modalList = dataModal.map((item, index) => (
     <div className='modal__content' key={item.title}>
       <h3 className='modal__content-title'>{item.title}</h3>
       {item.body.map((item, index) => (
@@ -167,6 +170,11 @@ const SignUp = (props: Props) => {
           {item}
         </p>
       ))}
+
+      {item.img &&
+        item.img.map((img, index) => (
+          <img src={img} className='pb-4' alt='Modal terms' key={index} />
+        ))}
     </div>
   ))
 
@@ -174,7 +182,7 @@ const SignUp = (props: Props) => {
     if (!message) return <></>
     return (
       <p
-        className={`text-center text-${
+        className={`signup__text-error text-center text-${
           isFailure ? 'danger' : 'success'
         } mt-1 mb-1`}>
         {message}
@@ -193,35 +201,43 @@ const SignUp = (props: Props) => {
             </Link>
           </h4>
 
-          <div className='form__input-wrap'>
-            <div className='form__input-wrap-field'>{inputFieldList}</div>
-          </div>
+          {isLoading ? (
+            <div className='py-3'>
+              <Loading />
+            </div>
+          ) : (
+            <>
+              <div className='form__input-wrap'>
+                <div className='form__input-wrap-field'>{inputFieldList}</div>
+              </div>
 
-          <label className='check__terms mt-3 d-flex align-items-center'>
-            <label className='cursor m-0 d-flex' htmlFor='remember-pwd'>
-              I agree to the
-              <p onClick={handleShowPopup} className='m-0 text-primary'>
-                &nbsp;terms and conditions.
-              </p>
-              <span className='text-danger'> *</span>
-            </label>
-            <input
-              type='checkbox'
-              name='remember-pwd'
-              id='remember-pwd'
-              checked={checkAcceptTerms}
-              onChange={handleCheckAcceptTerms}
-            />
+              <label className='check__terms mt-3 d-flex align-items-center'>
+                <label className='cursor m-0 d-flex' htmlFor='remember-pwd'>
+                  I agree to the
+                  <p onClick={handleShowPopup} className='m-0 text-primary'>
+                    &nbsp;terms and conditions.
+                  </p>
+                  <span className='text-danger'> *</span>
+                </label>
+                <input
+                  type='checkbox'
+                  name='remember-pwd'
+                  id='remember-pwd'
+                  checked={checkAcceptTerms}
+                  onChange={handleCheckAcceptTerms}
+                />
 
-            <span className='checkmark'>
-              <FontAwesomeIcon icon={faCheck} />
-            </span>
-          </label>
+                <span className='checkmark'>
+                  <FontAwesomeIcon icon={faCheck} />
+                </span>
+              </label>
 
-          {renderMessage(message)}
+              {renderMessage(message)}
+            </>
+          )}
 
           <ButtonSubmitForm disabled={!checkAcceptTerms}>
-            Submit
+            Continue
           </ButtonSubmitForm>
         </FormWrapper>
       </form>

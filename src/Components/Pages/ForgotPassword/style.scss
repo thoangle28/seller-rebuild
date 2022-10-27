@@ -13,4 +13,9 @@
   .message-success {
     color: #34a853;
   }
+
+  .message-success,
+  .message-error {
+    font-size: 14px;
+  }
 }
