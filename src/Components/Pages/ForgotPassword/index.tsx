@@ -2,6 +2,7 @@ import axiosConfig from 'APIs/AxiosConfig'
 import ButtonSubmitForm from 'Components/Common/ButtonSubmitForm'
 import FormWrapper from 'Components/Common/FormWrapper'
 import InputField from 'Components/Common/InputField'
+import Loading from 'Components/Common/Loading'
 import FullWidthLayout from 'Components/Layouts/FullWidthLayout'
 import {useFormik} from 'formik'
 import {FC, useState} from 'react'
@@ -19,6 +20,7 @@ const ForgotPassword: FC = (props: Props) => {
   const [messageSuccess, setMessageSucess] = useState<string>('')
   const [showPasswordValidation, setShowPasswordValidation] =
     useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const {
     errors,
@@ -37,7 +39,7 @@ const ForgotPassword: FC = (props: Props) => {
     onSubmit: async (values) => {
       const {email} = values
       const endPoint = '/user/profile/send-mail-forgot-password'
-
+      setIsLoading(true)
       try {
         const {data} = await axiosConfig.post(endPoint, {
           user_email: email,
@@ -51,6 +53,8 @@ const ForgotPassword: FC = (props: Props) => {
           : setValidateFailureMessage(data.message)
       } catch (error) {
         setValidateFailureMessage('Something went wrong, please try again')
+      } finally {
+        setIsLoading(false)
       }
     },
   })
@@ -106,23 +110,27 @@ const ForgotPassword: FC = (props: Props) => {
               <span>Enter your email to reset your password.</span>
             </h4>
 
-            <div className='form__input-wrap'>{inputFieldList}</div>
+            {isLoading ? (
+              <div className='py-3'>
+                <Loading />
+              </div>
+            ) : (
+              <>
+                <div className='form__input-wrap'>{inputFieldList}</div>
 
-            <>
-              {validateFailureMessage && (
-                <p className='text-danger text-center mt-4'>
-                  {validateFailureMessage}
-                </p>
-              )}
-            </>
+                {validateFailureMessage && (
+                  <p className='message-error text-danger text-center mt-4'>
+                    {validateFailureMessage}
+                  </p>
+                )}
 
-            <>
-              {messageSuccess && (
-                <p className='message-success text-center m-0 mt-4'>
-                  {messageSuccess}
-                </p>
-              )}
-            </>
+                {messageSuccess && (
+                  <p className='message-success text-center m-0 mt-4'>
+                    {messageSuccess}
+                  </p>
+                )}
+              </>
+            )}
 
             <ButtonSubmitForm disabled={messageSuccess ? true : isSubmitting}>
               Continue

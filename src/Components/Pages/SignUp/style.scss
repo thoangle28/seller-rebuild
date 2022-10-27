@@ -27,6 +27,10 @@
     width: calc(50% - 5px);
   }
 
+  .signup__text-error {
+    font-size: 14px;
+  }
+
   .check__terms {
     $box-size: 20px;
     display: flex;

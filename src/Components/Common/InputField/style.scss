@@ -47,6 +47,10 @@
     color: var(--primary) !important;
   }
 
+  &.form__input--error:placeholder-shown:not(:focus) + .form__label {
+    color: rgba(0, 0, 0, 0.6) !important;
+  }
+
   &:not(:placeholder-shown) + .form__label,
   &:focus + .form__label {
     top: 0;

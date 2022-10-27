@@ -9,6 +9,7 @@ import InputField from 'Components/Common/InputField'
 import ButtonSubmitForm from 'Components/Common/ButtonSubmitForm'
 import LoginSchema from './Schema/index'
 import {login} from './Redux/action'
+import Loading from 'Components/Common/Loading'
 interface Props {
   ex?: string
 }
@@ -39,7 +40,11 @@ const Signin: FC<Props> = (props: Props) => {
 
   const renderErrorMessage = (message: string) => {
     if (!message) return <></>
-    return <p className='text-danger text-center mt-4'>{message}</p>
+    return (
+      <p className='signin__text-error text-danger text-center mt-4'>
+        {message}
+      </p>
+    )
   }
 
   const inputFields = [
@@ -47,7 +52,7 @@ const Signin: FC<Props> = (props: Props) => {
       name: 'username',
       id: 'username',
       label: 'Email/Username',
-      type: 'email',
+      type: 'text',
       value: values.username,
       textError: errors.username,
       isError: errors.username && touched.username,
@@ -99,8 +104,17 @@ const Signin: FC<Props> = (props: Props) => {
             </Link>
           </h4>
 
-          <div className='form__input-wrap'>{inputFieldList}</div>
-          {renderErrorMessage(message)}
+          {isLoading ? (
+            <div className='py-3'>
+              <Loading />
+            </div>
+          ) : (
+            <>
+              <div className='form__input-wrap'>{inputFieldList}</div>
+              {renderErrorMessage(message)}
+            </>
+          )}
+
           <ButtonSubmitForm disabled={isLoading}>CONTINUE</ButtonSubmitForm>
 
           <Link
