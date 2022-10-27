@@ -1,12 +1,14 @@
+import {faPenToSquare} from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {iTableHead, iTableBody} from 'app/Models'
 export const dataTableHead: iTableHead[] = [
   {
     name: '#ID',
-    className: 'text-left',
+    className: 'text-center',
   },
   {
     name: 'Product Name',
-    className: 'text-center',
+    className: 'text-left',
   },
   {
     name: 'Type',
@@ -46,6 +48,7 @@ export const dataTableBody: iTableBody[] = [
     price: {old: 20, new: 10},
     date: '1/10/2022',
     status: 'draft',
+    actions: <FontAwesomeIcon icon={faPenToSquare} />,
   },
   {
     id: '111113',
@@ -58,6 +61,7 @@ export const dataTableBody: iTableBody[] = [
     price: {old: 20, new: 10},
     date: '1/10/2022',
     status: 'pending',
+    actions: <FontAwesomeIcon icon={faPenToSquare} />,
   },
   {
     id: '158521',
@@ -70,6 +74,7 @@ export const dataTableBody: iTableBody[] = [
     price: {old: 20, new: 10},
     date: '1/10/2022',
     status: 'pending',
+    actions: <FontAwesomeIcon icon={faPenToSquare} />,
   },
   {
     id: '147893',
@@ -82,5 +87,6 @@ export const dataTableBody: iTableBody[] = [
     price: {old: 20, new: 10},
     date: '1/10/2022',
     status: 'pending',
+    actions: <FontAwesomeIcon icon={faPenToSquare} />,
   },
 ]

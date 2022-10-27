@@ -1,83 +1,77 @@
 .monthly-bussiness-data {
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  padding: 38px;
-  padding-right: 56px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 38px;
+    padding-right: 56px;
 
-  .result-wrapper {
-    width: 260px;
-    height: 260px;
-    border-radius: 50%;
-    transition: all 0.5s ease-out;
+    .result-wrapper {
+        width: 260px;
+        height: 260px;
+        border-radius: 50%;
+        transition: all 0.5s ease-out;
 
-    .profit {
-      transition: all 0.5s ease-out;
-      font-weight: 600;
-      font-size: 35px;
-      line-height: 43px;
+        .profit {
+            transition: all 0.5s ease-out;
+            font-weight: 600;
+            font-size: 35px;
+            line-height: 43px;
+        }
+
+        .month {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 17px;
+        }
     }
 
-    .month {
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 17px;
-    }
-  }
+    .month-list {
+        &-title {
+            font-weight: 600;
+            font-size: 20px;
+            line-height: 24px;
+        }
 
-  .month-list {
-    &-title {
-      font-weight: 600;
-      font-size: 20px;
-      line-height: 24px;
-    }
+        &__item {
+            width: 20%;
+            margin-left: 66px;
 
-    &__item {
-      width: 20%;
-      margin-left: 66px;
-
-      span {
-        display: block;
-        width: 20px;
-        height: 20px;
-        border-radius: 5px;
-      }
+            span {
+                display: block;
+                width: 20px;
+                height: 20px;
+                border-radius: 5px;
+            }
+        }
     }
-  }
 }
 
 .dashboard-header {
-  &__title {
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 24px;
-  }
+    &__title {
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 24px;
+    }
 
-  &__subtitle {
-    font-weight: 500;
-    line-height: 20px;
-    color: rgba(0, 0, 0, 0.6);
-    font-size: 16px;
-  }
+    &__subtitle {
+        font-weight: 500;
+        line-height: 20px;
+        color: rgba(0, 0, 0, 0.6);
+        font-size: 16px;
+    }
 }
 
 .table-wrapper {
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  padding-left: 26px !important;
-  padding-right: 23px !important;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+
 }
 
 .add-new-btn {
-  font-weight: 600;
-  line-height: 20px;
-  padding: 7px 17px;
+    font-weight: 600;
+    line-height: 20px;
+    padding: 7px 17px;
 }
 
 .view-more-button {
-  padding: 12px 60px !important;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 17px;
-  margin-top: 38px !important;
-  border: none;
+    padding: 8px 0;
 }
