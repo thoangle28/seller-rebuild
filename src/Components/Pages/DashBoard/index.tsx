@@ -46,7 +46,7 @@ const DashBoard: FC<Props> = (props: Props) => {
         user_id: userId
       }
       dispatch(getChartData(payload))
-      dispatch(getTotalData(payload)) 
+      dispatch(getTotalData(payload))
     }
 
   }, [])
