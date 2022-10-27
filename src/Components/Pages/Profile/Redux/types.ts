@@ -1,0 +1,30 @@
+const getInfoUser = {
+  GET_INFO_USER_REQUEST: 'GET_INFO_USER_REQUEST',
+  GET_INFO_USER_FAILURE: 'GET_INFO_USER_FAILURE',
+  GET_INFO_USER_SUCCESS: 'GET_INFO_USER_SUCCESS',
+}
+
+const editInfoUser = {
+  EDIT_INFO_USER_REQUEST: 'EDIT_INFO_USER_REQUEST',
+  EDIT_INFO_USER_FAILURE: 'EDIT_INFO_USER_FAILURE',
+  EDIT_INFO_USER_SUCCESS: 'EDIT_INFO_USER_SUCCESS',
+}
+
+const changePassword = {
+  CHANGE_PASSWORD_REQUEST: 'CHANGE_PASSWORD_REQUEST',
+  CHANGE_PASSWORD_FAILURE: 'CHANGE_PASSWORD_FAILURE',
+  CHANGE_PASSWORD_SUCCESS: 'CHANGE_PASSWORD_SUCCESS',
+}
+
+const deleteMessage = {
+  DELETE_MESSAGE: 'DELETE_MESSAGE',
+}
+
+const actionTypes = {
+  ...getInfoUser,
+  ...editInfoUser,
+  ...changePassword,
+  ...deleteMessage,
+}
+
+export default actionTypes

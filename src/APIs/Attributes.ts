@@ -5,7 +5,7 @@ import {
   iCreateChildAttrPayload,
   iUpdateAttr,
   iUpdateChildAttribute,
-} from 'app/Models'
+} from './../app/Models'
 
 const attributeApis = {
   getAll: (payload: iGetAttributePayload) => {
