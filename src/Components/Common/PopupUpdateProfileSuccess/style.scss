@@ -12,11 +12,12 @@
     background: linear-gradient(230.19deg, #000080 30.03%, #87bdd8 84.55%);
     box-shadow: 0px 1.88px 9.4px rgba(0, 0, 0, 0.4);
     border-radius: 50%;
+    margin-bottom: 14px !important;
     width: $size;
     height: $size;
 
     svg {
-      font-size: 35px;
+      font-size: 40px;
       color: #fff;
     }
   }
@@ -25,10 +26,12 @@
     font-weight: 600;
     font-size: 20px;
     line-height: 30px;
+    margin-bottom: 18px !important;
   }
 
   &__sub-title {
     font-size: 14px;
     line-height: 17px;
+    margin-bottom: 18px !important;
   }
 }

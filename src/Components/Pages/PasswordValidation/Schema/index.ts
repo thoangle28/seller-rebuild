@@ -1,11 +1,13 @@
 import * as yup from 'yup'
 
-const pwdRule = /^(?=.*?[A-Z])(?=.*?[0-9]).{3,}$/
+const pwdRule = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[#?!@$%^&*-])(?=.*?[0-9]).{8,}$/
 const PasswordValidationSchema = yup.object().shape({
   newPassword: yup
     .string()
-    .min(3)
-    .matches(pwdRule, 'Invalid password')
+    .matches(
+      pwdRule,
+      `Must contain 8 characters, one uppercase, one lowercase, one number and one special case character.`
+    )
     .required('New password is required'),
   passwordConfirm: yup
     .string()

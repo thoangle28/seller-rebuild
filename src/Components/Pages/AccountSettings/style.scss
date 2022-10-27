@@ -1,8 +1,7 @@
 .account-settings {
-  margin: 16px 60px 10px 16px;
-  position: relative;
+  flex: 1;
 
-  .settings__title {
+  &__title {
     font-weight: 600;
     font-size: 16px;
     line-height: 20px;
@@ -17,6 +16,7 @@
     padding: 20px;
 
     &__heading {
+      padding-bottom: 8.82px;
       border-bottom: 1px solid #d9d9d9;
     }
 
@@ -37,66 +37,86 @@
         margin-right: 26px;
       }
     }
-  }
 
-  .info-details__list {
-    list-style-type: none;
-  }
+    &-details {
+      &__list {
+        list-style-type: none;
+        padding-top: 13px !important;
+      }
 
-  .info-details__title {
-    min-width: 200px;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 20px;
-  }
+      &__item {
+        padding-bottom: 12px !important;
+        &:last-child {
+          padding: 0 !important;
+        }
+      }
 
-  .info-details__text {
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 20px;
-  }
+      &__title {
+        width: 281px;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 20px;
+        flex-shrink: 0;
+      }
 
-  .info-details__img {
-    $size: 84px;
-    width: $size;
-    height: $size;
-    border-radius: 50%;
-  }
+      &__text {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 20px;
+      }
 
-  .info-details__input-row {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 8px;
-  }
+      &__img {
+        $size: 84px;
+        width: $size;
+        height: $size;
+        border-radius: 50%;
+      }
 
-  .info-details__input {
-    background: rgba(192, 194, 194, 0.3);
-    border-radius: 5px;
-    outline: none;
-    border: none;
-    padding-inline: 16px;
-  }
+      &__input-row {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 11px;
+      }
 
-  .info-details__brand-logo {
-    $size: 84px;
-    border-radius: 50%;
-    margin-right: 40px;
-    width: $size;
-    height: $size;
-  }
+      &__input-wrap {
+        flex: 1;
+      }
 
-  .info-details__input-checkbox-wrap {
-    label {
-      cursor: pointer;
+      &__input {
+        background: rgba(192, 194, 194, 0.2);
+        border-radius: 5px;
+        outline: none;
+        border: none;
+        padding: 10.5px 24px;
+      }
+
+      &__brand-logo {
+        $size: 84px;
+        border-radius: 50%;
+        margin-right: 40px;
+        width: $size;
+        height: $size;
+      }
+
+      &__input-checkbox-wrap {
+        label {
+          cursor: pointer;
+        }
+      }
+
+      &__text-error {
+        margin-top: 8px !important;
+        font-size: 10px;
+        line-height: 12px;
+      }
     }
   }
 
   .upload-brand__label {
     border: 0.5px dashed #000080;
     border-radius: 10px;
-    padding-inline: 20px;
-    padding-block: 12px;
+    padding: 12px 16px 12px 20.17px;
     cursor: pointer;
 
     .upload-brand-icon {
@@ -110,108 +130,134 @@
     }
   }
 
-  .info-details-text-error {
-    font-size: 12px;
+  .update-success {
+    &-wrap {
+      z-index: 1;
+      animation: showPopup 0.15s linear;
+    }
+    &-overlay {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.3);
+    }
   }
 
   .signin-method {
-    width: 290px;
-    background: #ffffff;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    min-height: 420px;
-    padding: 20px;
-    position: relative;
+    &__content {
+      background: #ffffff;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+    }
 
-    &-actions {
-      position: absolute;
-      right: 20px;
-      bottom: 20px;
+    &__right {
+      width: 292px;
+      flex-shrink: 0;
 
-      span {
-        cursor: pointer;
+      &-top {
+        flex-shrink: 0;
+
+        h3 {
+          font-size: 10px;
+          line-height: 12px;
+        }
+
+        p {
+          font-size: 10px;
+          line-height: 12px;
+        }
+      }
+
+      &-actions {
+        margin-top: auto;
+
+        h3 {
+          outline: none;
+          border: none;
+          font-size: 16px;
+          line-height: 24px;
+          color: #4285f4;
+          background-color: transparent;
+          cursor: pointer;
+
+          &:hover {
+            opacity: 0.8;
+          }
+        }
       }
     }
 
     &__title {
-      font-weight: 600;
       font-size: 16px;
       line-height: 20px;
-      border-bottom: 1px solid #d9d9d9;
     }
 
-    &__password {
-      font-weight: 400;
+    &__name {
       font-size: 16px;
+      line-height: 20px;
+      width: 281px;
+      flex-shrink: 0;
+    }
+
+    &__item {
+      margin-bottom: 12px !important;
+
+      &:last-child {
+        margin: 0 !important;
+      }
+    }
+
+    &__input {
+      background: rgba(192, 194, 194, 0.2);
+      border-radius: 5px;
+      border: none;
+      outline: none;
+      padding: 10.5px 24px;
+      flex-grow: 1;
+    }
+
+    &__text-error {
+      margin-top: -4px !important;
+      margin-bottom: 12px !important;
+      margin-left: 281px !important;
+      font-size: 10px;
+      line-height: 12px;
+    }
+
+    &__pwd {
+      font-weight: 600;
+      font-size: 20px;
       line-height: 24px;
-      margin-bottom: 20px;
-
-      &-current {
-        font-weight: 700;
-        font-size: 18px;
-        line-height: 27px;
-      }
     }
 
-    .pwd-field {
-      &__title {
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 24px;
-      }
+    &__btn {
+      border: none;
+      outline: none;
+      background: #ffffff;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 5px;
+      padding: 11.75px 20px 11.75px 17.48px !important;
 
-      &__input {
-        outline: none;
-        border: none;
-        background: rgba(192, 194, 194, 0.3);
-        border-radius: 5px;
-        padding-inline: 16px;
-      }
-    }
-
-    .pwd-note {
-      h3 {
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 15px;
-
-        font-weight: 500;
+      img {
+        height: 22.5px;
+        margin-right: 10.5px;
       }
 
       span {
-        font-style: normal;
-        font-weight: 400;
-        font-size: 12px;
-        line-height: 15px;
-        color: #c5221f;
-        margin-bottom: 20px;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 20px;
       }
     }
-
-    .pwd-text-error {
-      font-size: 12px;
-    }
   }
+}
 
-  .update-success-overlay {
-    position: fixed;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.3);
+@keyframes showPopup {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
   }
-
-  .update-success-wrap {
-    z-index: 1;
-    animation: showPopup 0.15s linear;
-  }
-
-  @keyframes showPopup {
-    0% {
-      opacity: 0;
-      transform: scale(0.5);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
 }
