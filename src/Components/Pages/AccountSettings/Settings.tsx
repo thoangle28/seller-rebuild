@@ -76,7 +76,7 @@ const Settings = () => {
   })
 
   return (
-    <div className='settings p-4'>
+    <div className='settings'>
       <form onSubmit={handleSubmit}>
         <div className='settings__heading d-flex align-items-center justify-content-between'>
           {/* Navbar overview and settings */}

@@ -164,12 +164,13 @@ const SignInMethod = () => {
           </div>
 
           <div className='signin-method__right-actions d-flex justify-content-end align-items-center'>
-            <h3 className='me-3 m-0' onClick={handleShowResetPwd}>
+            <h3 className='me-3 m-0 fw-normal' onClick={handleShowResetPwd}>
               Cancel
             </h3>
             <ButtonPrimary
               disabled={isLoading || (isSuccess && message)}
-              type='submit'>
+              type='submit'
+              className='btn-update-pwd'>
               Update Password
             </ButtonPrimary>
           </div>
@@ -180,9 +181,7 @@ const SignInMethod = () => {
 
   return (
     <div className='signin-method mt-4'>
-      <h2 className='account-settings__title mb-3 text-text-uppercase'>
-        SIGN-IN METHOD
-      </h2>
+      <h2 className='account-settings__title mb-3'>Sign-in Method</h2>
 
       <div className='signin-method__content p-4'>
         {showResetPassword ? renderResetPassword() : renderSignInMethod()}
