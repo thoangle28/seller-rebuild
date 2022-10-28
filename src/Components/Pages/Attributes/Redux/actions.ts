@@ -145,8 +145,8 @@ export const updateAttribute =
       const {message, code} = response.data
       if (code === 200) {
         dispatch(updateAttrSuccess(message))
-        dispatch(getAttributeList(getAllPayload))
         dispatch(changeUpdateMode(false))
+        dispatch(getAttributeList(getAllPayload))
       } else {
         dispatch(updateAttrFailure(message))
       }
@@ -164,8 +164,8 @@ export const updateChildAttr =
       const {message, code} = response.data
       if (code === 200) {
         dispatch(updateChildAttrSuccess(message))
-        dispatch(getAttributeList(getAllPayload))
         dispatch(changeUpdateMode(false))
+        dispatch(getAttributeList(getAllPayload))
       } else {
         dispatch(updateChildAttrFailure(message))
       }

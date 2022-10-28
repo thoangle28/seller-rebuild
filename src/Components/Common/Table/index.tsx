@@ -27,7 +27,7 @@ const Table: FC<Props> = (props: Props) => {
   }
 
   return (
-    <table className='table m-0'>
+    <table className='table m-0 '>
       <RenderTableHeader />
       {children}
     </table>

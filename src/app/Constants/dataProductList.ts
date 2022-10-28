@@ -2,11 +2,11 @@ import {iTableHead, iTableBody} from 'app/Models'
 export const dataTableHead: iTableHead[] = [
   {
     name: '#ID',
-    className: 'text-left',
+    className: 'text-start',
   },
   {
     name: 'Product Name',
-    className: 'text-left',
+    className: 'text-start',
   },
   {
     name: 'Type',

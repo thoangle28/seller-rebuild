@@ -220,80 +220,84 @@ const Attributes = () => {
         </div>
 
         <div className='attributes__content p-4'>
-          <div className='attributes__content-top pb-3'>
-            {isFailure && message && (
-              <div
-                className='mess-box d-flex flex-column py-2 align-items-center mb-3'
-                style={{backgroundColor: 'rgba(197, 34, 31, 0.2)'}}>
-                <img src={iconError} alt='icon error' />
-                <h3 className='m-0 mt-2 text-danger'>{message}</h3>
-              </div>
-            )}
-
-            {isSuccess && message && (
-              <div
-                className='mess-box d-flex flex-column py-2 align-items-center mb-3'
-                style={{backgroundColor: 'rgba(52, 168, 83, 0.2)'}}>
-                <img src={iconSuccess} alt='icon success' />
-                <h3 className='m-0 mt-2 text-success'>{message}</h3>
-              </div>
-            )}
-
-            <div className='attributes__create mb-3'>
-              <label
-                htmlFor='parent-attributes'
-                className='attributes__content-title text-capitalize pb-2'>
-                Parent Attribute
-              </label>
-              <select
-                className='w-100 attributes__content-select'
-                id='parent-attributes'
-                value={selectParentAttribute}
-                onChange={handleChangeValueSelect}>
-                <option value=''>None</option>
-                {renderListOptions}
-              </select>
-            </div>
-
-            <div className='attributes__content-bot'>
-              <label
-                htmlFor='add-attribute'
-                className='attributes__content-title text-capitalize pb-2'>
-                Child Attribute Name
-              </label>
-
-              <form onSubmit={handleSubmit}>
-                <input
-                  type='text'
-                  className={
-                    errors.newAttribute && touched.newAttribute
-                      ? 'attributes__content-input attributes__content-input--error w-100'
-                      : 'attributes__content-input w-100'
-                  }
-                  name='newAttribute'
-                  value={values.newAttribute}
-                  onChange={handleChangeInput}
-                  onBlur={handleBlur}
-                  id='add-attribute'
-                />
-
-                {errors.newAttribute && touched.newAttribute && (
-                  <p className='attributes__content-text-error m-0 pt-2'>
-                    {errors.newAttribute}
-                  </p>
-                )}
-
-                <div className='mt-3'>
-                  <ButtonPrimary
-                    className='attributes__content-btn'
-                    type='submit'
-                    disabled={isSubmitting}>
-                    Add New
-                  </ButtonPrimary>
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <div className='attributes__content-top pb-3'>
+              {isFailure && message && (
+                <div
+                  className='mess-box d-flex flex-column py-2 align-items-center mb-3'
+                  style={{backgroundColor: 'rgba(197, 34, 31, 0.2)'}}>
+                  <img src={iconError} alt='icon error' />
+                  <h3 className='m-0 mt-2 text-danger'>{message}</h3>
                 </div>
-              </form>
+              )}
+
+              {isSuccess && message && (
+                <div
+                  className='mess-box d-flex flex-column py-2 align-items-center mb-3'
+                  style={{backgroundColor: 'rgba(52, 168, 83, 0.2)'}}>
+                  <img src={iconSuccess} alt='icon success' />
+                  <h3 className='m-0 mt-2 text-success'>{message}</h3>
+                </div>
+              )}
+
+              <div className='attributes__create mb-3'>
+                <label
+                  htmlFor='parent-attributes'
+                  className='attributes__content-title text-capitalize pb-2'>
+                  Parent Attribute
+                </label>
+                <select
+                  className='w-100 attributes__content-select'
+                  id='parent-attributes'
+                  value={selectParentAttribute}
+                  onChange={handleChangeValueSelect}>
+                  <option value=''>None</option>
+                  {renderListOptions}
+                </select>
+              </div>
+
+              <div className='attributes__content-bot'>
+                <label
+                  htmlFor='add-attribute'
+                  className='attributes__content-title text-capitalize pb-2'>
+                  Child Attribute Name
+                </label>
+
+                <form onSubmit={handleSubmit}>
+                  <input
+                    type='text'
+                    className={
+                      errors.newAttribute && touched.newAttribute
+                        ? 'attributes__content-input attributes__content-input--error w-100'
+                        : 'attributes__content-input w-100'
+                    }
+                    name='newAttribute'
+                    value={values.newAttribute}
+                    onChange={handleChangeInput}
+                    onBlur={handleBlur}
+                    id='add-attribute'
+                  />
+
+                  {errors.newAttribute && touched.newAttribute && (
+                    <p className='attributes__content-text-error m-0 pt-2'>
+                      {errors.newAttribute}
+                    </p>
+                  )}
+
+                  <div className='mt-3'>
+                    <ButtonPrimary
+                      className='attributes__content-btn'
+                      type='submit'
+                      disabled={isSubmitting}>
+                      Add New
+                    </ButtonPrimary>
+                  </div>
+                </form>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </>
     )
