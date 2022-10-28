@@ -21,7 +21,7 @@ import { useAppDispatch, useAppSelector } from 'app/Hooks/hooks'
 import { getChartData, getTotalData } from './redux/actions'
 import Loading from 'Components/Common/Loading'
 import editIcon from './../../../app/Images/icons/edit-icon.svg'
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 type Props = {}
 
@@ -92,7 +92,7 @@ const DashBoard: FC<Props> = (props: Props) => {
           dataTableBody.map((item) => (
             <tr key={item.id}>
               <td>
-                <span className='table__product-id text-left'>{item.id}</span>
+                <p className='table__product-id text-start m-0'>{item.id}</p>
               </td>
 
               <td>
@@ -100,20 +100,20 @@ const DashBoard: FC<Props> = (props: Props) => {
                   <img src={item.productImg} alt={item.productName} />
 
                   <div className='table__product-info d-flex flex-column'>
-                    <h3 className='m-0 pb-2'>{item.productName}</h3>
+                    <h3 className='m-0'>{item.productName}</h3>
                     <p className='m-0'>{item.productDesc}</p>
                   </div>
                 </div>
               </td>
 
               <td>
-                <h4 className='table__product-type m-0 text-center text-capitalize'>
+                <h4 className='table__product-type m-0 text-center text-capitalize fw-normal'>
                   {item.type}
                 </h4>
               </td>
 
               <td>
-                <h4 className='table__product-sku m-0 text-center'>
+                <h4 className='table__product-sku m-0 text-center fw-normal'>
                   {item.sku}
                 </h4>
               </td>
@@ -123,7 +123,7 @@ const DashBoard: FC<Props> = (props: Props) => {
                   <h4 className='table__product-price-new m-0'>
                     $ {item.price.new}
                   </h4>
-                  <h5 className='table__product-price-old m-0'>
+                  <h5 className='table__product-price-old m-0 fw-normal'>
                     $ {item.price.old}
                   </h5>
                 </div>
@@ -263,12 +263,14 @@ const DashBoard: FC<Props> = (props: Props) => {
             <img src={addToQueue} alt='add new product' /> New Product
           </button>
         </div>
-        <div className='table-wrapper bg-white py-4'>
+        <div className='table-wrapper bg-white p-4'>
           <div className='bg-white'>
             <Table dataTableHead={dataTableHead}>{renderTableBody()}</Table>
           </div>
           <div className='text-center'>
-            <Link to={'/product-listing'} className='view-more-button btn btn-primary'>
+            <Link
+              to={'/product-listing'}
+              className='view-more-button btn btn-primary'>
               View More Products
             </Link>
           </div>
