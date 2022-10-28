@@ -1,4 +1,4 @@
-import {FC, useState, useEffect} from 'react'
+import { FC, useState, useEffect } from 'react'
 import DefaultLayout from 'Components/Layouts/DefaultLayout'
 import InfoTag from './../../Common/InfoTag'
 import BarChart from 'Components/Common/Chart'
@@ -8,8 +8,8 @@ import {
   faListSquares,
   faTicketSimple,
 } from '@fortawesome/free-solid-svg-icons'
-import {iGeneral, iInfoData, iMonthData} from 'app/Models'
-import {CURRENT_MONTH, CURRENT_YEAR, MONTHS, Data} from 'app/Constants'
+import { iGeneral, iInfoData, iMonthData } from 'app/Models'
+import { CURRENT_MONTH, CURRENT_YEAR, MONTHS } from 'app/Constants'
 import {
   dataTableBody,
   dataTableHead,
@@ -17,8 +17,8 @@ import {
 import addToQueue from './../../../app/Images/icons/bxs_add-to-queue.svg'
 import './style.scss'
 import Table from 'Components/Common/Table'
-import {useAppDispatch, useAppSelector} from 'app/Hooks/hooks'
-import {getChartData, getTotalData} from './redux/actions'
+import { useAppDispatch, useAppSelector } from 'app/Hooks/hooks'
+import { getChartData, getTotalData } from './redux/actions'
 import Loading from 'Components/Common/Loading'
 import editIcon from './../../../app/Images/icons/edit-icon.svg'
 import { Link } from 'react-router-dom'
@@ -168,9 +168,9 @@ const DashBoard: FC<Props> = (props: Props) => {
     return (
       <div className='row g-4'>
         {infoData.map((item, index) => {
-          const {icon, number, subtitle, title} = item
+          const { icon, number, subtitle, title } = item
           return (
-            <div className='col-sm-6 col-md-3' key={index}>
+            <div className='col-12 col-md-12 col-lg-6 col col-xl-3' key={index}>
               {isLoading ? (
                 <Loading />
               ) : (
@@ -204,20 +204,20 @@ const DashBoard: FC<Props> = (props: Props) => {
           <div className='col-sm-12'>
             <div className='monthly-bussiness-data bg-white'>
               <div className='row g-0'>
-                <div className='col-md-5'>
+                <div className='col-sm-12 col-md-12 col-xxl-5'>
                   <div
-                    style={{border: `18px solid ${currentMonth.color}`}}
-                    className='result-wrapper text-center d-flex justify-content-center align-items-center flex-column'>
+                    style={{ border: `18px solid ${currentMonth.color}` }}
+                    className='result-wrapper text-center d-flex justify-content-center align-items-center flex-column mx-auto'>
                     <p className='month mb-0'>{currentMonth.fullName}</p>
                     <p
-                      style={{color: `${currentMonth.color}`}}
+                      style={{ color: `${currentMonth.color}` }}
                       className='profit my-1'>
                       $10.000
                     </p>
                     <span>Net Profilt</span>
                   </div>
                 </div>
-                <div className='col-md-7'>
+                <div className='col-sm-12 col-md-12 col-xxl-7'>
                   <div className='d-flex justify-content-end flex-column'>
                     <p className='month-list-title text-end text-primary'>
                       Top 2/12
@@ -232,7 +232,7 @@ const DashBoard: FC<Props> = (props: Props) => {
                             <p className='mb-0 d-flex text-capitalize justify-content-between align-items-center'>
                               <span
                                 className='me-2'
-                                style={{background: month.color}}></span>
+                                style={{ background: month.color }}></span>
                               {month.name}
                             </p>
                           </div>
@@ -312,8 +312,8 @@ const DashBoard: FC<Props> = (props: Props) => {
         <div className='col-md-12'>{renderInfoTags()}</div>
       </div>
       <div className='row pt-4 g-4'>
-        <div className='col-md-6'>{renderMonthlyBussinessData()}</div>
-        <div className='col-md-6'>{renderChart()}</div>
+        <div className='col-sm-12 col-xl-6'>{renderMonthlyBussinessData()}</div>
+        <div className='col-sm-12 col-xl-6'>{renderChart()}</div>
       </div>
       <div className='row'>{renderTable()}</div>
     </DefaultLayout>
