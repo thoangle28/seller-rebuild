@@ -1,3 +1,4 @@
+import {useState} from 'react'
 import {
   faUser,
   faEnvelope,
@@ -9,6 +10,7 @@ import Loading from '../Loading'
 import defaultUploadImg from './../../../app/Images/default-upload-img.png'
 import uploadIcon from './../../../app/Images/icons/upload-icon.svg'
 import './style.scss'
+import {convertBase64} from 'app/Utils'
 
 interface Props {
   data: any
@@ -17,6 +19,9 @@ interface Props {
 
 const MyProfile = (props: Props) => {
   const {data, isLoading} = props
+
+  const [avatarUser, setAvatarUser] = useState<string>('')
+
   const {firstname, lastname, avatar, contactEmail, contactPhone, address} =
     data
   const fullName = `${firstname} ${lastname}`
@@ -41,6 +46,15 @@ const MyProfile = (props: Props) => {
     },
   ]
 
+  const handleUploadAvatar = async (e: any) => {
+    const file = e.target.files[0]
+
+    try {
+      const base64: any = await convertBase64(file)
+      setAvatarUser(base64)
+    } catch (error) {}
+  }
+
   // Render list info
   const infoUserList = infoUser.map((item, index) => (
     <li className='user-info__item' key={index}>
@@ -64,10 +78,22 @@ const MyProfile = (props: Props) => {
         <>
           {' '}
           <div className='user-avatar d-flex justify-content-center align-items-center mx-auto mb-4'>
-            <img src={avatar || defaultUploadImg} alt='avatar' />
+            {avatar || avatarUser ? (
+              <img src={avatarUser || avatar} alt='avatar' />
+            ) : (
+              <img
+                src={defaultUploadImg}
+                alt='avatar default'
+                className='avatar-default'
+              />
+            )}
 
             <div className='upload__wrap'>
-              <input type='file' id='upload-avatar' />
+              <input
+                type='file'
+                id='upload-avatar'
+                onChange={handleUploadAvatar}
+              />
               <label htmlFor='upload-avatar'>
                 <img src={uploadIcon} alt='upload icon' />
               </label>

@@ -10,12 +10,12 @@
   }
 
   .settings {
-    flex: 1;
     background: #ffffff;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     min-height: 420px;
-    padding: 20px;
+    padding: 9px 24px 24px !important;
+    flex-grow: 1;
 
     &__heading {
       padding-bottom: 8.82px;
@@ -102,6 +102,7 @@
       }
 
       &__input-checkbox-wrap {
+        max-height: 20px;
         label {
           cursor: pointer;
         }
@@ -185,12 +186,17 @@
             opacity: 0.8;
           }
         }
+
+        .btn-update-pwd {
+          letter-spacing: -0.454px;
+        }
       }
     }
 
     &__title {
       font-size: 16px;
       line-height: 20px;
+      font-weight: 400;
     }
 
     &__name {
@@ -229,6 +235,7 @@
       font-weight: 600;
       font-size: 20px;
       line-height: 24px;
+      padding-bottom: 49px !important;
     }
 
     &__btn {

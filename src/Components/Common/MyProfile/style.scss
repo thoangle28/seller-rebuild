@@ -17,9 +17,16 @@
     position: relative;
 
     img {
-      width: 83px;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
       border-radius: inherit;
       object-fit: cover;
+    }
+
+    .avatar-default {
+      width: 83px;
+      height: auto;
     }
   }
 

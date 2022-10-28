@@ -20,13 +20,13 @@ $spacer: 1rem;
   background: #ebebeb;
   border-radius: 15px;
 }
- 
+
 @import '~bootstrap/scss/bootstrap';
 
 // Fonts
 @font-face {
   font-family: 'Montserrat';
-  src: url('./../Fonts/Montserrat-Thin.ttf');
+  src: url('./../Fonts/Montserrat-Light.ttf');
   font-weight: 300;
 }
 
@@ -63,6 +63,10 @@ $spacer: 1rem;
   --info: #b7d7e8;
   --danger: #c5221f;
   --warning: #fbbc04;
+}
+
+body {
+  overflow-y: overlay;
 }
 
 .cursor-pointer {
