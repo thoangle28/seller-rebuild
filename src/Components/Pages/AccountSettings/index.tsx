@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef} from 'react'
+import {useEffect, useRef} from 'react'
 import MyProfile from 'Components/Common/MyProfile'
 import DefaultLayout from 'Components/Layouts/DefaultLayout'
 
@@ -45,7 +45,7 @@ const AccountSettings = () => {
           {/* My Profile */}
           <MyProfile data={infoUser} isLoading={isLoading} />
 
-          <div className='d-flex flex-column'>
+          <div className='account-settings__right d-flex flex-column'>
             {/* Settings */}
             <Settings />
 

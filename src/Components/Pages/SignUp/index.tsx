@@ -12,25 +12,20 @@ import {useAppDispatch, useAppSelector} from './../../../app/Hooks/hooks'
 import {register} from './Redux/action'
 import {dataModal} from 'app/Constants'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faCheck} from '@fortawesome/free-solid-svg-icons'
+import {faCheck, faXmark} from '@fortawesome/free-solid-svg-icons'
 import Loading from 'Components/Common/Loading'
 type Props = {}
 const SignUp = (props: Props) => {
   const [showPopup, setShowPopup] = useState<boolean>(false)
   const [checkAcceptTerms, setCheckAcceptTerms] = useState<boolean>(false)
-
   const modalRef = useRef<HTMLDivElement>(null)
-
   const {isFailure, message, isLoading} = useAppSelector(
     (state) => state.registerReducer
   )
-
   useOnClickOutside(modalRef, () => {
     setShowPopup(false)
   })
-
   const dispatch = useAppDispatch()
-
   const {
     errors,
     touched,
@@ -53,7 +48,6 @@ const SignUp = (props: Props) => {
       dispatch(register(values))
     },
   })
-
   const inputFields = [
     {
       name: 'firstname',
@@ -110,22 +104,19 @@ const SignUp = (props: Props) => {
       isError: errors.confirmPassword && touched.confirmPassword,
     },
   ]
-
   const handleShowPopup = () => {
-    setShowPopup(true)
+    setShowPopup(!showPopup)
   }
-
   const handleCheckAcceptTerms = () => {
     setCheckAcceptTerms(!checkAcceptTerms)
   }
-
   // Render popup terms and service
   const renderPopupTermsAndServices = () => {
     return (
       <>
         {showPopup && (
           <div className='overlay d-flex justify-content-center align-items-center'>
-            <div className='modal-terms' ref={modalRef}>
+            <div className='modal__terms' ref={modalRef}>
               <h3 className='modal__heading text-center m-0'>
                 Terms and Conditions
               </h3>
@@ -133,6 +124,11 @@ const SignUp = (props: Props) => {
                 Our Policy
               </h4>
               <div className='modal__content-wrap'>{modalList}</div>
+              <FontAwesomeIcon
+                className='modal__close-icon text-danger'
+                onClick={handleShowPopup}
+                icon={faXmark}
+              />
             </div>
           </div>
         )}
@@ -160,7 +156,6 @@ const SignUp = (props: Props) => {
       </div>
     )
   })
-
   // Render list list Modal
   const modalList = dataModal.map((item, index) => (
     <div className='modal__content' key={item.title}>
@@ -170,14 +165,12 @@ const SignUp = (props: Props) => {
           {item}
         </p>
       ))}
-
       {item.img &&
         item.img.map((img, index) => (
           <img src={img} className='pb-4' alt='Modal terms' key={index} />
         ))}
     </div>
   ))
-
   const renderMessage = (message: string) => {
     if (!message) return <></>
     return (
@@ -189,7 +182,6 @@ const SignUp = (props: Props) => {
       </p>
     )
   }
-
   return (
     <FullWidthLayout>
       <form className='form-sign-up' onSubmit={handleSubmit}>
@@ -200,7 +192,6 @@ const SignUp = (props: Props) => {
               click here to login.
             </Link>
           </h4>
-
           {isLoading ? (
             <div className='py-3'>
               <Loading />
@@ -210,7 +201,6 @@ const SignUp = (props: Props) => {
               <div className='form__input-wrap'>
                 <div className='form__input-wrap-field'>{inputFieldList}</div>
               </div>
-
               <label className='check__terms mt-3 d-flex align-items-center'>
                 <label className='cursor m-0 d-flex' htmlFor='remember-pwd'>
                   I agree to the
@@ -226,22 +216,18 @@ const SignUp = (props: Props) => {
                   checked={checkAcceptTerms}
                   onChange={handleCheckAcceptTerms}
                 />
-
                 <span className='checkmark'>
                   <FontAwesomeIcon icon={faCheck} />
                 </span>
               </label>
-
               {renderMessage(message)}
             </>
           )}
-
           <ButtonSubmitForm disabled={!checkAcceptTerms}>
             Continue
           </ButtonSubmitForm>
         </FormWrapper>
       </form>
-
       {renderPopupTermsAndServices()}
     </FullWidthLayout>
   )

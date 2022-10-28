@@ -158,6 +158,11 @@
       line-height: 20px;
     }
   }
+
+  &__no-current {
+    font-size: 18px;
+    font-weight: 500;
+  }
 }
 
 @keyframes fadeIn {

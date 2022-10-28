@@ -1,10 +1,12 @@
 .account-settings {
-  flex: 1;
+  &__right {
+    flex-grow: 1;
+  }
 
   &__title {
     font-weight: 600;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 20px;
+    line-height: 24px;
   }
 
   .settings {
