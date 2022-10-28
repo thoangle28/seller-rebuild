@@ -6,7 +6,7 @@ export const dataTableHead: iTableHead[] = [
   },
   {
     name: 'Product Name',
-    className: 'text-center',
+    className: 'text-left',
   },
   {
     name: 'Type',
