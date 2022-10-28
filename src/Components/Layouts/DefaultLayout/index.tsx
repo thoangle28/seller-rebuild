@@ -19,7 +19,7 @@ const DefaultLayout: FC<Props> = (props: Props) => {
         </div>
         <div className='page-content'>
           <Header />
-          <div className='content-wrapper'>{children}</div>
+          <div className='content-wrapper min-vh-100'>{children}</div>
           <Footer />
         </div>
       </div>

@@ -1,8 +1,7 @@
 .monthly-bussiness-data {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  padding: 38px;
-  padding-right: 56px;
+  padding: 58px 58px 58px 38px; 
 
   .result-wrapper {
     width: 260px;
@@ -79,4 +78,13 @@
   margin-top: 9px !important;
   letter-spacing: -0.355px;
   border: none;
+}
+
+
+@media screen and (max-width:1440px) {
+  .monthly-bussiness-data {
+    .month-list__item {
+      margin-left: 0;
+    }
+  }
 }
