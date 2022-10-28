@@ -150,6 +150,10 @@ const Attributes = () => {
           Internal Server Error. Please report to admin
         </h3>
       </div>
+    ) : attributeList.length <= 0 && isSuccess ? (
+      <p className='attributes__no-current text-primary text-center m-0'>
+        Your attribute is currently empty
+      </p>
     ) : (
       attributeList.map((parent: any, index: number) => {
         const checkOpen = isActiveIndex === index

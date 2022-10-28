@@ -12,8 +12,8 @@ const ProductListing = () => {
         {dataTableBody.length > 0 ? (
           dataTableBody.map((item) => (
             <tr key={item.id}>
-              <td className='text-left'>
-                <span className='table__product-id'>{item.id}</span>
+              <td>
+                <span className='table__product-id text-left'>{item.id}</span>
               </td>
 
               <td>
@@ -40,7 +40,7 @@ const ProductListing = () => {
               </td>
 
               <td>
-                <div className='table__product-price d-flex align-items-center'>
+                <div className='table__product-price d-flex align-items-center justify-content-center'>
                   <h4 className='table__product-price-new m-0'>
                     $ {item.price.new}
                   </h4>
@@ -87,7 +87,7 @@ const ProductListing = () => {
 
   return (
     <DefaultLayout>
-      <div className='pdt-list'>
+      <div className='pdt-list py-4'>
         <Table dataTableHead={dataTableHead}>{renderTableBody()}</Table>
       </div>
     </DefaultLayout>
