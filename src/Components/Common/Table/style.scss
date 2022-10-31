@@ -88,12 +88,18 @@
     }
   }
 
+  &__product-date {
+    font-weight: 400;
+  }
+
   &__product-status {
     font-weight: 600;
   }
 
   &__no-product {
     font-weight: 500;
+    font-size: 16px !important;
+    padding-top: 16px !important;
   }
 
   &__product-action {

@@ -55,7 +55,7 @@
 
       &__title {
         width: 281px;
-        font-weight: 400;
+        font-weight: 500;
         font-size: 16px;
         line-height: 20px;
         flex-shrink: 0;
@@ -152,6 +152,10 @@
       border-radius: 5px;
     }
 
+    &__password {
+      padding-bottom: 49px !important;
+    }
+
     &__right {
       width: 292px;
       flex-shrink: 0;
@@ -159,14 +163,11 @@
       &-top {
         flex-shrink: 0;
 
-        h3 {
-          font-size: 10px;
-          line-height: 12px;
-        }
-
+        h3,
         p {
           font-size: 10px;
           line-height: 12px;
+          font-weight: 500;
         }
       }
 
@@ -181,6 +182,7 @@
           color: #4285f4;
           background-color: transparent;
           cursor: pointer;
+          font-weight: 500;
 
           &:hover {
             opacity: 0.8;
@@ -204,6 +206,7 @@
       line-height: 20px;
       width: 281px;
       flex-shrink: 0;
+      font-weight: 500;
     }
 
     &__item {
@@ -235,7 +238,6 @@
       font-weight: 600;
       font-size: 20px;
       line-height: 24px;
-      padding-bottom: 49px !important;
     }
 
     &__btn {

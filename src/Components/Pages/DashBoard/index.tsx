@@ -1,27 +1,26 @@
-import { FC, useState, useEffect } from 'react'
+import {FC, useState, useEffect} from 'react'
 import DefaultLayout from 'Components/Layouts/DefaultLayout'
 import InfoTag from './../../Common/InfoTag'
 import BarChart from 'Components/Common/Chart'
+import defaultImg from './../../../app/Images/default-img-err.jpg'
 import {
   faChartSimple,
   faUserPlus,
   faListSquares,
   faTicketSimple,
 } from '@fortawesome/free-solid-svg-icons'
-import { iGeneral, iInfoData, iMonthData } from 'app/Models'
-import { CURRENT_MONTH, CURRENT_YEAR, MONTHS } from 'app/Constants'
-import {
-  dataTableBody,
-  dataTableHead,
-} from './../../../app/Constants/dataProductList'
+import {iGeneral, iInfoData, iMonthData} from 'app/Models'
+import {CURRENT_MONTH, CURRENT_YEAR, MONTHS} from 'app/Constants'
+import {dataTableHead} from './../../../app/Constants/dataProductList'
 import addToQueue from './../../../app/Images/icons/bxs_add-to-queue.svg'
 import './style.scss'
 import Table from 'Components/Common/Table'
-import { useAppDispatch, useAppSelector } from 'app/Hooks/hooks'
-import { getChartData, getTotalData } from './redux/actions'
+import {useAppDispatch, useAppSelector} from 'app/Hooks/hooks'
+import {getChartData, getTotalData} from './redux/actions'
 import Loading from 'Components/Common/Loading'
 import editIcon from './../../../app/Images/icons/edit-icon.svg'
 import {Link} from 'react-router-dom'
+import {getProductList} from 'Components/Common/Table/Redux/actions'
 
 type Props = {}
 
@@ -43,9 +42,12 @@ const DashBoard: FC<Props> = (props: Props) => {
   } = useAppSelector((state) => state.generalReducer)
   const [currentMonth, setCurrentMonth] = useState<iMonthData>(initialMonthData)
 
+  const productListSelector = useAppSelector((state) => state.tableReducer)
+  const {productList} = productListSelector
+
   const dispatch = useAppDispatch()
 
-  const profile: any = JSON.parse(localStorage.getItem('profile') || '{}')
+  const profile: any = JSON.parse(localStorage.getItem('persist:profile') || '{}')
   const userId: string = profile.user?.ID || ''
 
   useEffect(() => {
@@ -56,6 +58,18 @@ const DashBoard: FC<Props> = (props: Props) => {
       dispatch(getChartData(payload))
       dispatch(getTotalData(payload))
     }
+  }, [])
+
+  useEffect(() => {
+    const payload = {
+      user_id: userId,
+      page_size: 10,
+      current_page: 1,
+      search: '',
+      status: '',
+    }
+
+    dispatch(getProductList(payload))
   }, [])
 
   const infoData: iInfoData[] = [
@@ -87,80 +101,99 @@ const DashBoard: FC<Props> = (props: Props) => {
 
   const renderTableBody = () => {
     return (
-      <tbody>
-        {dataTableBody.length > 0 ? (
-          dataTableBody.map((item) => (
-            <tr key={item.id}>
-              <td>
-                <p className='table__product-id text-start m-0'>{item.id}</p>
-              </td>
+      <>
+        {productListSelector.isSuccess && productList.length > 0 && (
+          <tbody>
+            {productList.map((item: any) => (
+              <tr key={item.product_id}>
+                <td>
+                  <span className='table__product-id text-start'>
+                    {item.id}
+                  </span>
+                </td>
 
-              <td>
-                <div className='table__product d-flex align-items-center'>
-                  <img src={item.productImg} alt={item.productName} />
+                <td>
+                  <div className='table__product d-flex align-items-center'>
+                    <img
+                      src={item.thumbnail || defaultImg}
+                      alt={item.product_name}
+                    />
 
-                  <div className='table__product-info d-flex flex-column'>
-                    <h3 className='m-0'>{item.productName}</h3>
-                    <p className='m-0'>{item.productDesc}</p>
+                    <div className='table__product-info d-flex flex-column'>
+                      <h3 className='m-0'>{item.product_name}</h3>
+                      <p className='m-0'>{item.category}</p>
+                    </div>
                   </div>
-                </div>
-              </td>
+                </td>
 
-              <td>
-                <h4 className='table__product-type m-0 text-center text-capitalize fw-normal'>
-                  {item.type}
-                </h4>
-              </td>
-
-              <td>
-                <h4 className='table__product-sku m-0 text-center fw-normal'>
-                  {item.sku}
-                </h4>
-              </td>
-
-              <td>
-                <div className='table__product-price d-flex align-items-center justify-content-center'>
-                  <h4 className='table__product-price-new m-0'>
-                    $ {item.price.new}
+                <td>
+                  <h4 className='table__product-type m-0 text-center text-capitalize fw-normal'>
+                    {item.type}
                   </h4>
-                  <h5 className='table__product-price-old m-0 fw-normal'>
-                    $ {item.price.old}
-                  </h5>
-                </div>
-              </td>
+                </td>
 
-              <td>
-                <h4 className='table__product-date text-center m-0'>
-                  {item.date}
-                </h4>
-              </td>
+                <td>
+                  <h4 className='table__product-sku m-0 text-center fw-normal'>
+                    {item.sku || '-'}
+                  </h4>
+                </td>
 
-              <td>
-                <h4
-                  className={
-                    item.status === 'pending'
-                      ? 'table__product-status text-warning text-center text-capitalize m-0'
-                      : 'table__product-status text-primary text-center text-capitalize m-0'
-                  }>
-                  {item.status}
-                </h4>
-              </td>
+                <td>
+                  <div className='table__product-price d-flex align-items-center justify-content-center'>
+                    <h4 className='table__product-price-new m-0'>
+                      $ {item.sale_price > 0 ? item.sale_price : item.price}
+                    </h4>
 
-              <td>
-                <h4 className='table__product-action text-center m-0'>
-                  <img src={editIcon} alt='edit icon' />
-                </h4>
+                    {item.sale_price > 0 && (
+                      <h5 className='table__product-price-old m-0 fw-normal'>
+                        $ {item.price}
+                      </h5>
+                    )}
+                  </div>
+                </td>
+
+                <td>
+                  <h4 className='table__product-date text-center m-0'>
+                    {item.posted_date}
+                  </h4>
+                </td>
+
+                <td>
+                  <h4
+                    className={`text-${
+                      item.status === 'pending'
+                        ? 'warning'
+                        : item.status === 'draft'
+                        ? 'success'
+                        : 'primary'
+                    } 
+                  table__product-status text-center text-capitalize m-0`}>
+                    {item.status}
+                  </h4>
+                </td>
+
+                <td>
+                  <h4 className='table__product-action text-center m-0'>
+                    <img src={editIcon} alt='edit icon' />
+                  </h4>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        )}
+
+        {productListSelector.isFailure && (
+          <tbody>
+            <tr>
+              <td colSpan={8}>
+                <span className='table__no-product text-danger text-center d-block text-capitalize'>
+                  {productListSelector.message}
+                </span>
               </td>
             </tr>
-          ))
-        ) : (
-          <td colSpan={8} className='py-3'>
-            <span className='table__no-product text-primary text-center d-block text-capitalize'>
-              No Product To Display
-            </span>
-          </td>
+          </tbody>
         )}
-      </tbody>
+      </>
     )
   }
 
@@ -168,7 +201,7 @@ const DashBoard: FC<Props> = (props: Props) => {
     return (
       <div className='row g-4'>
         {infoData.map((item, index) => {
-          const { icon, number, subtitle, title } = item
+          const {icon, number, subtitle, title} = item
           return (
             <div className='col-12 col-md-12 col-lg-12 col col-xl-6 col-xxl-3' key={index}>
               {isLoading ? (
@@ -206,11 +239,11 @@ const DashBoard: FC<Props> = (props: Props) => {
               <div className='row g-0'>
                 <div className='col-sm-12 col-md-12 col-xxl-5'>
                   <div
-                    style={{ border: `18px solid ${currentMonth.color}` }}
+                    style={{border: `18px solid ${currentMonth.color}`}}
                     className='result-wrapper text-center d-flex justify-content-center align-items-center flex-column mx-auto'>
                     <p className='month mb-0'>{currentMonth.fullName}</p>
                     <p
-                      style={{ color: `${currentMonth.color}` }}
+                      style={{color: `${currentMonth.color}`}}
                       className='profit my-1'>
                       $10.000
                     </p>
@@ -231,8 +264,8 @@ const DashBoard: FC<Props> = (props: Props) => {
                             onClick={() => setCurrentMonth(month)}>
                             <p className='mb-0 d-flex text-capitalize justify-content-between align-items-center'>
                               <span
-                                className='mx-2'
-                                style={{ background: month.color }}></span>
+                                className='me-2'
+                                style={{background: month.color}}></span>
                               {month.name}
                             </p>
                           </div>
@@ -264,16 +297,22 @@ const DashBoard: FC<Props> = (props: Props) => {
           </button>
         </div>
         <div className='table-wrapper bg-white p-4'>
-          <div className='bg-white'>
-            <Table dataTableHead={dataTableHead}>{renderTableBody()}</Table>
-          </div>
-          <div className='text-center'>
-            <Link
-              to={'/product-listing'}
-              className='view-more-button btn btn-primary'>
-              View More Products
-            </Link>
-          </div>
+          {productListSelector.isLoading ? (
+            <Loading />
+          ) : (
+            <div className='bg-white'>
+              <Table dataTableHead={dataTableHead}>{renderTableBody()}</Table>
+              {productListSelector.isSuccess && (
+                <div className='text-center'>
+                  <Link
+                    to={'/product-listing'}
+                    className='view-more-button btn btn-primary'>
+                    View More Products
+                  </Link>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     )

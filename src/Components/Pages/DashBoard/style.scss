@@ -1,7 +1,7 @@
 .monthly-bussiness-data {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  padding: 58px 58px 58px 38px; 
+  padding: 58px 58px 58px 38px;
 
   .result-wrapper {
     width: 260px;
@@ -42,6 +42,11 @@
       }
     }
   }
+}
+
+.chart-section {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
 }
 
 .dashboard-header {

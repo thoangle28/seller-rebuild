@@ -36,7 +36,7 @@ const Attributes = () => {
     useAppSelector((state) => state.attributesReducer)
 
   // Get user_id and access_token from localStorage
-  const profile = JSON.parse(localStorage.getItem('profile') || '{}')
+  const profile = JSON.parse(localStorage.getItem('persist:profile') || '{}')
   const {ID} = profile.user
   const {access_token} = profile
   const getAllDataPayload = {

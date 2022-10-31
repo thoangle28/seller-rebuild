@@ -11,7 +11,7 @@ import {deleteMessage, getInfoUser} from '../Profile/Redux/actions'
 import Settings from './Settings'
 
 const AccountSettings = () => {
-  const profile = JSON.parse(localStorage.getItem('profile') || '{}')
+  const profile = JSON.parse(localStorage.getItem('persist:profile') || '{}')
   const {ID, user_email} = profile.user
 
   const dispatch = useAppDispatch()
