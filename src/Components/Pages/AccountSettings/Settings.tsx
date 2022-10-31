@@ -5,6 +5,7 @@ import {SettingsProfileSchema} from './Schema'
 import uploadBrandIcon from './../../../app/Images/icons/upload-brand.svg'
 import ButtonPrimary from 'Components/Common/ButtonPrimary'
 import './style.scss'
+import {useAppSelector} from 'app/Hooks/hooks'
 
 const Settings = () => {
   const [checkCommunicationEmail, setCheckCommunicationEmail] =
@@ -12,8 +13,7 @@ const Settings = () => {
   const [checkCommunicationPhone, setCheckCommunicationPhone] =
     useState<boolean>(false)
 
-  const profile = JSON.parse(localStorage.getItem('persist:profile') || '{}')
-  const {accessToken} = profile
+  const {accessToken} = useAppSelector((state) => state.loginReducer)
 
   const handleSubmitForm = (values: any) => {
     const editInfoUserPayload = {

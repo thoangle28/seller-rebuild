@@ -47,8 +47,8 @@ const DashBoard: FC<Props> = (props: Props) => {
 
   const dispatch = useAppDispatch()
 
-  const profile: any = JSON.parse(localStorage.getItem('persist:profile') || '{}')
-  const userId: string = profile.user?.ID || ''
+  const {user} = useAppSelector((state) => state.loginReducer)
+  const {ID: userId} = user
 
   useEffect(() => {
     if (userId) {
@@ -68,7 +68,6 @@ const DashBoard: FC<Props> = (props: Props) => {
       search: '',
       status: '',
     }
-
     dispatch(getProductList(payload))
   }, [])
 
@@ -203,7 +202,9 @@ const DashBoard: FC<Props> = (props: Props) => {
         {infoData.map((item, index) => {
           const {icon, number, subtitle, title} = item
           return (
-            <div className='col-12 col-md-12 col-lg-12 col col-xl-6 col-xxl-3' key={index}>
+            <div
+              className='col-12 col-md-12 col-lg-12 col col-xl-6 col-xxl-3'
+              key={index}>
               {isLoading ? (
                 <Loading />
               ) : (
@@ -353,7 +354,9 @@ const DashBoard: FC<Props> = (props: Props) => {
         <div className='col-md-12'>{renderInfoTags()}</div>
       </div>
       <div className='row pt-4 g-4'>
-        <div className='col-sm-12 col-xl-12 col-xxl-6'>{renderMonthlyBussinessData()}</div>
+        <div className='col-sm-12 col-xl-12 col-xxl-6'>
+          {renderMonthlyBussinessData()}
+        </div>
         <div className='col-sm-12 col-xl-12 col-xxl-6'>{renderChart()}</div>
       </div>
       <div className='row'>{renderTable()}</div>
