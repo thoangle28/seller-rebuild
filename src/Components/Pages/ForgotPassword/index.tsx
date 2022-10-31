@@ -70,7 +70,7 @@ const ForgotPassword: FC = (props: Props) => {
       name: 'email',
       id: 'email',
       label: 'Email',
-      type: 'email',
+      type: 'text',
       value: values.email,
       textError: errors.email,
       isError: errors.email && touched.email,
