@@ -69,7 +69,7 @@ export const dataTableBody: iTableBody[] = [
     sku: 'test',
     price: {old: 20, new: 10},
     date: '1/10/2022',
-    status: 'pending',
+    status: 'approved',
   },
   {
     id: '147893',

@@ -24,7 +24,7 @@ const Router = (props: Props) => {
       <Routes>
         <Route element={<ProtectedRoute />}>
           <Route path='/dashboard' element={<Dashboard />} />
-          <Route path='/profile' element={<Profile />} />
+          <Route path='/my-profile' element={<Profile />} />
           <Route path='/settings' element={<AccountSettings />} />
           <Route path='*' element={<NotFoundPage />} />
           <Route path='/Attributes' element={<Attributes />} />

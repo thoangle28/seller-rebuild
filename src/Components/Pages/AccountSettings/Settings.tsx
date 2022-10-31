@@ -81,7 +81,7 @@ const Settings = () => {
         <div className='settings__heading d-flex align-items-center justify-content-between'>
           {/* Navbar overview and settings */}
           <div className='settings__nav d-flex align-items-center '>
-            <Link to='/profile'>Overview</Link>
+            <Link to='/my-profile'>Overview</Link>
             <h3 className='page-current m-0'>Settings</h3>
           </div>
 

@@ -18,7 +18,7 @@ const PopupUpdateProfileSuccess = (props: Props) => {
       <h3 className='update-success__title text-capitalize'>Update Profile</h3>
       <p className='update-success__sub-title'>{message}</p>
 
-      <Link to='/profile'>
+      <Link to='/my-profile'>
         <ButtonPrimary>General View</ButtonPrimary>
       </Link>
     </div>
