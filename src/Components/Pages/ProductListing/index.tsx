@@ -62,8 +62,8 @@ const ProductListing = () => {
                     item.status === 'pending'
                       ? 'warning'
                       : item.status === 'draft'
-                      ? 'primary'
-                      : 'success'
+                      ? 'success'
+                      : 'primary'
                   } 
                   table__product-status text-center text-capitalize m-0`}>
                   {item.status}
