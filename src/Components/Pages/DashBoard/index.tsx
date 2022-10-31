@@ -68,7 +68,6 @@ const DashBoard: FC<Props> = (props: Props) => {
       search: '',
       status: '',
     }
-
     dispatch(getProductList(payload))
   }, [])
 
