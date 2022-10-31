@@ -29,7 +29,7 @@ const sideMenu: iMenu[] = [
 ]
 
 const bottomMenu: iMenu[] = [
-  { icon: faUser, name: 'My Profile', path: '/profile' },
+  { icon: faUser, name: 'My Profile', path: '/my-profile' },
   { icon: faGear, name: 'Account Settings', path: '/settings' },
 ]
 
