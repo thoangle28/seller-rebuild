@@ -2,15 +2,13 @@ import { FC } from 'react'
 import { useLocation } from 'react-router-dom'
 import headerIcon from './../../../app/Images/logo.svg'
 
-type Props = {}
-
-const Header: FC = (props: Props) => {
+const Header: FC = () => {
   const { pathname } = useLocation()
 
-  const formatPathname = (pathname: String) => {
+  const formatPathname = (pathname: String): string => {
     if (!pathname) return ''
-    const temp = pathname.split('/')
-    const result = temp.join(' ')
+    const temp = pathname.split('/').join(' ')
+    const result = temp.split('-').join(' ')
     return result
   }
 
