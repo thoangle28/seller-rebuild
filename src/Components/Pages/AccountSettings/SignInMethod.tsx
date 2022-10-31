@@ -126,12 +126,11 @@ const SignInMethod = () => {
 
   const renderSignInMethod = () => {
     return (
-      <div className='d-flex justify-content-between align-items-center'>
+      <div className='signin-method__password d-flex justify-content-between align-items-center'>
         <div>
           <h3 className='signin-method__title m-0 mb-2'>Password</h3>
           <p className='signin-method__pwd m-0'>********</p>
         </div>
-
         <button
           className='signin-method__btn d-flex align-items-center'
           onClick={handleShowResetPwd}>
@@ -164,7 +163,7 @@ const SignInMethod = () => {
           </div>
 
           <div className='signin-method__right-actions d-flex justify-content-end align-items-center'>
-            <h3 className='me-3 m-0 fw-normal' onClick={handleShowResetPwd}>
+            <h3 className='me-3 m-0' onClick={handleShowResetPwd}>
               Cancel
             </h3>
             <ButtonPrimary

@@ -58,11 +58,14 @@ const ProductListing = () => {
 
               <td>
                 <h4
-                  className={
+                  className={`text-${
                     item.status === 'pending'
-                      ? 'table__product-status text-warning text-center text-capitalize m-0'
-                      : 'table__product-status text-primary text-center text-capitalize m-0'
-                  }>
+                      ? 'warning'
+                      : item.status === 'draft'
+                      ? 'primary'
+                      : 'success'
+                  } 
+                  table__product-status text-center text-capitalize m-0`}>
                   {item.status}
                 </h4>
               </td>
