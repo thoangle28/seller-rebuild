@@ -218,7 +218,7 @@ const Settings = () => {
             </h3>
             <div className='settings-details__input-wrap'>
               <input
-                type='email'
+                type='text'
                 className='settings-details__input w-100'
                 name='contactEmail'
                 value={values.contactEmail}
