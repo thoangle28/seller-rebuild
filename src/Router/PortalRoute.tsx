@@ -6,6 +6,7 @@ import NotFoundPage from '../Components/Pages/NotFoundPage'
 
 import {Routes, Route} from 'react-router-dom'
 import ProtectedRoute from 'Components/Common/ProtectedRoute'
+import FallBack from 'Components/Common/Fallback'
 
 const Dashboard = lazy(() => import('../Components/Pages/DashBoard'))
 const Profile = lazy(() => import('../Components/Pages/Profile'))
@@ -19,7 +20,7 @@ type Props = {}
 
 const Router = (props: Props) => {
   return (
-    <Suspense fallback={<p>Loading...</p>}>
+    <Suspense fallback={<FallBack />}>
       <Routes>
         <Route element={<ProtectedRoute />}>
           <Route path='/dashboard' element={<Dashboard />} />
