@@ -1,3 +1,4 @@
+import {tableReducer} from './Components/Common/Table/Redux/reducer'
 import {profileReducer} from 'Components/Pages/Profile/Redux/reducer'
 import {configureStore} from '@reduxjs/toolkit'
 import {attributesReducer} from './Components/Pages/Attributes/Redux/reducer'
@@ -11,6 +12,7 @@ const reducer = {
   attributesReducer,
   generalReducer,
   profileReducer,
+  tableReducer,
 }
 
 export const store = configureStore({
