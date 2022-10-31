@@ -8,7 +8,7 @@ import {useAppDispatch, useAppSelector} from 'app/Hooks/hooks'
 import Loading from 'Components/Common/Loading'
 
 const Profile = () => {
-  const profile = JSON.parse(localStorage.getItem('profile') || '{}')
+  const profile = JSON.parse(localStorage.getItem('persist:profile') || '{}')
   const {ID, user_email} = profile.user
 
   const dispatch = useAppDispatch()

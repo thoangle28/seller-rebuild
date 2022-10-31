@@ -20,29 +20,30 @@ const logoutAction = () => ({
     type: actionTypes.LOGOUT,
 })
 
-const verifyTokenSuccess = (payload?: any) => ({
+const verifyTokenSuccess = () => ({
     type: actionTypes.VERIFY_TOKEN_SUCCESS,
-    payload
 })
 const verifyTokenFailure = () => ({
     type: actionTypes.VERIFY_TOKEN_FAILURE,
 })
 const verifyTokenRequest = () => ({
-    type: actionTypes.VERIFY_TOKEN_FAILURE
+    type: actionTypes.VERIFY_TOKEN_REQUEST
 })
 
 export const verifyToken = (payload: iVerifyToken) => async (dispatch: any) => {
     dispatch(verifyTokenRequest())
     try {
         const response = await loginApi.verifyToken(payload)
-        const { code, data } = response.data
+        const { code } = response.data
         if (code === 200) {
-            dispatch(verifyTokenSuccess(data))
+            dispatch(verifyTokenSuccess())
         } else {
             dispatch(verifyTokenFailure())
+            dispatch(logout())
         }
     } catch (error) {
         dispatch(verifyTokenFailure())
+        dispatch(logout())
     }
 }
 
@@ -55,7 +56,6 @@ export const login = (formValue: iLogin, navigate: any) => async (dispatch: any)
 
         if (code === 200 && !message) {
             dispatch(loginSuccess(data))
-            localStorage.setItem('profile', JSON.stringify({ ...data }))
             navigate('/dashboard')
         } else {
             dispatch(loginFailure(message))
@@ -68,5 +68,5 @@ export const login = (formValue: iLogin, navigate: any) => async (dispatch: any)
 // Logout action
 export const logout = () => async (dispatch: any) => {
     dispatch(logoutAction())
-    window.localStorage.clear() 
+    window.localStorage.clear()
 }

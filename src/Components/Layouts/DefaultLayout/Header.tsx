@@ -1,27 +1,23 @@
 import { FC } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import headerIcon from './../../../app/Images/logo.svg'
 
 type Props = {}
 
 const Header: FC = (props: Props) => {
-  const navigate = useNavigate()
   const { pathname } = useLocation()
-
 
   const formatPathname = (pathname: String) => {
     if (!pathname) return ''
-    const temp = pathname.split('')
+    const temp = pathname.split('/')
     const result = temp.join(' ')
     return result
   }
 
   const renderBreadcrumbs = () => {
     return <span className='fw-600 text-white text-uppercase'>
-      {pathname.split('/')}
+      {formatPathname(pathname)}
     </span >
-
-
   }
 
   return (

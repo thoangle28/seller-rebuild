@@ -17,7 +17,7 @@ const SignInMethod = () => {
     (state) => state.profileReducer
   )
 
-  const profile = JSON.parse(localStorage.getItem('profile') || '{}')
+  const profile = JSON.parse(localStorage.getItem('persist:profile') || '{}')
   const {ID} = profile.user
 
   const handleShowResetPwd = () => {

@@ -12,7 +12,7 @@ const Settings = () => {
   const [checkCommunicationPhone, setCheckCommunicationPhone] =
     useState<boolean>(false)
 
-  const profile = JSON.parse(localStorage.getItem('profile') || '{}')
+  const profile = JSON.parse(localStorage.getItem('persist:profile') || '{}')
   const {accessToken} = profile
 
   const handleSubmitForm = (values: any) => {

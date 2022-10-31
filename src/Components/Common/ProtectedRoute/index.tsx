@@ -1,37 +1,38 @@
-import { iUserProfile, iVerifyToken } from 'app/Models'
+import { iVerifyToken } from 'app/Models'
 import { logout, verifyToken } from 'Components/Pages/Login/Redux/action'
 import { useEffect } from 'react'
-import { Outlet, useNavigate, } from 'react-router-dom' 
-import { getUserProfile } from '../Sidebar/Redux/actions'
-import { useAppDispatch } from './../../../app/Hooks/hooks'
+import { shallowEqual } from 'react-redux'
+import { Outlet, useNavigate, } from 'react-router-dom'
+import { useAppDispatch, useAppSelector } from './../../../app/Hooks/hooks'
 
 
 const ProtectedRoute = () => {
     const navigate = useNavigate()
-    const profile: any = JSON.parse(localStorage.getItem('profile') || '{}')
-    const accessToken = profile.access_token;
-    const userId: string = profile.user?.ID || ''
-    const userEmail: string = profile.user?.user_email || ''
+
+    const { user, accessToken, expireDate } = useAppSelector(state => state.loginReducer, shallowEqual)
+    const currentUserId: number = user ? user.ID : 0
+
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        if (userId) {
+        const requestData = () => {
             const payload: iVerifyToken = {
                 access_token: accessToken,
-                user_id: userId
-            }
-            const getUserProfilePayload: iUserProfile = {
-                user_email: userEmail,
-                user_id: userId
+                user_id: currentUserId.toString()
             }
             dispatch(verifyToken(payload))
-            dispatch(getUserProfile(getUserProfilePayload))
+        }
+
+        const currentDate: number = Date.now();
+
+        if (accessToken && parseInt(expireDate) < currentDate && currentUserId) {
+            requestData()
+            navigate('/dashboard')
         } else {
             dispatch(logout())
             navigate('/')
         }
-    }, [userId])
-
+    }, [])
 
     return <><Outlet /></>
 }

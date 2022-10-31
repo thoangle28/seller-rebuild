@@ -1,14 +1,14 @@
-import {FC} from 'react'
-import {useFormik} from 'formik'
-import {useAppSelector, useAppDispatch} from '../../../app/Hooks/hooks'
+import { FC } from 'react'
+import { useFormik } from 'formik'
+import { useAppSelector, useAppDispatch } from '../../../app/Hooks/hooks'
 import FullWidthLayout from 'Components/Layouts/FullWidthLayout'
 import FormWrapper from 'Components/Common/FormWrapper'
-import {Link, useNavigate} from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './style.scss'
 import InputField from 'Components/Common/InputField'
 import ButtonSubmitForm from 'Components/Common/ButtonSubmitForm'
 import LoginSchema from './Schema/index'
-import {login} from './Redux/action'
+import { login } from './Redux/action'
 import Loading from 'Components/Common/Loading'
 interface Props {
   ex?: string
@@ -17,7 +17,7 @@ interface Props {
 const Signin: FC<Props> = (props: Props) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const {isLoading, message} = useAppSelector((state) => state.loginReducer)
+  const { isLoading, message } = useAppSelector((state) => state.loginReducer) 
 
   const {
     values,
