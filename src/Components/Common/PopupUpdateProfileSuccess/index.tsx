@@ -5,10 +5,12 @@ import ButtonPrimary from '../ButtonPrimary'
 import './style.scss'
 interface Props {
   message: string
+  textButton: string
+  onClickButton: () => void
 }
 
 const PopupUpdateProfileSuccess = (props: Props) => {
-  const {message} = props
+  const {message, textButton, onClickButton} = props
   return (
     <div className='update-success d-flex flex-column text-center'>
       <div className='update-success__icon d-flex align-items-center justify-content-center'>
@@ -18,9 +20,7 @@ const PopupUpdateProfileSuccess = (props: Props) => {
       <h3 className='update-success__title text-capitalize'>Update Profile</h3>
       <p className='update-success__sub-title'>{message}</p>
 
-      <Link to='/my-profile'>
-        <ButtonPrimary>General View</ButtonPrimary>
-      </Link>
+      <ButtonPrimary onClick={onClickButton}>{textButton}</ButtonPrimary>
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import {useState, Fragment, memo, useEffect} from 'react'
+import {useState, Fragment, memo, useEffect, useRef} from 'react'
 import './style.scss'
 import resetPwdLogo from './../../../app/Images/icons/reset-pwd.svg'
 import {useFormik} from 'formik'
@@ -8,6 +8,10 @@ import {iChangePassword} from 'app/Models/profile.interface'
 import {useAppDispatch, useAppSelector} from 'app/Hooks/hooks'
 import {changePassword, deleteMessage} from '../Profile/Redux/actions'
 import Loading from 'Components/Common/Loading'
+import PopupUpdateProfileSuccess from 'Components/Common/PopupUpdateProfileSuccess'
+import {useOnClickOutside} from 'app/Hooks/UseClickOutSide'
+import {useNavigate} from 'react-router-dom'
+import {logout} from '../Login/Redux/action'
 
 const SignInMethod = () => {
   const [showResetPassword, setShowResetPassword] = useState<boolean>(false)
@@ -20,15 +24,24 @@ const SignInMethod = () => {
   const {user} = useAppSelector((state) => state.loginReducer)
   const {ID} = user
 
+  const navigate = useNavigate()
+
   const handleShowResetPwd = () => {
     setShowResetPassword(!showResetPassword)
     resetForm()
+  }
+
+  const handleLogout = () => {
+    dispatch(logout)
+    localStorage.clear()
+    navigate('/')
   }
 
   useEffect(() => {
     if (isSuccess && message) {
       setTimeout(() => {
         dispatch(deleteMessage())
+        handleLogout()
       }, 3000)
     }
     resetForm()
@@ -179,13 +192,27 @@ const SignInMethod = () => {
   }
 
   return (
-    <div className='signin-method mt-4'>
-      <h2 className='account-settings__title mb-3'>Sign-in Method</h2>
+    <>
+      <div className='signin-method mt-4'>
+        <h2 className='account-settings__title mb-3'>Sign-in Method</h2>
 
-      <div className='signin-method__content p-4'>
-        {showResetPassword ? renderResetPassword() : renderSignInMethod()}
+        <div className='signin-method__content p-4'>
+          {showResetPassword ? renderResetPassword() : renderSignInMethod()}
+        </div>
       </div>
-    </div>
+      {/* Popup update success */}
+      {isSuccess && message && (
+        <div className='update-success-overlay d-flex align-items-center justify-content-center'>
+          <div className='update-success-wrap'>
+            <PopupUpdateProfileSuccess
+              message={message}
+              textButton='Logout now'
+              onClickButton={handleLogout}
+            />
+          </div>
+        </div>
+      )}
+    </>
   )
 }
 

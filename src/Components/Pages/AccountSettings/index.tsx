@@ -15,14 +15,7 @@ const AccountSettings = () => {
   const {ID, user_email} = user
 
   const dispatch = useAppDispatch()
-  const {infoUser, isLoading, message, isSuccess} = useAppSelector(
-    (state) => state.profileReducer
-  )
-
-  const popupUpdateProfileRef = useRef<HTMLDivElement>(null)
-  useOnClickOutside(popupUpdateProfileRef, () => {
-    dispatch(deleteMessage())
-  })
+  const {infoUser, isLoading} = useAppSelector((state) => state.profileReducer)
 
   useEffect(() => {
     const getInfoUserPayload = {
@@ -52,15 +45,6 @@ const AccountSettings = () => {
             <SignInMethod />
           </div>
         </div>
-
-        {/* Popup update success */}
-        {isSuccess && message && (
-          <div className='update-success-overlay d-flex align-items-center justify-content-center'>
-            <div className='update-success-wrap' ref={popupUpdateProfileRef}>
-              <PopupUpdateProfileSuccess message={message} />
-            </div>
-          </div>
-        )}
       </section>
     </DefaultLayout>
   )
