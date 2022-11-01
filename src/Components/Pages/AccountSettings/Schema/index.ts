@@ -2,7 +2,6 @@ import * as yup from 'yup'
 
 const pwdRule = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[#?!@$%^&*-])(?=.*?[0-9]).{8,}$/
 
-const phoneRegExp = /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/
 const SettingsProfileSchema = yup.object().shape({
   firstName: yup.string().required('First name is required'),
   lastName: yup.string().required('Last name is required'),
@@ -12,8 +11,9 @@ const SettingsProfileSchema = yup.object().shape({
     .email('Please enter a valid email')
     .required('Email is required'),
   contactPhone: yup
-    .string()
-    .matches(phoneRegExp, 'Phone number is not valid')
+    .number()
+    .positive('Phone number is not valid')
+    .min(10, 'Phone number at least 10 digits')
     .required('Contact phone is required'),
   address: yup.string().required('Address is required'),
 })

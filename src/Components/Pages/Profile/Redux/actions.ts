@@ -87,6 +87,16 @@ export const changePassword =
     }
   }
 
+export const editInfoUser = (payload: any) => async (dispatch: any) => {
+  dispatch(editInfoUserRequest())
+
+  try {
+    const endPoint = '/user/profile/update'
+    const res = await axiosConfig.post(endPoint, payload)
+    console.log(res.data)
+  } catch (error) {}
+}
+
 export const deleteMessage = () => async (dispatch: any) => {
   dispatch(removeMessage())
 }

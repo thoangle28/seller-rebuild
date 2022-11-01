@@ -107,7 +107,7 @@ const DashBoard: FC<Props> = (props: Props) => {
               <tr key={item.product_id}>
                 <td>
                   <span className='table__product-id text-start'>
-                    {item.id}
+                    {item.product_id}
                   </span>
                 </td>
 

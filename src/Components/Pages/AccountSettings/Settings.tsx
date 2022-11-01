@@ -5,54 +5,68 @@ import {SettingsProfileSchema} from './Schema'
 import uploadBrandIcon from './../../../app/Images/icons/upload-brand.svg'
 import ButtonPrimary from 'Components/Common/ButtonPrimary'
 import './style.scss'
-import {useAppSelector} from 'app/Hooks/hooks'
+import {useAppDispatch, useAppSelector} from 'app/Hooks/hooks'
+import {convertBase64} from 'app/Utils'
+import defaultImg from './../../../app/Images/default-img-err.jpg'
+import {editInfoUser} from '../Profile/Redux/actions'
 
 const Settings = () => {
-  const [checkCommunicationEmail, setCheckCommunicationEmail] =
-    useState<boolean>(true)
-  const [checkCommunicationPhone, setCheckCommunicationPhone] =
-    useState<boolean>(false)
+  const {accessToken, user} = useAppSelector((state) => state.loginReducer)
+  const {user_email} = user
+  const {infoUser} = useAppSelector((state) => state.profileReducer)
+  const {
+    brand,
+    firstname,
+    lastname,
+    contactEmail,
+    contactPhone,
+    address,
+    communications,
+  } = infoUser
+  const {name, logo} = brand
 
-  const {accessToken} = useAppSelector((state) => state.loginReducer)
+  const [brandLogo, setBrandLogo] = useState<string>('')
+  const [checkCommunicationEmail, setCheckCommunicationEmail] =
+    useState<boolean>(communications.email)
+  const [checkCommunicationPhone, setCheckCommunicationPhone] =
+    useState<boolean>(communications.phone)
+
+  const dispatch = useAppDispatch()
+
+  const handleUploadLogo = async (e: any) => {
+    const file = e.target.files[0]
+
+    try {
+      const base64: any = await convertBase64(file)
+      setBrandLogo(base64)
+    } catch (error) {}
+  }
 
   const handleSubmitForm = (values: any) => {
     const editInfoUserPayload = {
       profile: {
-        email: 'voquang1406@gmail.com',
-        personal_photo:
-          'https://addin-sg.lotustest.net/wp-content/uploads/2022/10/444f3a8d23604155c229a647b5abd715-1-scaled.jpeg',
-        new_personal_photo: '',
-        avatar:
-          'https://addin-sg.lotustest.net/wp-content/uploads/2022/10/b097d821d2a51b096e19edad77269b45-1.jpeg',
-        new_avatar:
-          'https://addin-sg.lotustest.net/wp-content/uploads/2022/10/b097d821d2a51b096e19edad77269b45-1.jpeg',
         firstname: values.firstName,
         lastname: values.lastName,
-        company: 'lotus',
         brand: {
-          id: 3872,
-          name: 'lotus',
-          logo: '',
+          logo: brandLogo,
         },
         contactPhone: values.contactPhone,
         contactEmail: values.contactEmail,
         address: values.address,
-        country: '',
-        language: '',
-        timeZone: '',
-        currency: '',
         communications: {
           email: checkCommunicationEmail,
           phone: checkCommunicationPhone,
         },
-        allowMarketing: false,
       },
       userInfo: {
-        userEmail: 'voquang1406@gmail.com',
+        userEmail: user_email,
         accessToken: accessToken,
       },
     }
+
+    dispatch(editInfoUser(editInfoUserPayload))
   }
+
   const {
     errors,
     values,
@@ -64,12 +78,12 @@ const Settings = () => {
     setFieldTouched,
   } = useFormik({
     initialValues: {
-      firstName: '',
-      lastName: '',
-      brandName: '',
-      contactEmail: '',
-      contactPhone: '',
-      address: '',
+      firstName: firstname as string,
+      lastName: lastname as string,
+      brandName: name as string,
+      contactEmail: contactEmail as string,
+      contactPhone: contactPhone as string,
+      address: address as string,
     },
     validationSchema: SettingsProfileSchema,
     onSubmit: handleSubmitForm,
@@ -125,12 +139,17 @@ const Settings = () => {
 
             <div className='d-flex align-items-center'>
               <img
-                src='https://via.placeholder.com/100'
+                src={brandLogo || logo || defaultImg}
                 alt='brand logo'
                 className='settings-details__brand-logo'
               />
 
-              <input type='file' id='upload-brand-logo' className='d-none' />
+              <input
+                type='file'
+                id='upload-brand-logo'
+                className='d-none'
+                onChange={handleUploadLogo}
+              />
               <label
                 htmlFor='upload-brand-logo'
                 className='upload-brand__label d-flex align-items-center'>
@@ -172,6 +191,7 @@ const Settings = () => {
                   type='text'
                   className='settings-details__input w-100'
                   name='lastName'
+                  value={values.lastName}
                   onChange={(e) => {
                     handleChange(e)
                     setFieldTouched('lastName', false, false)

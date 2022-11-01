@@ -6,6 +6,7 @@ import {useEffect} from 'react'
 import {getInfoUser} from './Redux/actions'
 import {useAppDispatch, useAppSelector} from 'app/Hooks/hooks'
 import Loading from 'Components/Common/Loading'
+import defaultImg from './../../../app/Images/default-img-err.jpg'
 
 const Profile = () => {
   const {user} = useAppSelector((state) => state.loginReducer)
@@ -44,7 +45,7 @@ const Profile = () => {
     },
     {
       title: 'Brand logo',
-      logo: brand?.logo || 'https://via.placeholder.com/100',
+      logo: brand?.logo || defaultImg,
     },
     {
       title: 'Full name',
