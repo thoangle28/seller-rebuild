@@ -29,8 +29,8 @@ const ResetPasswordSchema = yup.object().shape({
     .required('New password is required'),
   confirmNewPassword: yup
     .string()
-    .oneOf([yup.ref('newPassword'), null], 'Passwords must match')
-    .required('Confirm password is required'),
+    .oneOf([yup.ref('newPassword'), null], 'Confirm new password must match')
+    .required('Confirm new password is required'),
 })
 
 export {ResetPasswordSchema, SettingsProfileSchema}
