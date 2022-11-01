@@ -25,7 +25,8 @@ const initialState = {
     isFailure: false,
     isLoading: false,
     user: {},
-    message: ''
+    message: '',
+    isLogin: false
 }
 
 export const loginReducer = persistReducer(
@@ -44,7 +45,7 @@ export const loginReducer = persistReducer(
 
                 return { ...state, ...requestSuccess, accessToken, expireDate, user }
             case actionTypes.LOGOUT:
-                return initialState
+                return { ...state, isLogin: payload, user: {}, accessToken: '' }
 
             case actionTypes.VERIFY_TOKEN_FAILURE:
                 return { ...state, ...requestFailure }
@@ -52,6 +53,10 @@ export const loginReducer = persistReducer(
                 return { ...state, ...requestLoading }
             case actionTypes.VERIFY_TOKEN_SUCCESS:
                 return { ...state, ...requestSuccess }
+            case actionTypes.IS_LOGIN:
+                return {
+                    ...state, isLogin: payload
+                }
             default:
                 return state
         }

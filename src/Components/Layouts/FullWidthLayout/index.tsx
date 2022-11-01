@@ -1,6 +1,6 @@
 import { useAppSelector } from 'app/Hooks/hooks'
 import { FC } from 'react'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import './style.scss'
 interface Props {
   children: JSX.Element[] | JSX.Element
@@ -8,11 +8,19 @@ interface Props {
 
 const FullWidthLayout: FC<Props> = (props: Props) => {
   const { children } = props
-  const { user } = useAppSelector(state => state.loginReducer)
+  const { isLogin } = useAppSelector(state => state.loginReducer)
+  const navigate = useNavigate()
 
-  const { ID } = user
+  const renderAlreadyLogin = () => {
+    return <div className='main-content container-fluid p-0 m-0 min-vh-100 d-flex justify-content-center align-items-center'>
+      <div className='bg-light p-5 rounded text-center'>
+        <p>You're Already Login , click the button to comeback the content Page</p>
+        <button className='btn btn-danger text-white fw-medium' onClick={() => navigate('/dashboard')}>Back To Dashboard Page</button>
+      </div>
+    </div>
+  }
 
-  return ID ? <Navigate to="/dashboard" replace /> : (
+  return isLogin ? renderAlreadyLogin() : (
     <div className='main-content container-fluid p-0 m-0 min-vh-100 d-flex justify-content-center align-items-center'>
       {children}
     </div>
