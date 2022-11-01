@@ -5,12 +5,6 @@ export interface iResponse {
     data: any
 }
 
-export interface iMonthData {
-    fullName: string,
-    name: string,
-    color: string
-}
-
 export interface iInfoData {
     title: string,
     subtitle: string,

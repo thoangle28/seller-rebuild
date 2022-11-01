@@ -1,4 +1,7 @@
 .sidebar { 
+  position: fixed;
+  width: 330px;
+  
   &__navigation {
     padding-top: 27px;
   }

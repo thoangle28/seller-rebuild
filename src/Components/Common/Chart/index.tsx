@@ -4,11 +4,12 @@ import Chart from 'chart.js/auto'
 Chart.register(...registerables);
 
 interface iBarChart {
-    chartData: any
+    chartData: any,
+    options?: any
 }
 
-function BarChart({ chartData }: iBarChart) {
-    return <Bar data={chartData} />;
+function BarChart({ chartData, options }: iBarChart) {
+    return <Bar data={chartData} options={options} />;
 }
 
 export default BarChart

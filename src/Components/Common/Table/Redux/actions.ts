@@ -1,4 +1,5 @@
 import axiosConfig from 'APIs/AxiosConfig'
+import { iProductListing } from 'app/Models'
 import actionTypes from './type'
 
 const getProductListRequest = () => ({
@@ -15,13 +16,12 @@ const getProductListSuccess = (payload: any) => ({
   payload,
 })
 
-export const getProductList = (payload: any) => async (dispatch: any) => {
-  dispatch(getProductListRequest())
-
+export const getProductList = (payload: iProductListing) => async (dispatch: any) => {
+  dispatch(getProductListRequest()) 
   try {
     const endPoint = '/products-by-user'
     const res = await axiosConfig.post(endPoint, payload)
-    const {data, code, message} = res.data
+    const { data, code, message } = res.data
 
     code === 200
       ? dispatch(getProductListSuccess(data.productsList))
