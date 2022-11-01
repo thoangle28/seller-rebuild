@@ -99,6 +99,7 @@
         margin-right: 40px;
         width: $size;
         height: $size;
+        object-fit: cover;
       }
 
       &__input-checkbox-wrap {

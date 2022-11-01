@@ -22,8 +22,14 @@ const MyProfile = (props: Props) => {
 
   const [avatarUser, setAvatarUser] = useState<string>('')
 
-  const {firstname, lastname, avatar, contactEmail, contactPhone, address} =
-    data
+  const {
+    firstname,
+    lastname,
+    personal_photo,
+    contactEmail,
+    contactPhone,
+    address,
+  } = data
   const fullName = `${firstname} ${lastname}`
 
   const infoUser = [
@@ -62,7 +68,7 @@ const MyProfile = (props: Props) => {
         <FontAwesomeIcon icon={item.icon} />
       </span>
       <span
-        className={`user-info__text d-inline-block ${
+        className={`user-info__text d-inline-block w ${
           item.textCappitalize ? 'text-capitalize' : ''
         }`}>
         {item.text}
@@ -78,8 +84,8 @@ const MyProfile = (props: Props) => {
         <>
           {' '}
           <div className='user-avatar d-flex justify-content-center align-items-center mx-auto mb-4'>
-            {avatar || avatarUser ? (
-              <img src={avatarUser || avatar} alt='avatar' />
+            {personal_photo || avatarUser ? (
+              <img src={avatarUser || personal_photo} alt='avatar' />
             ) : (
               <img
                 src={defaultUploadImg}
@@ -95,7 +101,10 @@ const MyProfile = (props: Props) => {
                 onChange={handleUploadAvatar}
               />
               <label htmlFor='upload-avatar'>
-                <img src={uploadIcon} alt='upload icon' />
+                <div className='upload-img'>
+                  <img src={uploadIcon} alt='upload icon' />
+                  <div></div>
+                </div>
               </label>
             </div>
           </div>
