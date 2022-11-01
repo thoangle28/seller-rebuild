@@ -14,6 +14,8 @@ import {
 import { useAppDispatch, useAppSelector } from './../../../app/Hooks/hooks'
 import { logout } from 'Components/Pages/Login/Redux/action'
 import triangle from './../../../app/Images/triangle.png'
+import userPlaceholder from './../../../app/Images/user_placeholder.png'
+
 interface iMenu {
   icon?: any
   name: string
@@ -22,7 +24,7 @@ interface iMenu {
 
 const sideMenu: iMenu[] = [
   { icon: faChartSimple, name: 'Dashboard', path: '/dashboard' },
-  { icon: faList, name: 'Product Listing', path: '/product-listing' },
+  { icon: faList, name: 'Products Listing', path: '/product-listing' },
   { icon: faPlus, name: 'Create New Product', path: '/new-product' },
   { icon: faToggleOn, name: 'Attributes', path: '/attributes' },
   { icon: faChartLine, name: 'Sale Reports', path: '/sale-reports' },
@@ -39,7 +41,7 @@ const Sidebar: FC = () => {
   const { pathname } = useLocation()
   const [isDisplaying, setIsDisplaying] = useState<boolean>(false)
   const { user } = useAppSelector(state => state.loginReducer)
-  const { avatar ,display_name } = user
+  const { avatar, display_name } = user
 
   const displayProfileMenu = () => {
     setIsDisplaying(!isDisplaying)
@@ -68,14 +70,17 @@ const Sidebar: FC = () => {
 
   const renderProfileMenu = () => {
     return isDisplaying ? (
-      <div className='sidebar__navigation pb-4'>
-        <ul className='sidebar__list ps-0'>{renderSidemenu(bottomMenu)}</ul>
-        <button
-          onClick={signOut}
-          className='signout-button btn btn-primary'>
-          Sign Out
-        </button>
-      </div>
+      <>
+        <div className='seperator'></div>
+        <div className='sidebar__navigation pb-4'>
+          <ul className='sidebar__list ps-0'>{renderSidemenu(bottomMenu)}</ul>
+          <button
+            onClick={signOut}
+            className='signout-button btn btn-primary'>
+            Sign Out
+          </button>
+        </div>
+      </>
     ) : (
       <></>
     )
@@ -93,7 +98,7 @@ const Sidebar: FC = () => {
       <div className='sidebar__avatar d-flex  align-items-center flex-column'>
         <div className='user-avatar'>
           <img
-            src={ avatar ? avatar : 'https://via.placeholder.com/100' }
+            src={avatar ? avatar : userPlaceholder}
             className='rounded-circle'
             alt='avatar'
           />
@@ -108,7 +113,7 @@ const Sidebar: FC = () => {
           />
         </div>
       </div>
-      <div className='seperator'></div>
+
       {renderProfileMenu()}
       <div className='seperator'></div>
       <div className='sidebar__navigation'>

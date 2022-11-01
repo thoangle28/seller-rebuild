@@ -53,7 +53,12 @@ $spacer: 1rem;
   src: url('./../Fonts/Montserrat-Bold.ttf');
   font-weight: 700;
 }
-
+.fw-medium {
+  font-weight: 500;
+}
+.fw-semibold{
+  font-weight: 600;
+}
 // my own spacer's map
 :root {
   --bs-body-font-family: 'Montserrat';

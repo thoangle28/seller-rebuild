@@ -26,8 +26,7 @@ const ProtectedRoute = () => {
         const currentDate: number = Date.now();
 
         if (accessToken && parseInt(expireDate) < currentDate && currentUserId) {
-            requestData()
-            navigate('/dashboard')
+            requestData() 
         } else {
             dispatch(logout())
             navigate('/')

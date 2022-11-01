@@ -1,21 +1,35 @@
-import { iMonthData } from "app/Models"
 
 export const CURRENT_YEAR: string = new Date().getFullYear().toString()
 
-export const MONTHS: iMonthData[] = [
-    { name: "jan", fullName: "January", color: "#000080" },
-    { name: "feb", fullName: "February", color: "#0033CC" },
-    { name: "mar", fullName: "March", color: "#394772" },
-    { name: "apr", fullName: "April", color: "#004D1A" },
-    { name: "may", fullName: "May", color: "#009933" },
-    { name: "jun", fullName: "June", color: "#AF4700" },
-    { name: "jul", fullName: "July", color: "#E17328" },
-    { name: "aug", fullName: "August", color: "#D33B0B" },
-    { name: "sep", fullName: "September", color: "#A71A1A" },
-    { name: "oct", fullName: "October", color: "#7D961A" },
-    { name: "nov", fullName: "November", color: "#7D961A" },
-    { name: "dec", fullName: "December", color: "#A2836E" },
+export const MONTH_COLORS: string[] = [
+    "#000080",
+    "#0033CC",
+    "#394772",
+    "#004D1A",
+    "#009933",
+    "#AF4700",
+    "#E17328",
+    "#D33B0B",
+    "#A71A1A",
+    "#7D961A",
+    "#7D961A",
+    "#A2836E",
 ]
+
+export const monthSerializable: any = {
+    '1': "Jan",
+    '2': "Feb",
+    '3': "Mar",
+    '4': "Apr",
+    '5': "May",
+    '6': "Jun",
+    '7': "July",
+    '8': "Aug",
+    '9': "Sep",
+    '10': "Oct",
+    '11': "Nov",
+    '12': "Dec"
+}
 
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const d = new Date();

@@ -17,7 +17,7 @@ const InfoTag: FC<Props> = (props: Props) => {
                 <FontAwesomeIcon icon={icon} />
             </div>
             <div className="info-tag__data">
-                <p className='subtitle text-primary mb-0'>{number} <span>{subTitle}</span></p>
+                <p className='subtitle text-primary mb-2'>{number} <span>{subTitle}</span></p>
                 <p className='title mb-0'>{title}</p>
             </div>
         </div>
