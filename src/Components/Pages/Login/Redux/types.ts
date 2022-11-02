@@ -12,9 +12,10 @@ const verifyToken = {
 
 // Example 
 const actionTypes = {
-    LOGOUT: "LOGOUT", 
+    LOGOUT: "LOGOUT",
+    IS_LOGIN: "IS_LOGIN",
     ...loginActions,
-    ...verifyToken, 
+    ...verifyToken,
 }
 
 export default actionTypes 

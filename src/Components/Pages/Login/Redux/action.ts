@@ -30,6 +30,11 @@ const verifyTokenRequest = () => ({
     type: actionTypes.VERIFY_TOKEN_REQUEST
 })
 
+const isLogin = (payload: boolean = false) => ({
+    type: actionTypes.IS_LOGIN,
+    payload
+})
+
 export const verifyToken = (payload: iVerifyToken) => async (dispatch: any) => {
     dispatch(verifyTokenRequest())
     try {
@@ -39,11 +44,11 @@ export const verifyToken = (payload: iVerifyToken) => async (dispatch: any) => {
             dispatch(verifyTokenSuccess())
         } else {
             dispatch(verifyTokenFailure())
-            dispatch(logout())
+            dispatch(isLogin(false))
         }
     } catch (error) {
         dispatch(verifyTokenFailure())
-        dispatch(logout())
+        dispatch(isLogin(false))
     }
 }
 
@@ -56,6 +61,7 @@ export const login = (formValue: iLogin, navigate: any) => async (dispatch: any)
 
         if (code === 200 && !message) {
             dispatch(loginSuccess(data))
+            dispatch(isLogin(true))
             navigate('/dashboard')
         } else {
             dispatch(loginFailure(message))
@@ -68,5 +74,6 @@ export const login = (formValue: iLogin, navigate: any) => async (dispatch: any)
 // Logout action
 export const logout = () => async (dispatch: any) => {
     dispatch(logoutAction())
+    dispatch(isLogin(false))
     window.localStorage.clear()
 }
