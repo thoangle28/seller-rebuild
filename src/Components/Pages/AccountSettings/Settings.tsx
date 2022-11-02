@@ -38,7 +38,7 @@ const Settings = () => {
       address: address as string,
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [infoUser])
 
   const popupRef = useRef<HTMLDivElement>(null)
 
@@ -56,6 +56,7 @@ const Settings = () => {
 
   const {
     brand,
+    avatar,
     firstname,
     lastname,
     contactEmail,
@@ -83,13 +84,15 @@ const Settings = () => {
 
   const handleSubmitForm = (values: any) => {
     dispatch(deleteMessage())
+    const changeLogo = brandLogo ? [brandLogo] : ''
     const editInfoUserPayload = {
       profile: {
+        avatar: avatar || false,
         firstname: values.firstName,
         lastname: values.lastName,
         brand: {
           name: values.brandName,
-          logo: brandLogo,
+          logo: changeLogo,
         },
         contactPhone: values.contactPhone,
         contactEmail: values.contactEmail,
@@ -188,7 +191,7 @@ const Settings = () => {
 
               <div className='d-flex align-items-center'>
                 <img
-                  src={brandLogo || brand?.logo || defaultImg}
+                  src={brandLogo || avatar || defaultImg}
                   alt='brand logo'
                   className='settings-details__brand-logo'
                 />
