@@ -13,9 +13,6 @@ const AccountSettings = () => {
   const {user} = useAppSelector((state) => state.loginReducer)
   const {ID, user_email} = user
 
-  const dispatch = useAppDispatch()
-  const {infoUser, isLoading} = useAppSelector((state) => state.profileReducer)
-
   useEffect(() => {
     const getInfoUserPayload = {
       user_id: ID,
@@ -25,6 +22,9 @@ const AccountSettings = () => {
     dispatch(getInfoUser(getInfoUserPayload))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  const dispatch = useAppDispatch()
+  const {infoUser, isLoading} = useAppSelector((state) => state.profileReducer)
 
   return (
     <DefaultLayout>

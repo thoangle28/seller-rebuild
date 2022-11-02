@@ -24,7 +24,7 @@ const requestLoading = {
 const initialState = {
   ...request,
   message: '',
-  infoUser: [],
+  infoUser: {},
 }
 
 export const profileReducer = (state: any = initialState, action: any) => {

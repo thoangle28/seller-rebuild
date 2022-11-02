@@ -24,7 +24,6 @@ const requestLoading = {
 const initialState = {
   ...request,
   message: '',
-  infoUser: [],
 }
 
 export const resetPasswordReducer = (
