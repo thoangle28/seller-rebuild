@@ -27,7 +27,7 @@ const sideMenu: iMenu[] = [
   { icon: faList, name: 'Products Listing', path: '/product-listing' },
   { icon: faPlus, name: 'Create New Product', path: '/new-product' },
   { icon: faToggleOn, name: 'Attributes', path: '/attributes' },
-  { icon: faChartLine, name: 'Sale Reports', path: '/sale-reports' },
+  { icon: faChartLine, name: 'Sales Report', path: '/sale-reports' },
 ]
 
 const bottomMenu: iMenu[] = [

@@ -1,13 +1,13 @@
 import { iTableHead } from "app/Models";
 
 export const TABLE_PRODUCT_LIST: iTableHead[] = [
-    { name: 'Product Id', className: '' },
+    { name: '#ID', className: '' },
     { name: 'Product Name', className: '' },
     { name: 'Type', className: 'text-center' },
     { name: 'SKU', className: 'text-center' },
     { name: 'Price', className: 'text-center' },
     { name: 'Date', className: 'text-center' },
-    { name: 'Status', className: '' },
+    { name: 'Status', className: 'text-center' },
     { name: 'Actions', className: 'text-center' },
 ]
 
@@ -21,6 +21,6 @@ export const TABLE_PRODUCT_SALE_STATUS = [
     { name: 'Failed', btnStatus: 'danger' },
     { name: 'on hold', btnStatus: 'danger' },
     { name: 'pending', btnStatus: 'warning' },
-    { name: 'publish', btnStatus: 'success' },
+    { name: 'publish', btnStatus: 'primary' },
     { name: 'completed', btnStatus: 'success' },
 ]
