@@ -1,18 +1,28 @@
-import { profileReducer } from 'Components/Pages/Profile/Redux/reducer'
-import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import { attributesReducer } from './Components/Pages/Attributes/Redux/reducer'
-import { loginReducer } from './Components/Pages/Login/Redux/reducer'
-import { registerReducer } from './Components/Pages/SignUp/Redux/reducer'
-import { generalReducer } from './Components/Pages/DashBoard/redux/reducer'
-import storage from 'redux-persist/lib/storage';
-import { tableReducer } from './Components/Common/Table/Redux/reducer'
+import {resetPasswordReducer} from './Components/Pages/AccountSettings/SigninMethod/Redux/reducer'
+import {profileReducer} from 'Components/Pages/Profile/Redux/reducer'
+import {combineReducers, configureStore} from '@reduxjs/toolkit'
+import {attributesReducer} from './Components/Pages/Attributes/Redux/reducer'
+import {loginReducer} from './Components/Pages/Login/Redux/reducer'
+import {registerReducer} from './Components/Pages/SignUp/Redux/reducer'
+import {generalReducer} from './Components/Pages/DashBoard/redux/reducer'
+import storage from 'redux-persist/lib/storage'
+import {tableReducer} from './Components/Common/Table/Redux/reducer'
 
-import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
+import {
+  persistReducer,
+  persistStore,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist'
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['loginReducer']
+  whitelist: ['loginReducer'],
 }
 
 const reducer = combineReducers({
@@ -22,6 +32,7 @@ const reducer = combineReducers({
   generalReducer,
   profileReducer,
   tableReducer,
+  resetPasswordReducer,
 })
 
 const pReducer = persistReducer(persistConfig, reducer)
@@ -38,4 +49,4 @@ export const store = configureStore({
 
 export type RootState = ReturnType<typeof reducer>
 export type AppDispatch = typeof store.dispatch
-export const persistor: any = persistStore(store);
+export const persistor: any = persistStore(store)

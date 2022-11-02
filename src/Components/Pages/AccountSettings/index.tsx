@@ -1,21 +1,17 @@
-import {useEffect, useRef} from 'react'
+import {useEffect} from 'react'
 import MyProfile from 'Components/Common/MyProfile'
 import DefaultLayout from 'Components/Layouts/DefaultLayout'
 
 import './style.scss'
-import PopupUpdateProfileSuccess from 'Components/Common/PopupUpdateProfileSuccess'
-import {useOnClickOutside} from 'app/Hooks/UseClickOutSide'
-import SignInMethod from './SignInMethod'
+
+import SignInMethod from './SigninMethod'
 import {useAppDispatch, useAppSelector} from 'app/Hooks/hooks'
-import {deleteMessage, getInfoUser} from '../Profile/Redux/actions'
+import {getInfoUser} from '../Profile/Redux/actions'
 import Settings from './Settings'
 
 const AccountSettings = () => {
   const {user} = useAppSelector((state) => state.loginReducer)
   const {ID, user_email} = user
-
-  const dispatch = useAppDispatch()
-  const {infoUser, isLoading} = useAppSelector((state) => state.profileReducer)
 
   useEffect(() => {
     const getInfoUserPayload = {
@@ -26,6 +22,9 @@ const AccountSettings = () => {
     dispatch(getInfoUser(getInfoUserPayload))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  const dispatch = useAppDispatch()
+  const {infoUser, isLoading} = useAppSelector((state) => state.profileReducer)
 
   return (
     <DefaultLayout>

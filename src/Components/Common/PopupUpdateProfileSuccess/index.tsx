@@ -1,6 +1,5 @@
 import {faCheck} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {Link} from 'react-router-dom'
 import ButtonPrimary from '../ButtonPrimary'
 import './style.scss'
 interface Props {
@@ -20,7 +19,9 @@ const PopupUpdateProfileSuccess = (props: Props) => {
       <h3 className='update-success__title text-capitalize'>Update Profile</h3>
       <p className='update-success__sub-title'>{message}</p>
 
-      <ButtonPrimary onClick={onClickButton}>{textButton}</ButtonPrimary>
+      <div className='d-inline-block'>
+        <ButtonPrimary onClick={onClickButton}>{textButton}</ButtonPrimary>
+      </div>
     </div>
   )
 }

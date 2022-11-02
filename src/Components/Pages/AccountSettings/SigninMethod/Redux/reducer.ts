@@ -1,4 +1,4 @@
-import actionTypes from './types'
+import actionTypes from './type'
 
 const request = {
   isSuccess: false,
@@ -24,18 +24,20 @@ const requestLoading = {
 const initialState = {
   ...request,
   message: '',
-  infoUser: {},
 }
 
-export const profileReducer = (state: any = initialState, action: any) => {
+export const resetPasswordReducer = (
+  state: any = initialState,
+  action: any
+) => {
   const {type, payload} = action
   switch (type) {
-    case actionTypes.GET_INFO_USER_REQUEST:
+    case actionTypes.CHANGE_PASSWORD_REQUEST:
       return {...state, ...requestLoading}
-    case actionTypes.GET_INFO_USER_FAILURE:
+    case actionTypes.CHANGE_PASSWORD_FAILURE:
       return {...state, ...requestFailure, message: payload}
-    case actionTypes.GET_INFO_USER_SUCCESS:
-      return {...state, ...requestSuccess, infoUser: payload}
+    case actionTypes.CHANGE_PASSWORD_SUCCESS:
+      return {...state, ...requestSuccess, message: payload}
 
     case actionTypes.DELETE_MESSAGE:
       return {...state, ...requestFailure, message: ''}
