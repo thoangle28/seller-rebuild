@@ -18,6 +18,7 @@ const Profile = () => {
   const {
     firstname,
     lastname,
+    avatar,
     brand,
     contactPhone,
     contactEmail,
@@ -45,7 +46,7 @@ const Profile = () => {
     },
     {
       title: 'Brand logo',
-      logo: brand?.logo || defaultImg,
+      logo: avatar || defaultImg,
     },
     {
       title: 'Full name',

@@ -36,6 +36,12 @@ export const profileReducer = (state: any = initialState, action: any) => {
       return {...state, ...requestFailure, message: payload}
     case actionTypes.GET_INFO_USER_SUCCESS:
       return {...state, ...requestSuccess, infoUser: payload}
+    case actionTypes.EDIT_INFO_USER_REQUEST:
+      return {...state, ...requestLoading}
+    case actionTypes.EDIT_INFO_USER_FAILURE:
+      return {...state, ...requestFailure, message: payload}
+    case actionTypes.EDIT_INFO_USER_SUCCESS:
+      return {...state, ...requestSuccess, message: payload}
 
     case actionTypes.DELETE_MESSAGE:
       return {...state, ...requestFailure, message: ''}
