@@ -88,7 +88,7 @@ const Sidebar: FC = () => {
 
   // Logout Action
   const signOut = () => {
-    dispatch(logout)
+    dispatch(logout())
     localStorage.clear()
     navigate('/')
   }

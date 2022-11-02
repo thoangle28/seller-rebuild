@@ -4,9 +4,8 @@ import FormWrapper from 'Components/Common/FormWrapper'
 import InputField from 'Components/Common/InputField'
 import Loading from 'Components/Common/Loading'
 import FullWidthLayout from 'Components/Layouts/FullWidthLayout'
-import {useFormik} from 'formik'
-import {FC, useState} from 'react'
-import {useNavigate} from 'react-router-dom'
+import { useFormik } from 'formik'
+import { FC, useState } from 'react'
 import PasswordValidation from '../PasswordValidation'
 import ForgotPasswordSchema from './Schema'
 
@@ -37,19 +36,19 @@ const ForgotPassword: FC = (props: Props) => {
     },
     validationSchema: ForgotPasswordSchema,
     onSubmit: async (values) => {
-      const {email} = values
+      const { email } = values
       const endPoint = '/user/profile/send-mail-forgot-password'
       setIsLoading(true)
       try {
-        const {data} = await axiosConfig.post(endPoint, {
+        const { data } = await axiosConfig.post(endPoint, {
           user_email: email,
         })
 
         data.code === 200
           ? setMessageSucess(
-              data.message +
-                `! This page will be redirected automatically in a few seconds.`
-            )
+            data.message +
+            `! This page will be redirected automatically in a few seconds.`
+          )
           : setValidateFailureMessage(data.message)
       } catch (error) {
         setValidateFailureMessage('Something went wrong, please try again')

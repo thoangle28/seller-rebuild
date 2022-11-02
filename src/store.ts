@@ -5,13 +5,14 @@ import { loginReducer } from './Components/Pages/Login/Redux/reducer'
 import { registerReducer } from './Components/Pages/SignUp/Redux/reducer'
 import { generalReducer } from './Components/Pages/DashBoard/redux/reducer'
 import storage from 'redux-persist/lib/storage';
-import {tableReducer} from './Components/Common/Table/Redux/reducer'
+import { tableReducer } from './Components/Common/Table/Redux/reducer'
 
 import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 
 const persistConfig = {
   key: 'root',
-  storage
+  storage,
+  whitelist: ['loginReducer']
 }
 
 const reducer = combineReducers({
