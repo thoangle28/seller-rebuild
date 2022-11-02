@@ -10,12 +10,6 @@ const editInfoUser = {
   EDIT_INFO_USER_SUCCESS: 'EDIT_INFO_USER_SUCCESS',
 }
 
-const changePassword = {
-  CHANGE_PASSWORD_REQUEST: 'CHANGE_PASSWORD_REQUEST',
-  CHANGE_PASSWORD_FAILURE: 'CHANGE_PASSWORD_FAILURE',
-  CHANGE_PASSWORD_SUCCESS: 'CHANGE_PASSWORD_SUCCESS',
-}
-
 const deleteMessage = {
   DELETE_MESSAGE: 'DELETE_MESSAGE',
 }
@@ -23,7 +17,6 @@ const deleteMessage = {
 const actionTypes = {
   ...getInfoUser,
   ...editInfoUser,
-  ...changePassword,
   ...deleteMessage,
 }
 

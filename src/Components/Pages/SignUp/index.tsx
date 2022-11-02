@@ -125,7 +125,7 @@ const SignUp = (props: Props) => {
               </h4>
               <div className='modal__content-wrap'>{modalList}</div>
               <FontAwesomeIcon
-                className='modal__close-icon text-danger'
+                className='modal__close-icon'
                 onClick={handleShowPopup}
                 icon={faXmark}
               />

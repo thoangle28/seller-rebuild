@@ -1,24 +1,23 @@
-import {useState, Fragment, memo, useEffect, useRef} from 'react'
+import {useState, Fragment, memo, useEffect} from 'react'
 import './style.scss'
-import resetPwdLogo from './../../../app/Images/icons/reset-pwd.svg'
+import resetPwdLogo from './../../../../app/Images/icons/reset-pwd.svg'
 import {useFormik} from 'formik'
-import {ResetPasswordSchema} from './Schema'
+import ResetPasswordSchema from './Schema'
 import ButtonPrimary from 'Components/Common/ButtonPrimary'
 import {iChangePassword} from 'app/Models/profile.interface'
 import {useAppDispatch, useAppSelector} from 'app/Hooks/hooks'
-import {changePassword, deleteMessage} from '../Profile/Redux/actions'
 import Loading from 'Components/Common/Loading'
 import PopupUpdateProfileSuccess from 'Components/Common/PopupUpdateProfileSuccess'
-import {useOnClickOutside} from 'app/Hooks/UseClickOutSide'
 import {useNavigate} from 'react-router-dom'
-import {logout} from '../Login/Redux/action'
+import {logout} from 'Components/Pages/Login/Redux/action'
+import {changePassword, deleteMessage} from './Redux/actions'
 
 const SignInMethod = () => {
   const [showResetPassword, setShowResetPassword] = useState<boolean>(false)
 
   const dispatch = useAppDispatch()
   const {isLoading, isFailure, isSuccess, message} = useAppSelector(
-    (state) => state.profileReducer
+    (state) => state.resetPasswordReducer
   )
 
   const {user} = useAppSelector((state) => state.loginReducer)
@@ -162,7 +161,9 @@ const SignInMethod = () => {
         <div className='signin-method__left mx-auto'>
           {renderResetPasswordList}
           {isFailure && message && (
-            <p className='text-danger pt-3 text-center'>{message}</p>
+            <p className='text-danger pt-3 text-center signin-method__message-error'>
+              {message}
+            </p>
           )}
         </div>
 
@@ -206,7 +207,7 @@ const SignInMethod = () => {
           <div className='update-success-wrap'>
             <PopupUpdateProfileSuccess
               message={message}
-              textButton='Logout now'
+              textButton='Sign Out'
               onClickButton={handleLogout}
             />
           </div>
