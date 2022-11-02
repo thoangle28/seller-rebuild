@@ -54,10 +54,10 @@ $spacer: 1rem;
   font-weight: 700;
 }
 .fw-medium {
-  font-weight: 500;
+  font-weight: 500 !important;
 }
 .fw-semibold{
-  font-weight: 600;
+  font-weight: 600 !important;
 }
 // my own spacer's map
 :root {

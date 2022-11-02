@@ -111,7 +111,7 @@ const DashBoard: FC<Props> = (props: Props) => {
   const getProductListStatus = (status: string) => {
     const item = TABLE_PRODUCT_SALE_STATUS.find((item: any) => item.name.toLocaleLowerCase() === status);
     return item ? <span className={`text-${item.btnStatus} text-capitalize fw-semibold`}>{item.name === 'publish' ? 'approved' : item.name}</span>
-      : <span className='text-primary text-capitalize fw-semibold'>Draft</span>
+      : <span className='text-success text-capitalize fw-semibold'>Draft</span>
   }
  
   // Render UI 
@@ -146,7 +146,7 @@ const DashBoard: FC<Props> = (props: Props) => {
       <>
         <div className='dashboard-header'>
           <p className='dashboard-header__title mb-2 text-capitalize'>
-            sale statics
+            sale statistics
           </p>
           <p className='dashboard-header__subtitle'>
             {time}
@@ -260,7 +260,7 @@ const DashBoard: FC<Props> = (props: Props) => {
                     {item.posted_date}
                   </h4>
                 </td>
-                <td>
+                <td className='text-center'>
                   {getProductListStatus(item.status)}
                 </td>
 
