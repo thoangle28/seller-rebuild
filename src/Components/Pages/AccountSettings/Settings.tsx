@@ -1,6 +1,6 @@
 import {useFormik} from 'formik'
-import {memo, useEffect, useState} from 'react'
-import {Link} from 'react-router-dom'
+import {memo, useEffect, useRef, useState} from 'react'
+import {Link, useNavigate} from 'react-router-dom'
 import {SettingsProfileSchema} from './Schema'
 import uploadBrandIcon from './../../../app/Images/icons/upload-brand.svg'
 import ButtonPrimary from 'Components/Common/ButtonPrimary'
@@ -8,24 +8,25 @@ import './style.scss'
 import {useAppDispatch, useAppSelector} from 'app/Hooks/hooks'
 import {convertBase64} from 'app/Utils'
 import defaultImg from './../../../app/Images/default-img-err.jpg'
-import {editInfoUser, getInfoUser} from '../Profile/Redux/actions'
+import {deleteMessage, editInfoUser} from '../Profile/Redux/actions'
 import Loading from 'Components/Common/Loading'
+import PopupUpdateProfileSuccess from 'Components/Common/PopupUpdateProfileSuccess'
+import {useOnClickOutside} from 'app/Hooks/UseClickOutSide'
 
 const Settings = () => {
   const {user, accessToken} = useAppSelector((state) => state.loginReducer)
-  const {user_email} = user
+  const {user_login} = user
 
-  const {infoUser, isLoading} = useAppSelector((state) => state.profileReducer)
+  const {infoUser, isLoading, isFailure, isSuccess, message} = useAppSelector(
+    (state) => state.profileReducer
+  )
 
-  const {
-    brand,
-    firstname,
-    lastname,
-    contactEmail,
-    contactPhone,
-    address,
-    communications,
-  } = infoUser
+  useEffect(() => {
+    return () => {
+      dispatch(deleteMessage())
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     setValues({
@@ -36,7 +37,32 @@ const Settings = () => {
       contactPhone: contactPhone as string,
       address: address as string,
     })
-  }, [infoUser])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const popupRef = useRef<HTMLDivElement>(null)
+
+  useOnClickOutside(popupRef, () => {
+    navigate('/my-profile')
+  })
+
+  if (isSuccess && message) {
+    setTimeout(() => {
+      navigate('/my-profile')
+    }, 3000)
+  }
+
+  const navigate = useNavigate()
+
+  const {
+    brand,
+    firstname,
+    lastname,
+    contactEmail,
+    contactPhone,
+    address,
+    communications,
+  } = infoUser
 
   const [brandLogo, setBrandLogo] = useState<string>('')
   const [checkCommunicationEmail, setCheckCommunicationEmail] =
@@ -56,11 +82,13 @@ const Settings = () => {
   }
 
   const handleSubmitForm = (values: any) => {
+    dispatch(deleteMessage())
     const editInfoUserPayload = {
       profile: {
         firstname: values.firstName,
         lastname: values.lastName,
         brand: {
+          name: values.brandName,
           logo: brandLogo,
         },
         contactPhone: values.contactPhone,
@@ -72,7 +100,7 @@ const Settings = () => {
         },
       },
       userInfo: {
-        userEmail: user_email,
+        userEmail: user_login,
         accessToken: accessToken,
       },
     }
@@ -88,6 +116,7 @@ const Settings = () => {
     handleBlur,
     handleChange,
     handleSubmit,
+    setSubmitting,
     setFieldTouched,
     setValues,
   } = useFormik({
@@ -132,11 +161,12 @@ const Settings = () => {
               <div className='settings-details__input-wrap'>
                 <input
                   type='text'
-                  value={values.brandName}
+                  value={values.brandName || ''}
                   className='settings-details__input w-100'
                   name='brandName'
                   onChange={(e) => {
                     handleChange(e)
+                    setSubmitting(false)
                     setFieldTouched('brandName', false, false)
                   }}
                   onBlur={handleBlur}
@@ -194,9 +224,10 @@ const Settings = () => {
                     type='text'
                     className='settings-details__input w-100'
                     name='firstName'
-                    value={values.firstName}
+                    value={values.firstName || ''}
                     onChange={(e) => {
                       handleChange(e)
+                      setSubmitting(false)
                       setFieldTouched('firstName', false, false)
                     }}
                     onBlur={handleBlur}
@@ -212,9 +243,10 @@ const Settings = () => {
                     type='text'
                     className='settings-details__input w-100'
                     name='lastName'
-                    value={values.lastName}
+                    value={values.lastName || ''}
                     onChange={(e) => {
                       handleChange(e)
+                      setSubmitting(false)
                       setFieldTouched('lastName', false, false)
                     }}
                     onBlur={handleBlur}
@@ -236,10 +268,11 @@ const Settings = () => {
                 <input
                   type='text'
                   className='settings-details__input w-100'
-                  value={values.contactPhone}
+                  value={values.contactPhone || ''}
                   name='contactPhone'
                   onChange={(e) => {
                     handleChange(e)
+                    setSubmitting(false)
                     setFieldTouched('contactPhone', false, false)
                   }}
                   onBlur={handleBlur}
@@ -262,9 +295,10 @@ const Settings = () => {
                   type='text'
                   className='settings-details__input w-100'
                   name='contactEmail'
-                  value={values.contactEmail}
+                  value={values.contactEmail || ''}
                   onChange={(e) => {
                     handleChange(e)
+                    setSubmitting(false)
                     setFieldTouched('contactEmail', false, false)
                   }}
                   onBlur={handleBlur}
@@ -285,10 +319,11 @@ const Settings = () => {
                 <input
                   type='text'
                   className='settings-details__input w-100'
-                  value={values.address}
+                  value={values.address || ''}
                   name='address'
                   onChange={(e) => {
                     handleChange(e)
+                    setSubmitting(false)
                     setFieldTouched('address', false, false)
                   }}
                   onBlur={handleBlur}
@@ -334,6 +369,24 @@ const Settings = () => {
               </div>
             </li>
           </ul>
+          {isFailure && message && (
+            <p className='pt-4 m-0 text-danger text-center'>{message}</p>
+          )}
+
+          {/* Popup update success */}
+          {isSuccess && message && (
+            <div className='update-success-overlay d-flex align-items-center justify-content-center'>
+              <div className='update-success-wrap' ref={popupRef}>
+                <PopupUpdateProfileSuccess
+                  message='Your profile has been updated successfully'
+                  textButton='General View'
+                  onClickButton={() => {
+                    navigate('/my-profile')
+                  }}
+                />
+              </div>
+            </div>
+          )}
         </form>
       )}
     </div>

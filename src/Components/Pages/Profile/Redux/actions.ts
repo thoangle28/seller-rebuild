@@ -58,8 +58,15 @@ export const editInfoUser = (payload: any) => async (dispatch: any) => {
   try {
     const endPoint = '/user/profile/update'
     const res = await axiosConfig.post(endPoint, payload)
-    console.log(res.data)
-  } catch (error) {}
+
+    const {code, message} = res.data
+
+    code === 200
+      ? dispatch(editInfoUserSuccess(message))
+      : dispatch(editInfoUserFailure(message))
+  } catch (error) {
+    dispatch(editInfoUserFailure(error.message))
+  }
 }
 
 export const deleteMessage = () => async (dispatch: any) => {
