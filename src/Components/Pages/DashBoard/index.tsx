@@ -20,7 +20,7 @@ import editIcon from './../../../app/Images/icons/edit-icon.svg'
 import { getProductList } from 'Components/Common/Table/Redux/actions'
 import { monthSerializable, MONTH_COLORS, TABLE_PRODUCT_LIST, TABLE_PRODUCT_SALE_STATUS } from './../../../app/Constants'
 import defaultImg from './../../../app/Images/default-img-err.jpg'
-import searchImg from './../../../app/Images/icons/search.svg'
+import notFound from './../../../app/Images/not-found.png'
 
 type Props = {}
 
@@ -113,7 +113,7 @@ const DashBoard: FC<Props> = (props: Props) => {
     return item ? <span className={`text-${item.btnStatus} text-capitalize fw-semibold`}>{item.name === 'publish' ? 'approved' : item.name}</span>
       : <span className='text-success text-capitalize fw-semibold'>Draft</span>
   }
- 
+
   // Render UI 
   const renderInfoTags = () => {
     return (
@@ -146,7 +146,7 @@ const DashBoard: FC<Props> = (props: Props) => {
       <>
         <div className='dashboard-header'>
           <p className='dashboard-header__title mb-2 text-capitalize'>
-            sale statistics
+            sales statistics
           </p>
           <p className='dashboard-header__subtitle'>
             {time}
@@ -211,7 +211,7 @@ const DashBoard: FC<Props> = (props: Props) => {
             {productList.map((item: any) => (
               <tr key={item.product_id}>
                 <td>
-                  <span className='table__product-id text-start'>
+                  <span className='table__product-id text-start fw-medium'>
                     {item.product_id}
                   </span>
                 </td>
@@ -234,7 +234,7 @@ const DashBoard: FC<Props> = (props: Props) => {
                   <h4 className='table__product-type m-0 text-center text-capitalize fw-medium'>
                     {item.type}
                   </h4>
-                </td> 
+                </td>
                 <td>
                   <h4 className='table__product-sku m-0 text-center fw-medium'>
                     {item.sku || '-'}
@@ -243,6 +243,7 @@ const DashBoard: FC<Props> = (props: Props) => {
 
                 <td>
                   <div className='table__product-price d-flex align-items-center justify-content-center'>
+                    <p>{item.type === 'variable' ? 'From' : ''}</p>
                     <h4 className='table__product-price-new m-0 fw-semibold'>
                       $ {item.sale_price > 0 ? item.sale_price : item.price}
                     </h4>
@@ -279,7 +280,7 @@ const DashBoard: FC<Props> = (props: Props) => {
             <tr>
               <td colSpan={TABLE_PRODUCT_LIST.length}>
                 <div className='d-flex justify-content-center align-items-center flex-column'>
-                  <img className='mb-2' src={searchImg} alt="search" />
+                  <img className='mb-2' src={notFound} alt="search" />
                   <span className='table__no-product mt-0 fs-6 text-center d-block text-capitalize'>
                     {productListSelector.message}
                   </span>
