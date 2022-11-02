@@ -91,6 +91,7 @@ const Settings = () => {
         firstname: values.firstName,
         lastname: values.lastName,
         brand: {
+          id: brand.id,
           name: values.brandName,
           logo: changeLogo,
         },
