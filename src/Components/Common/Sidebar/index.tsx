@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import './style.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -15,6 +15,8 @@ import { useAppDispatch, useAppSelector } from './../../../app/Hooks/hooks'
 import { logout } from 'Components/Pages/Login/Redux/action'
 import triangle from './../../../app/Images/triangle.png'
 import userPlaceholder from './../../../app/Images/user_placeholder.png'
+import { getInfoUser } from 'Components/Pages/Profile/Redux/actions'
+import Loading from '../Loading'
 
 interface iMenu {
   icon?: any
@@ -41,7 +43,20 @@ const Sidebar: FC = () => {
   const { pathname } = useLocation()
   const [isDisplaying, setIsDisplaying] = useState<boolean>(false)
   const { user } = useAppSelector(state => state.loginReducer)
-  const { avatar, display_name } = user
+  const { infoUser, isLoading } = useAppSelector((state) => state.profileReducer)
+
+  const { ID, user_email } = user
+  const { avatar, firstname, lastname } = infoUser
+
+  const getInfoUserPayload = {
+    user_id: ID,
+    user_email: user_email,
+  }
+
+  useEffect(() => {
+    dispatch(getInfoUser(getInfoUserPayload))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const displayProfileMenu = () => {
     setIsDisplaying(!isDisplaying)
@@ -96,22 +111,24 @@ const Sidebar: FC = () => {
   return (
     <div className='sidebar d-flex flex-column align-items-center min-vh-100'>
       <div className='sidebar__avatar d-flex  align-items-center flex-column'>
-        <div className='user-avatar'>
-          <img
-            src={avatar ? avatar : userPlaceholder}
-            className='rounded-circle'
-            alt='avatar'
-          />
-        </div>
-        <div className='user-name d-flex justify-content-center align-items-center'>
-          <p className='mb-0'>{display_name}</p>
-          <img
-            className='cursor-pointer ps-3'
-            onClick={displayProfileMenu}
-            src={triangle}
-            alt='triangle'
-          />
-        </div>
+        {isLoading ? <Loading /> : <>
+          <div className='user-avatar'>
+            <img
+              src={avatar ? avatar : userPlaceholder}
+              className='rounded-circle'
+              alt='avatar'
+            />
+          </div>
+          <div className='user-name d-flex justify-content-center align-items-center cursor-pointer' onClick={displayProfileMenu}>
+            <p className='mb-0'>{firstname} {lastname}</p>
+            <img
+              className='cursor-pointer ps-3'
+              src={triangle}
+              alt='triangle'
+            />
+          </div>
+        </>
+        }
       </div>
 
       {renderProfileMenu()}

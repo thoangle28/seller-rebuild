@@ -61,8 +61,8 @@ export const login = (formValue: iLogin, navigate: any) => async (dispatch: any)
 
         if (code === 200 && !message) {
             dispatch(loginSuccess(data))
-            dispatch(isLogin(true))
             navigate('/dashboard')
+            dispatch(isLogin(true))
         } else {
             dispatch(loginFailure(message))
         }
