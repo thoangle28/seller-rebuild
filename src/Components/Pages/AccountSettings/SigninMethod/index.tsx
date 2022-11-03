@@ -1,27 +1,27 @@
-import { useState, Fragment, memo, useEffect } from 'react'
+import {useState, Fragment, memo, useEffect} from 'react'
 import './style.scss'
 import resetPwdLogo from './../../../../app/Images/icons/reset-pwd.svg'
-import { useFormik } from 'formik'
+import {useFormik} from 'formik'
 import ResetPasswordSchema from './Schema'
 import ButtonPrimary from 'Components/Common/ButtonPrimary'
-import { iChangePassword } from 'app/Models/profile.interface'
-import { useAppDispatch, useAppSelector } from 'app/Hooks/hooks'
+import {iChangePassword} from 'app/Models/profile.interface'
+import {useAppDispatch, useAppSelector} from 'app/Hooks/hooks'
 import Loading from 'Components/Common/Loading'
 import PopupUpdateProfileSuccess from 'Components/Common/PopupUpdateProfileSuccess'
-import { useNavigate } from 'react-router-dom'
-import { logout } from 'Components/Pages/Login/Redux/action'
-import { changePassword, deleteMessage } from './Redux/actions'
+import {useNavigate} from 'react-router-dom'
+import {logout} from 'Components/Pages/Login/Redux/action'
+import {changePassword, deleteMessage} from './Redux/actions'
 
 const SignInMethod = () => {
   const [showResetPassword, setShowResetPassword] = useState<boolean>(false)
 
   const dispatch = useAppDispatch()
-  const { isLoading, isFailure, isSuccess, message } = useAppSelector(
+  const {isLoading, isFailure, isSuccess, message} = useAppSelector(
     (state) => state.resetPasswordReducer
   )
 
-  const { user } = useAppSelector((state) => state.loginReducer)
-  const { ID } = user
+  const {user} = useAppSelector((state) => state.loginReducer)
+  const {ID} = user
 
   const navigate = useNavigate()
 
@@ -37,13 +37,17 @@ const SignInMethod = () => {
   }
 
   useEffect(() => {
-    if (isSuccess && message) {
-      setTimeout(() => {
+    const id = setTimeout(() => {
+      if (isSuccess && message) {
         dispatch(deleteMessage())
         handleLogout()
-      }, 3000)
-    }
+      }
+    }, 3000)
+
     resetForm()
+    return () => {
+      clearTimeout(id)
+    }
   }, [isSuccess])
 
   // Formik reset password
@@ -64,7 +68,7 @@ const SignInMethod = () => {
     },
     validationSchema: ResetPasswordSchema,
     onSubmit: async (values) => {
-      const { currentPassword, newPassword, confirmNewPassword } = values
+      const {currentPassword, newPassword, confirmNewPassword} = values
 
       const changePasswordPayload: iChangePassword = {
         old_password: currentPassword,
