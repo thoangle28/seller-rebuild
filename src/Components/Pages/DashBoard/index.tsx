@@ -154,49 +154,51 @@ const DashBoard: FC<Props> = (props: Props) => {
         </div>
         <div className='row g-0'>
           <div className='col-sm-12'>
-            <div className='monthly-bussiness-data bg-white'>
-              <div className='row g-0'>
-                <div className='col-sm-12 col-md-12 col-xxl-5'>
-                  <div
-                    style={{ border: `18px solid ${currentMonth.color}` }}
-                    className='result-wrapper text-center d-flex justify-content-center align-items-center flex-column mx-auto'>
-                    <p className='month mb-0'>{currentMonth.fullName}</p>
-                    <p
-                      style={{ color: `${currentMonth.color}` }}
-                      className='profit my-1'>
-                      ${currentMonth.total ? currentMonth.total : 0}
-                    </p>
-                    <span>Net Profilt</span>
+            {
+              isLoading ? <Loading /> : <div className='monthly-bussiness-data bg-white'>
+                <div className='row g-0'>
+                  <div className='col-sm-12 col-md-12 col-xxl-5'>
+                    <div
+                      style={{ border: `18px solid ${currentMonth.color}` }}
+                      className='result-wrapper text-center d-flex justify-content-center align-items-center flex-column mx-auto'>
+                      <p className='month mb-0'>{currentMonth.fullName}</p>
+                      <p
+                        style={{ color: `${currentMonth.color}` }}
+                        className='profit my-1'>
+                        ${currentMonth.total ? currentMonth.total : 0}
+                      </p>
+                      <span>Net Profilt</span>
+                    </div>
                   </div>
-                </div>
-                <div className='col-sm-12 col-md-12 col-xxl-7'>
-                  <div className='d-flex justify-content-end flex-column'>
-                    <p className='month-list-title text-end text-primary'>
-                      Top 2/12
-                    </p>
-                    <div className='month-list d-flex justify-content-end align-items-center flex-wrap'>
-                      {list.map((item: any, i: number) => {
-                        return (
-                          <div
-                            key={item.name}
-                            className='cursor-pointer month-list__item mb-2'
-                            onClick={() => setCurrentMonth({ color: MONTH_COLORS[i], fullName: `${monthSerializable[item.month]} - ${item.year}`, name: item.month, total: item.total })}>
-                            <p className='mb-0 d-flex text-capitalize justify-content-between align-items-center'>
-                              <span
-                                className='me-2'
-                                style={{ background: MONTH_COLORS[i] }}
-                              >
-                              </span>
-                              {monthSerializable[item.month]}-{parseInt(item.year) - 2000}
-                            </p>
-                          </div>
-                        )
-                      })}
+                  <div className='col-sm-12 col-md-12 col-xxl-7'>
+                    <div className='d-flex justify-content-end flex-column'>
+                      <p className='month-list-title text-end text-primary'>
+                        Top 2/12
+                      </p>
+                      <div className='month-list d-flex justify-content-end align-items-center flex-wrap'>
+                        {list.map((item: any, i: number) => {
+                          return (
+                            <div
+                              key={item.name}
+                              className='cursor-pointer month-list__item mb-2'
+                              onClick={() => setCurrentMonth({ color: MONTH_COLORS[i], fullName: `${monthSerializable[item.month]} - ${item.year}`, name: item.month, total: item.total })}>
+                              <p className='mb-0 d-flex text-capitalize justify-content-between align-items-center'>
+                                <span
+                                  className='me-2'
+                                  style={{ background: MONTH_COLORS[i] }}
+                                >
+                                </span>
+                                {monthSerializable[item.month]}-{parseInt(item.year) - 2000}
+                              </p>
+                            </div>
+                          )
+                        })}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            }
           </div>
         </div>
       </>
