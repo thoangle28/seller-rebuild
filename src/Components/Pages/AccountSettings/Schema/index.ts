@@ -1,5 +1,6 @@
 import * as yup from 'yup'
 
+const phoneRegex = /(84[3|5|7|8|9]|0[3|5|7|8|9])+([0-9]{8})\b/g
 const SettingsProfileSchema = yup.object().shape({
   firstName: yup.string().required('First name is required'),
   lastName: yup.string().required('Last name is required'),
@@ -9,11 +10,10 @@ const SettingsProfileSchema = yup.object().shape({
     .email('Please enter a valid email')
     .required('Email is required'),
   contactPhone: yup
-    .number()
-    .positive('Phone number is not valid')
-    .min(10, 'Phone number at least 10 digits')
+    .string()
+    .matches(phoneRegex, 'Contact phone is not valid')
     .required('Contact phone is required'),
   address: yup.string().required('Address is required'),
 })
 
-export {SettingsProfileSchema}
+export default SettingsProfileSchema
