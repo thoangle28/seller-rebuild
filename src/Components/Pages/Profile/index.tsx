@@ -45,11 +45,11 @@ const Profile = () => {
       textCapitalize: true,
     },
     {
-      title: 'Brand logo',
+      title: 'Logo',
       logo: avatar || defaultImg,
     },
     {
-      title: 'Full name',
+      title: 'Name',
       text: fullName,
       textCapitalize: true,
     },
