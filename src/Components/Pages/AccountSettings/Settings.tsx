@@ -1,7 +1,7 @@
 import {useFormik} from 'formik'
 import {memo, useEffect, useRef, useState} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
-import {SettingsProfileSchema} from './Schema'
+import SettingsProfileSchema from './Schema'
 import uploadBrandIcon from './../../../app/Images/icons/upload-brand.svg'
 import ButtonPrimary from 'Components/Common/ButtonPrimary'
 import './style.scss'
@@ -14,6 +14,12 @@ import PopupUpdateProfileSuccess from 'Components/Common/PopupUpdateProfileSucce
 import {useOnClickOutside} from 'app/Hooks/UseClickOutSide'
 
 const Settings = () => {
+  const [brandLogo, setBrandLogo] = useState<string>('')
+  const [checkCommunicationEmail, setCheckCommunicationEmail] =
+    useState<boolean>(true)
+  const [checkCommunicationPhone, setCheckCommunicationPhone] =
+    useState<boolean>(false)
+
   const {user, accessToken} = useAppSelector((state) => state.loginReducer)
   const {user_login} = user
 
@@ -37,6 +43,9 @@ const Settings = () => {
       contactPhone: contactPhone as string,
       address: address as string,
     })
+
+    setCheckCommunicationEmail(communications?.email || true)
+    setCheckCommunicationPhone(communications?.phone || false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [infoUser])
 
@@ -64,12 +73,6 @@ const Settings = () => {
     address,
     communications,
   } = infoUser
-
-  const [brandLogo, setBrandLogo] = useState<string>('')
-  const [checkCommunicationEmail, setCheckCommunicationEmail] =
-    useState<boolean>(communications?.email || true)
-  const [checkCommunicationPhone, setCheckCommunicationPhone] =
-    useState<boolean>(communications?.phone || false)
 
   const dispatch = useAppDispatch()
 
@@ -187,7 +190,7 @@ const Settings = () => {
             {/* Upload brand logo */}
             <li className='settings-details__item w-100 d-flex'>
               <h3 className='settings-details__title m-0 text-capitalize'>
-                Brand Logo
+                Logo
               </h3>
 
               <div className='d-flex align-items-center'>
@@ -220,7 +223,7 @@ const Settings = () => {
 
             <li className='settings-details__item w-100 d-flex align-items-center'>
               <h3 className='settings-details__title m-0 text-capitalize'>
-                Full Name
+                Name
               </h3>
               <div className='settings-details__input-row'>
                 <div className='settings-details__input-wrap'>
