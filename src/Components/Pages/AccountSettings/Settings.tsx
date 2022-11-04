@@ -360,7 +360,9 @@ const Settings = () => {
                     setCheckCommunicationEmail(!checkCommunicationEmail)
                   }
                 />
-                <label htmlFor='checkbox-email'>Email</label>
+                <label htmlFor='checkbox-email' className=' fw-medium'>
+                  Email
+                </label>
               </div>
               <div className='settings-details__input-checkbox-wrap d-flex'>
                 <input
@@ -372,7 +374,9 @@ const Settings = () => {
                     setCheckCommunicationPhone(!checkCommunicationPhone)
                   }
                 />
-                <label htmlFor='checkbox-phone'>Phone</label>
+                <label htmlFor='checkbox-phone' className='fw-medium'>
+                  Phone
+                </label>
               </div>
             </li>
           </ul>
