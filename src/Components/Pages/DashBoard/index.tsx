@@ -65,7 +65,7 @@ const DashBoard: FC<Props> = (props: Props) => {
   useEffect(() => {
     const payload: iProductListing = {
       user_id: userId,
-      page_size: 10,
+      page_size: 12,
       current_page: 1,
       search: '',
       status: '',
@@ -244,14 +244,16 @@ const DashBoard: FC<Props> = (props: Props) => {
                 </td>
 
                 <td>
-                  <div className='table__product-price d-flex align-items-center justify-content-center'>
-                    <p>{item.type === 'variable' ? 'From' : ''}</p>
-                    <h4 className='table__product-price-new m-0 fw-semibold'>
-                      $ {item.sale_price > 0 ? item.sale_price : item.price}
-                    </h4>
+                  <div className='table__product-price d-flex align-items-center justify-content-center flex-column'>
+                    <p className='text-center mb-2'>{item.type === 'Variable' ? 'From' : ''}</p>
+                    <div>
+                      <h4 className='table__product-price-new p-0 fw-semibold'>
+                        $ {item.sale_price > 0 ? item.sale_price : item.price}
+                      </h4>
+                    </div>
 
                     {item.sale_price > 0 && (
-                      <h5 className='table__product-price-old m-0'>
+                      <h5 className='table__product-price-old p-0'>
                         $ {item.price}
                       </h5>
                     )}
