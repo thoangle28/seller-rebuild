@@ -11,3 +11,7 @@ export interface iInfoData {
     icon: any,
     number: number
 }
+
+export interface iCurrency {
+    [key: string]: string
+}

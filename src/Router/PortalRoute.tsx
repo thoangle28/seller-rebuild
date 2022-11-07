@@ -3,7 +3,6 @@ import NotFoundPage from '../Components/Pages/NotFoundPage'
 
 import { Routes, Route } from 'react-router-dom'
 import ProtectedRoute from 'Components/Common/ProtectedRoute'
-import FallBack from 'Components/Common/Fallback'
 
 // const Profile = lazy(() => import('../Components/Pages/Profile'))
 // const Login = lazy(() => import('../Components/Pages/Login'))
@@ -27,8 +26,9 @@ import DashBoard from 'Components/Pages/DashBoard'
 
 const Router: FC = () => {
   return (
-    <Suspense fallback={<FallBack />}>
+    <Suspense>
       <Routes>
+        {/* Declare Private Routes Here */}
         <Route element={<ProtectedRoute />}>
           <Route path='/dashboard' element={<DashBoard />} />
           <Route path='/my-profile' element={<Profile />} />
@@ -37,6 +37,7 @@ const Router: FC = () => {
           <Route path='/Attributes' element={<Attributes />} />
           <Route path='/product-listing' element={<ProductListing />} />
         </Route>
+        {/* Declare Public Routes Here */}
         <Route index element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />

@@ -21,6 +21,7 @@ import { getProductList } from 'Components/Common/Table/Redux/actions'
 import { monthSerializable, MONTH_COLORS, TABLE_PRODUCT_LIST, TABLE_PRODUCT_SALE_STATUS } from './../../../app/Constants'
 import defaultImg from './../../../app/Images/default-img-err.jpg'
 import notFound from './../../../app/Images/not-found.png'
+import { currencyFormat } from './../../../app/Utils'
 
 type Props = {}
 
@@ -248,13 +249,13 @@ const DashBoard: FC<Props> = (props: Props) => {
                     <p className='text-center mb-2'>{item.type === 'Variable' ? 'From' : ''}</p>
                     <div>
                       <h4 className='table__product-price-new p-0 fw-semibold'>
-                        $ {item.sale_price > 0 ? item.sale_price : item.price}
+                        {item.sale_price > 0 ? currencyFormat(item.sale_price) : currencyFormat(item.price)}
                       </h4>
                     </div>
 
                     {item.sale_price > 0 && (
                       <h5 className='table__product-price-old p-0'>
-                        $ {item.price}
+                        {currencyFormat(item.price)}
                       </h5>
                     )}
                   </div>
