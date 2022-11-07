@@ -1,5 +1,5 @@
 import {useFormik} from 'formik'
-import {FC} from 'react'
+import {FC, useEffect} from 'react'
 import {useAppDispatch, useAppSelector} from 'app/Hooks/hooks'
 import {
   changeUpdateMode,
@@ -29,6 +29,21 @@ const UpdateAttr: FC<updateForm> = (props: updateForm) => {
     childLabel,
     idTerm,
   } = props
+
+  useEffect(() => {
+    updateAttr.setFieldValue('newAttribute', oldAttribute, false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [oldAttribute])
+
+  useEffect(() => {
+    updateChildAttribute.setFieldValue('id_term', idTerm, false)
+    updateChildAttribute.setFieldValue('parent_id', parentId, false)
+    updateChildAttribute.setFieldValue(
+      'new_attribute_term_name',
+      childLabel,
+      false
+    )
+  }, [parentId, idTerm])
 
   const dispatch = useAppDispatch()
 

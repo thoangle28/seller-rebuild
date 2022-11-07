@@ -200,7 +200,12 @@ const MyProfile = (props: Props) => {
             className={`user-info ${
               !avatarUser ? 'user-info--no-avatar-change' : ''
             }`}>
-            <ul className='user-info__list p-0 m-0'>{userInfoList}</ul>
+            <ul
+              className={`user-info__list p-0 ${
+                !avatarUser ? 'user-info__list--not-change-avt' : ''
+              }`}>
+              {userInfoList}
+            </ul>
           </div>
         </>
       )}
