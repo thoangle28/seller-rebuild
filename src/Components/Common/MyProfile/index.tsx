@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useRef, useState, useEffect} from 'react'
 import {
   faUser,
   faEnvelope,
@@ -11,6 +11,17 @@ import defaultUploadImg from './../../../app/Images/default-upload-img.png'
 import uploadIcon from './../../../app/Images/icons/upload-icon.svg'
 import './style.scss'
 import {convertBase64} from 'app/Utils'
+import {useAppDispatch, useAppSelector} from 'app/Hooks/hooks'
+import changeAvatarIcon from './../../../app/Images/icons/upload-avatar-icon.svg'
+import deleteChangeAvatarIcon from './../../../app/Images/icons/delete-upload-icon.jpg'
+import PopupUpdateProfileSuccess from '../PopupUpdateProfileSuccess'
+import {useNavigate} from 'react-router-dom'
+import {useOnClickOutside} from 'app/Hooks/UseClickOutSide'
+import {
+  changeAvatar,
+  deleteMessage,
+  getInfoUser,
+} from 'Components/Pages/Profile/Redux/actions'
 
 interface Props {
   data: any
@@ -22,17 +33,32 @@ const MyProfile = (props: Props) => {
 
   const [avatarUser, setAvatarUser] = useState<string>('')
 
+  const dispatch = useAppDispatch()
+
+  const {user, accessToken} = useAppSelector((state) => state.loginReducer)
+  const {user_login, ID, user_email} = user
+  const getInfoUserPayload = {
+    user_id: ID,
+    user_email: user_email,
+  }
+
   const {
+    brand,
     firstname,
     lastname,
     personal_photo,
     contactEmail,
     contactPhone,
     address,
+    communications,
   } = data
+
+  const {isSuccessChangeAvatar, isLoadingChangeAvatar, message} =
+    useAppSelector((state) => state.profileReducer)
+
   const fullName = `${firstname} ${lastname}`
 
-  const infoUser = [
+  const userInfo = [
     {
       icon: faUser,
       text: fullName,
@@ -52,6 +78,23 @@ const MyProfile = (props: Props) => {
     },
   ]
 
+  const popupRef = useRef<HTMLDivElement>(null)
+  const navigate = useNavigate()
+
+  useOnClickOutside(popupRef, () => {
+    dispatch(deleteMessage())
+    setAvatarUser('')
+    dispatch(getInfoUser(getInfoUserPayload))
+  })
+
+  if (isSuccessChangeAvatar && message) {
+    setTimeout(() => {
+      dispatch(deleteMessage())
+      setAvatarUser('')
+      dispatch(getInfoUser(getInfoUserPayload))
+    }, 3000)
+  }
+
   const handleUploadAvatar = async (e: any) => {
     const file = e.target.files[0]
 
@@ -61,8 +104,35 @@ const MyProfile = (props: Props) => {
     } catch (error) {}
   }
 
+  const handleRemoveAvatar = () => {
+    setAvatarUser('')
+  }
+
+  const handleSaveAvatar = () => {
+    const changeAvatarPayload = {
+      profile: {
+        personal_photo: personal_photo || '',
+        new_personal_photo: avatarUser,
+        brand: {id: brand?.id, name: brand?.name, logo: ''},
+        communications: {
+          email: communications?.email,
+          phone: communications?.phone,
+        },
+        firstname,
+        lastname,
+        address,
+        contactPhone,
+      },
+      userInfo: {
+        userEmail: user_login,
+        accessToken: accessToken,
+      },
+    }
+    dispatch(changeAvatar(changeAvatarPayload))
+  }
+
   // Render list info
-  const infoUserList = infoUser.map((item, index) => (
+  const userInfoList = userInfo.map((item, index) => (
     <li className='user-info__item' key={index}>
       <span className='user-info__icon d-inline-block'>
         <FontAwesomeIcon icon={item.icon} />
@@ -78,7 +148,7 @@ const MyProfile = (props: Props) => {
 
   return (
     <div className='my-profile'>
-      {isLoading ? (
+      {isLoading || isLoadingChangeAvatar ? (
         <Loading />
       ) : (
         <>
@@ -108,13 +178,46 @@ const MyProfile = (props: Props) => {
               </label>
             </div>
           </div>
-          <h3 className='user-fullname text-center text-uppercase'>
+          <h3 className='user-fullname text-center text-uppercase mb-4'>
             {fullName}
           </h3>
-          <div className='user-info'>
-            <ul className='user-info__list p-0 m-0'>{infoUserList}</ul>
+          {avatarUser && (
+            <div className='d-flex justify-content-center mb-4'>
+              <button
+                className='save-avt btn btn-primary border-0 me-1 cursor-pointer d-flex align-items-center'
+                onClick={handleSaveAvatar}>
+                <img src={changeAvatarIcon} alt='icon save avatar' />
+                <span className='text-white'>Save avatar</span>
+              </button>
+              <button
+                className='del-save-avt border border-primary bg-transparent fw-medium'
+                onClick={handleRemoveAvatar}>
+                <img src={deleteChangeAvatarIcon} alt='delete' />
+              </button>
+            </div>
+          )}
+          <div
+            className={`user-info ${
+              !avatarUser ? 'user-info--no-avatar-change' : ''
+            }`}>
+            <ul className='user-info__list p-0 m-0'>{userInfoList}</ul>
           </div>
         </>
+      )}
+
+      {/* Popup update success */}
+      {isSuccessChangeAvatar && message && (
+        <div className='update-success-overlay d-flex align-items-center justify-content-center'>
+          <div className='update-success-wrap' ref={popupRef}>
+            <PopupUpdateProfileSuccess
+              message='Your profile has been updated successfully'
+              textButton='General View'
+              onClickButton={() => {
+                navigate('/my-profile')
+              }}
+            />
+          </div>
+        </div>
       )}
     </div>
   )

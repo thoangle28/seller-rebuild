@@ -4,10 +4,22 @@ const getInfoUser = {
   GET_INFO_USER_SUCCESS: 'GET_INFO_USER_SUCCESS',
 }
 
+const changeAvatar = {
+  CHANGE_AVATAR_REQUEST: 'CHANGE_AVATAR_REQUEST',
+  CHANGE_AVATAR_FAILURE: 'CHANGE_AVATAR_FAILURE',
+  CHANGE_AVATAR_SUCCESS: 'CHANGE_AVATAR_SUCCESS',
+}
+
 const editInfoUser = {
   EDIT_INFO_USER_REQUEST: 'EDIT_INFO_USER_REQUEST',
   EDIT_INFO_USER_FAILURE: 'EDIT_INFO_USER_FAILURE',
   EDIT_INFO_USER_SUCCESS: 'EDIT_INFO_USER_SUCCESS',
+}
+
+const changePassword = {
+  CHANGE_PASSWORD_REQUEST: 'CHANGE_PASSWORD_REQUEST',
+  CHANGE_PASSWORD_FAILURE: 'CHANGE_PASSWORD_FAILURE',
+  CHANGE_PASSWORD_SUCCESS: 'CHANGE_PASSWORD_SUCCESS',
 }
 
 const deleteMessage = {
@@ -16,7 +28,9 @@ const deleteMessage = {
 
 const actionTypes = {
   ...getInfoUser,
+  ...changeAvatar,
   ...editInfoUser,
+  ...changePassword,
   ...deleteMessage,
 }
 

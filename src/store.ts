@@ -1,4 +1,3 @@
-import {resetPasswordReducer} from './Components/Pages/AccountSettings/SigninMethod/Redux/reducer'
 import {profileReducer} from 'Components/Pages/Profile/Redux/reducer'
 import {combineReducers, configureStore} from '@reduxjs/toolkit'
 import {attributesReducer} from './Components/Pages/Attributes/Redux/reducer'
@@ -32,7 +31,6 @@ const reducer = combineReducers({
   generalReducer,
   profileReducer,
   tableReducer,
-  resetPasswordReducer,
 })
 
 const pReducer = persistReducer(persistConfig, reducer)

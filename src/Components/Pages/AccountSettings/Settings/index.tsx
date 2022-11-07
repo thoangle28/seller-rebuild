@@ -2,16 +2,19 @@ import {useFormik} from 'formik'
 import {memo, useEffect, useRef, useState} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import SettingsProfileSchema from './Schema'
-import uploadBrandIcon from './../../../app/Images/icons/upload-brand.svg'
+import uploadBrandIcon from './../../../../app/Images/icons/upload-brand.svg'
 import ButtonPrimary from 'Components/Common/ButtonPrimary'
 import './style.scss'
 import {useAppDispatch, useAppSelector} from 'app/Hooks/hooks'
 import {convertBase64} from 'app/Utils'
-import defaultImg from './../../../app/Images/default-img-err.jpg'
-import {deleteMessage, editInfoUser} from '../Profile/Redux/actions'
+import defaultImg from './../../../../app/Images/default-img-err.jpg'
 import Loading from 'Components/Common/Loading'
 import PopupUpdateProfileSuccess from 'Components/Common/PopupUpdateProfileSuccess'
 import {useOnClickOutside} from 'app/Hooks/UseClickOutSide'
+import {
+  deleteMessage,
+  editInfoUser,
+} from 'Components/Pages/Profile/Redux/actions'
 
 const Settings = () => {
   const [brandLogo, setBrandLogo] = useState<string>('')
@@ -23,9 +26,14 @@ const Settings = () => {
   const {user, accessToken} = useAppSelector((state) => state.loginReducer)
   const {user_login} = user
 
-  const {infoUser, isLoading, isFailure, isSuccess, message} = useAppSelector(
-    (state) => state.profileReducer
-  )
+  const {
+    infoUser,
+    isLoadingGetInfo,
+    isLoadingSettings,
+    isSuccessSettings,
+    message,
+    isFailureSettings,
+  } = useAppSelector((state) => state.profileReducer)
 
   useEffect(() => {
     return () => {
@@ -52,12 +60,14 @@ const Settings = () => {
   const popupRef = useRef<HTMLDivElement>(null)
 
   useOnClickOutside(popupRef, () => {
-    navigate('/my-profile')
+    dispatch(deleteMessage())
+    setSubmitting(false)
   })
 
-  if (isSuccess && message) {
+  if (isSuccessSettings && message) {
     setTimeout(() => {
-      navigate('/my-profile')
+      dispatch(deleteMessage())
+      setSubmitting(false)
     }, 3000)
   }
 
@@ -141,7 +151,7 @@ const Settings = () => {
 
   return (
     <div className='settings'>
-      {isLoading ? (
+      {isLoadingGetInfo || isLoadingSettings ? (
         <div className='py-4'>
           <Loading />
         </div>
@@ -380,12 +390,12 @@ const Settings = () => {
               </div>
             </li>
           </ul>
-          {isFailure && message && (
+          {isFailureSettings && message && (
             <p className='pt-4 m-0 text-danger text-center'>{message}</p>
           )}
 
           {/* Popup update success */}
-          {isSuccess && message && (
+          {isSuccessSettings && message && (
             <div className='update-success-overlay d-flex align-items-center justify-content-center'>
               <div className='update-success-wrap' ref={popupRef}>
                 <PopupUpdateProfileSuccess

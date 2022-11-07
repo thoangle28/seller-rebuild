@@ -1,5 +1,8 @@
 import axiosConfig from 'APIs/AxiosConfig'
-import {iGetInfoUser} from './../../../../app/Models/profile.interface'
+import {
+  iChangePassword,
+  iGetInfoUser,
+} from './../../../../app/Models/profile.interface'
 import actionTypes from './types'
 
 const getInfoUserRequest = () => ({
@@ -16,6 +19,20 @@ const getInfoUserSuccess = (payload: any) => ({
   payload,
 })
 
+const changeAvatarRequest = () => ({
+  type: actionTypes.CHANGE_AVATAR_REQUEST,
+})
+
+const changeAvatarFailure = (payload: string) => ({
+  type: actionTypes.CHANGE_AVATAR_FAILURE,
+  payload,
+})
+
+const changeAvatarSuccess = (payload: string) => ({
+  type: actionTypes.CHANGE_AVATAR_SUCCESS,
+  payload,
+})
+
 const editInfoUserRequest = () => ({
   type: actionTypes.EDIT_INFO_USER_REQUEST,
 })
@@ -27,6 +44,20 @@ const editInfoUserFailure = (payload: string) => ({
 
 const editInfoUserSuccess = (payload: any) => ({
   type: actionTypes.EDIT_INFO_USER_SUCCESS,
+  payload,
+})
+
+const changePasswordRequest = () => ({
+  type: actionTypes.CHANGE_PASSWORD_REQUEST,
+})
+
+const changePasswordFailure = (payload: string) => ({
+  type: actionTypes.CHANGE_PASSWORD_FAILURE,
+  payload,
+})
+
+const changePasswordSuccess = (payload: any) => ({
+  type: actionTypes.CHANGE_PASSWORD_SUCCESS,
   payload,
 })
 
@@ -52,6 +83,22 @@ export const getInfoUser = (payload: iGetInfoUser) => async (dispatch: any) => {
   }
 }
 
+export const changeAvatar = (payload: any) => async (dispatch: any) => {
+  dispatch(changeAvatarRequest())
+  try {
+    const endPoint = '/user/profile/update'
+    const res = await axiosConfig.post(endPoint, payload)
+
+    const {code, message} = res.data
+
+    code === 200
+      ? dispatch(changeAvatarSuccess(message))
+      : dispatch(changeAvatarFailure(message))
+  } catch (error) {
+    dispatch(changeAvatarFailure(error.message))
+  }
+}
+
 export const editInfoUser = (payload: any) => async (dispatch: any) => {
   dispatch(editInfoUserRequest())
 
@@ -68,6 +115,24 @@ export const editInfoUser = (payload: any) => async (dispatch: any) => {
     dispatch(editInfoUserFailure(error.message))
   }
 }
+
+export const changePassword =
+  (payload: iChangePassword) => async (dispatch: any) => {
+    dispatch(changePasswordRequest())
+
+    try {
+      const endPoint = '/user/profile/change-password'
+
+      const res = await axiosConfig.post(endPoint, payload)
+      const {code, message} = res.data
+
+      code === 200
+        ? dispatch(changePasswordSuccess(message))
+        : dispatch(changePasswordFailure(message))
+    } catch (error) {
+      dispatch(changePasswordFailure(error.message))
+    }
+  }
 
 export const deleteMessage = () => async (dispatch: any) => {
   dispatch(removeMessage())

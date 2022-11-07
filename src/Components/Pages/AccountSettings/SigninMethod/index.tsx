@@ -10,15 +10,21 @@ import Loading from 'Components/Common/Loading'
 import PopupUpdateProfileSuccess from 'Components/Common/PopupUpdateProfileSuccess'
 import {useNavigate} from 'react-router-dom'
 import {logout} from 'Components/Pages/Login/Redux/action'
-import {changePassword, deleteMessage} from './Redux/actions'
+import {
+  changePassword,
+  deleteMessage,
+} from 'Components/Pages/Profile/Redux/actions'
 
 const SignInMethod = () => {
   const [showResetPassword, setShowResetPassword] = useState<boolean>(false)
 
   const dispatch = useAppDispatch()
-  const {isLoading, isFailure, isSuccess, message} = useAppSelector(
-    (state) => state.resetPasswordReducer
-  )
+  const {
+    isLoadingChangePassword,
+    isFailureChangePassword,
+    isSuccessChangePassword,
+    message,
+  } = useAppSelector((state) => state.profileReducer)
 
   const {user} = useAppSelector((state) => state.loginReducer)
   const {ID} = user
@@ -30,26 +36,26 @@ const SignInMethod = () => {
     resetForm()
   }
 
-  const handleLogout = () => {
-    dispatch(logout())
-    localStorage.clear()
-    navigate('/')
-  }
-
   useEffect(() => {
-    const id = setTimeout(() => {
-      if (isSuccess && message) {
-        dispatch(deleteMessage())
-        handleLogout()
-      }
-    }, 3000)
-
     resetForm()
     return () => {
       clearTimeout(id)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSuccess])
+  }, [])
+
+  const id = setTimeout(() => {
+    if (isSuccessChangePassword && message) {
+      dispatch(deleteMessage())
+      handleLogout()
+    }
+  }, 3000)
+
+  const handleLogout = () => {
+    dispatch(logout())
+    localStorage.clear()
+    navigate('/')
+  }
 
   // Formik reset password
   const {
@@ -159,13 +165,13 @@ const SignInMethod = () => {
   }
 
   const renderResetPassword = () => {
-    return isLoading ? (
+    return isLoadingChangePassword ? (
       <Loading />
     ) : (
       <form onSubmit={handleSubmit} className='d-flex justify-content-between'>
         <div className='signin-method__left mx-auto'>
           {renderResetPasswordList}
-          {isFailure && message && (
+          {isFailureChangePassword && message && (
             <p className='text-danger pt-3 text-center signin-method__message-error'>
               {message}
             </p>
@@ -186,7 +192,7 @@ const SignInMethod = () => {
               Cancel
             </h3>
             <ButtonPrimary
-              disabled={isLoading || (isSuccess && message)}
+              disabled={isLoadingChangePassword}
               type='submit'
               className='btn-update-pwd'>
               Update Password
@@ -207,7 +213,7 @@ const SignInMethod = () => {
         </div>
       </div>
       {/* Popup update success */}
-      {isSuccess && message && (
+      {isSuccessChangePassword && message && (
         <div className='update-success-overlay d-flex align-items-center justify-content-center'>
           <div className='update-success-wrap'>
             <PopupUpdateProfileSuccess
