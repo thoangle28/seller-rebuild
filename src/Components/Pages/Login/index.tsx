@@ -17,7 +17,7 @@ interface Props {
 const Signin: FC<Props> = (props: Props) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const { isLoading, message } = useAppSelector((state) => state.loginReducer) 
+  const { isLoading, message, isFailure } = useAppSelector((state) => state.loginReducer)
 
   const {
     values,
@@ -42,7 +42,7 @@ const Signin: FC<Props> = (props: Props) => {
     if (!message) return <></>
     return (
       <p className='signin__text-error text-danger text-center mt-4'>
-        {message}
+        {isFailure ? message : ''}
       </p>
     )
   }
