@@ -180,7 +180,7 @@ const DashBoard: FC<Props> = (props: Props) => {
                         {list.map((item: any, i: number) => {
                           return (
                             <div
-                              key={item.name}
+                              key={i}
                               className='cursor-pointer month-list__item mb-2'
                               onClick={() => setCurrentMonth({ color: MONTH_COLORS[i], fullName: `${monthSerializable[item.month]} - ${item.year}`, name: item.month, total: item.total })}>
                               <p className='mb-0 d-flex text-capitalize justify-content-between align-items-center'>
