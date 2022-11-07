@@ -70,11 +70,11 @@ const MyProfile = (props: Props) => {
     },
     {
       icon: faLocationDot,
-      text: address || 'Unknown',
+      text: address || 'Not Found',
     },
     {
       icon: faPhoneFlip,
-      text: contactPhone || 'Unknown',
+      text: contactPhone || 'Not Found',
     },
   ]
 

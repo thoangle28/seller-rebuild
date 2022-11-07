@@ -58,15 +58,15 @@ const Profile = () => {
     },
     {
       title: 'Contact Phone',
-      text: contactPhone || 'Unknown',
+      text: contactPhone || 'Not Found',
     },
     {
       title: 'Contact Email',
-      text: contactEmail || 'Unknown',
+      text: contactEmail || 'Not Found',
     },
     {
       title: 'Address',
-      text: address || 'Unknown',
+      text: address || 'Not Found',
     },
     {
       title: 'Communications',
