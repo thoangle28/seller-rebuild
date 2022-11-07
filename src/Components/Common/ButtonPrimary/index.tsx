@@ -14,7 +14,7 @@ const ButtonPrimary = (props: Props) => {
   return (
     <button
       disabled={disabled}
-      className={`button-primary bg-primary text-center text-capitalize ${
+      className={`button-primary btn btn-primary text-center text-capitalize ${
         className ? className : ''
       }`}
       type={type}

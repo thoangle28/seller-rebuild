@@ -2,16 +2,16 @@ import {useFormik} from 'formik'
 import {memo, useEffect, useRef, useState} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import SettingsProfileSchema from './Schema'
-import uploadBrandIcon from './../../../app/Images/icons/upload-brand.svg'
+import uploadBrandIcon from './../../../../app/Images/icons/upload-brand.svg'
 import ButtonPrimary from 'Components/Common/ButtonPrimary'
 import './style.scss'
 import {useAppDispatch, useAppSelector} from 'app/Hooks/hooks'
 import {convertBase64} from 'app/Utils'
-import defaultImg from './../../../app/Images/default-img-err.jpg'
-import {deleteMessage, editInfoUser} from '../Profile/Redux/actions'
+import defaultImg from './../../../../app/Images/default-img-err.jpg'
 import Loading from 'Components/Common/Loading'
 import PopupUpdateProfileSuccess from 'Components/Common/PopupUpdateProfileSuccess'
 import {useOnClickOutside} from 'app/Hooks/UseClickOutSide'
+import {deleteMessage, editInfoUser} from './Redex/actions'
 
 const Settings = () => {
   const [brandLogo, setBrandLogo] = useState<string>('')
@@ -23,9 +23,14 @@ const Settings = () => {
   const {user, accessToken} = useAppSelector((state) => state.loginReducer)
   const {user_login} = user
 
-  const {infoUser, isLoading, isFailure, isSuccess, message} = useAppSelector(
-    (state) => state.profileReducer
-  )
+  const {infoUser, isLoading} = useAppSelector((state) => state.profileReducer)
+
+  const {
+    isLoading: isLoadingEdit,
+    isFailure,
+    isSuccess,
+    message,
+  } = useAppSelector((state) => state.editInfoUserReducer)
 
   useEffect(() => {
     return () => {
@@ -52,12 +57,14 @@ const Settings = () => {
   const popupRef = useRef<HTMLDivElement>(null)
 
   useOnClickOutside(popupRef, () => {
-    navigate('/my-profile')
+    dispatch(deleteMessage())
+    resetForm()
   })
 
   if (isSuccess && message) {
     setTimeout(() => {
-      navigate('/my-profile')
+      dispatch(deleteMessage())
+      resetForm()
     }, 3000)
   }
 
@@ -126,6 +133,7 @@ const Settings = () => {
     setSubmitting,
     setFieldTouched,
     setValues,
+    resetForm,
   } = useFormik({
     initialValues: {
       firstName: '',
@@ -141,7 +149,7 @@ const Settings = () => {
 
   return (
     <div className='settings'>
-      {isLoading ? (
+      {isLoadingEdit || isLoading ? (
         <div className='py-4'>
           <Loading />
         </div>

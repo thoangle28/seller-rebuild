@@ -11,6 +11,10 @@ import defaultUploadImg from './../../../app/Images/default-upload-img.png'
 import uploadIcon from './../../../app/Images/icons/upload-icon.svg'
 import './style.scss'
 import {convertBase64} from 'app/Utils'
+import {useAppDispatch, useAppSelector} from 'app/Hooks/hooks'
+import changeAvatarIcon from './../../../app/Images/icons/upload-avatar-icon.svg'
+import deleteChangeAvatarIcon from './../../../app/Images/icons/delete-upload-icon.jpg'
+import {changeAvatar} from './Redex/actions'
 
 interface Props {
   data: any
@@ -21,6 +25,11 @@ const MyProfile = (props: Props) => {
   const {data, isLoading} = props
 
   const [avatarUser, setAvatarUser] = useState<string>('')
+
+  const dispatch = useAppDispatch()
+
+  const {user, accessToken} = useAppSelector((state) => state.loginReducer)
+  const {user_login} = user
 
   const {
     firstname,
@@ -59,6 +68,24 @@ const MyProfile = (props: Props) => {
       const base64: any = await convertBase64(file)
       setAvatarUser(base64)
     } catch (error) {}
+  }
+
+  const handleRemoveAvatar = () => {
+    setAvatarUser('')
+  }
+
+  const handleSaveAvatar = () => {
+    const changeAvatarPayload = {
+      profile: {
+        personal_photo: personal_photo || '',
+        new_personal_photo: avatarUser,
+      },
+      userInfo: {
+        userEmail: user_login,
+        accessToken: accessToken,
+      },
+    }
+    dispatch(changeAvatar(changeAvatarPayload))
   }
 
   // Render list info
@@ -108,10 +135,28 @@ const MyProfile = (props: Props) => {
               </label>
             </div>
           </div>
-          <h3 className='user-fullname text-center text-uppercase'>
+          <h3 className='user-fullname text-center text-uppercase mb-4'>
             {fullName}
           </h3>
-          <div className='user-info'>
+          {avatarUser && (
+            <div className='d-flex justify-content-center mb-4'>
+              <button
+                className='save-avt btn btn-primary border-0 me-1 cursor-pointer d-flex align-items-center'
+                onClick={handleSaveAvatar}>
+                <img src={changeAvatarIcon} alt='icon save avatar' />
+                <span className='text-white'>Save avatar</span>
+              </button>
+              <button
+                className='del-save-avt border border-primary bg-transparent fw-medium'
+                onClick={handleRemoveAvatar}>
+                <img src={deleteChangeAvatarIcon} alt='delete' />
+              </button>
+            </div>
+          )}
+          <div
+            className={`user-info ${
+              !avatarUser ? 'user-info--no-avatar-change' : ''
+            }`}>
             <ul className='user-info__list p-0 m-0'>{infoUserList}</ul>
           </div>
         </>
