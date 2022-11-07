@@ -14,6 +14,7 @@ const verifyToken = {
 const actionTypes = {
     LOGOUT: "LOGOUT",
     IS_LOGIN: "IS_LOGIN",
+    CLEAR_MESSAGE:"CLEAR_MESSSAGE",
     ...loginActions,
     ...verifyToken,
 }

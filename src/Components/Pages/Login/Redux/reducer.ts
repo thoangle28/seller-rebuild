@@ -54,9 +54,9 @@ export const loginReducer = persistReducer(
             case actionTypes.VERIFY_TOKEN_SUCCESS:
                 return { ...state, ...requestSuccess }
             case actionTypes.IS_LOGIN:
-                return {
-                    ...state, isLogin: payload
-                }
+                return { ...state, isLogin: payload }
+            case actionTypes.CLEAR_MESSAGE:
+                return { ...state, message: payload }
             default:
                 return state
         }

@@ -35,6 +35,11 @@ const isLogin = (payload: boolean = false) => ({
     payload
 })
 
+const clearMessage = (payload: string = '') => ({
+    type: actionTypes.CLEAR_MESSAGE,
+    payload
+})
+
 export const verifyToken = (payload: iVerifyToken) => async (dispatch: any) => {
     dispatch(verifyTokenRequest())
     try {
@@ -69,6 +74,10 @@ export const login = (formValue: iLogin, navigate: any) => async (dispatch: any)
     } catch (err) {
         dispatch(loginFailure(err))
     }
+}
+
+export const clearMessageAction = (dispatch: any) => {
+    dispatch(clearMessage())
 }
 
 // Logout action
