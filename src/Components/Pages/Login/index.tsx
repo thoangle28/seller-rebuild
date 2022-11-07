@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { useFormik } from 'formik'
 import { useAppSelector, useAppDispatch } from '../../../app/Hooks/hooks'
 import FullWidthLayout from 'Components/Layouts/FullWidthLayout'
@@ -8,7 +8,7 @@ import './style.scss'
 import InputField from 'Components/Common/InputField'
 import ButtonSubmitForm from 'Components/Common/ButtonSubmitForm'
 import LoginSchema from './Schema/index'
-import { login } from './Redux/action'
+import { clearMessageAction, login } from './Redux/action'
 import Loading from 'Components/Common/Loading'
 interface Props {
   ex?: string
@@ -17,7 +17,7 @@ interface Props {
 const Signin: FC<Props> = (props: Props) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const { isLoading, message } = useAppSelector((state) => state.loginReducer) 
+  const { isLoading, message, isFailure } = useAppSelector((state) => state.loginReducer)
 
   const {
     values,
@@ -42,10 +42,16 @@ const Signin: FC<Props> = (props: Props) => {
     if (!message) return <></>
     return (
       <p className='signin__text-error text-danger text-center mt-4'>
-        {message}
+        {isFailure ? message : ''}
       </p>
     )
   }
+  useEffect(() => { 
+    return () => {
+      clearMessageAction(dispatch)
+    }
+  }, [])
+
 
   const inputFields = [
     {
