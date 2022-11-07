@@ -13,9 +13,8 @@ const Profile = () => {
   const {ID, user_email} = user
 
   const dispatch = useAppDispatch()
-  const {infoUser, isLoading} = useAppSelector((state) => state.profileReducer)
-  const {isSuccess, message} = useAppSelector(
-    (state) => state.changeAvatarReducer
+  const {infoUser, isLoadingGetInfo} = useAppSelector(
+    (state) => state.profileReducer
   )
 
   const {
@@ -107,10 +106,10 @@ const Profile = () => {
         <h2 className='profile__title mb-3'>Profile Details</h2>
 
         <div className='profile-content d-flex align-items-stretch'>
-          <MyProfile data={infoUser} isLoading={isLoading} />
+          <MyProfile data={infoUser} isLoading={isLoadingGetInfo} />
 
           <div className='overview p-4'>
-            {isLoading ? (
+            {isLoadingGetInfo ? (
               <Loading />
             ) : (
               <>

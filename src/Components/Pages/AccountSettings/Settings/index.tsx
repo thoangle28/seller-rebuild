@@ -11,8 +11,10 @@ import defaultImg from './../../../../app/Images/default-img-err.jpg'
 import Loading from 'Components/Common/Loading'
 import PopupUpdateProfileSuccess from 'Components/Common/PopupUpdateProfileSuccess'
 import {useOnClickOutside} from 'app/Hooks/UseClickOutSide'
-import {deleteMessage, editInfoUser} from './Redex/actions'
-import {getInfoUser} from 'Components/Pages/Profile/Redux/actions'
+import {
+  deleteMessage,
+  editInfoUser,
+} from 'Components/Pages/Profile/Redux/actions'
 
 const Settings = () => {
   const [brandLogo, setBrandLogo] = useState<string>('')
@@ -24,14 +26,14 @@ const Settings = () => {
   const {user, accessToken} = useAppSelector((state) => state.loginReducer)
   const {user_login} = user
 
-  const {infoUser, isLoading} = useAppSelector((state) => state.profileReducer)
-
   const {
-    isLoading: isLoadingEdit,
-    isFailure,
-    isSuccess,
+    infoUser,
+    isLoadingGetInfo,
+    isLoadingSettings,
+    isSuccessSettings,
     message,
-  } = useAppSelector((state) => state.editInfoUserReducer)
+    isFailureSettings,
+  } = useAppSelector((state) => state.profileReducer)
 
   useEffect(() => {
     return () => {
@@ -62,7 +64,7 @@ const Settings = () => {
     setSubmitting(false)
   })
 
-  if (isSuccess && message) {
+  if (isSuccessSettings && message) {
     setTimeout(() => {
       dispatch(deleteMessage())
       setSubmitting(false)
@@ -149,7 +151,7 @@ const Settings = () => {
 
   return (
     <div className='settings'>
-      {isLoadingEdit || isLoading ? (
+      {isLoadingGetInfo || isLoadingSettings ? (
         <div className='py-4'>
           <Loading />
         </div>
@@ -388,12 +390,12 @@ const Settings = () => {
               </div>
             </li>
           </ul>
-          {isFailure && message && (
+          {isFailureSettings && message && (
             <p className='pt-4 m-0 text-danger text-center'>{message}</p>
           )}
 
           {/* Popup update success */}
-          {isSuccess && message && (
+          {isSuccessSettings && message && (
             <div className='update-success-overlay d-flex align-items-center justify-content-center'>
               <div className='update-success-wrap' ref={popupRef}>
                 <PopupUpdateProfileSuccess

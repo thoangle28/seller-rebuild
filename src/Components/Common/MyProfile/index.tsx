@@ -14,11 +14,14 @@ import {convertBase64} from 'app/Utils'
 import {useAppDispatch, useAppSelector} from 'app/Hooks/hooks'
 import changeAvatarIcon from './../../../app/Images/icons/upload-avatar-icon.svg'
 import deleteChangeAvatarIcon from './../../../app/Images/icons/delete-upload-icon.jpg'
-import {changeAvatar, deleteMessage} from './Redex/actions'
 import PopupUpdateProfileSuccess from '../PopupUpdateProfileSuccess'
 import {useNavigate} from 'react-router-dom'
 import {useOnClickOutside} from 'app/Hooks/UseClickOutSide'
-import {getInfoUser} from 'Components/Pages/Profile/Redux/actions'
+import {
+  changeAvatar,
+  deleteMessage,
+  getInfoUser,
+} from 'Components/Pages/Profile/Redux/actions'
 
 interface Props {
   data: any
@@ -50,11 +53,8 @@ const MyProfile = (props: Props) => {
     communications,
   } = data
 
-  const {
-    isSuccess,
-    isLoading: isLoadingProfile,
-    message,
-  } = useAppSelector((state) => state.changeAvatarReducer)
+  const {isSuccessChangeAvatar, isLoadingChangeAvatar, message} =
+    useAppSelector((state) => state.profileReducer)
 
   const fullName = `${firstname} ${lastname}`
 
@@ -87,7 +87,7 @@ const MyProfile = (props: Props) => {
     dispatch(getInfoUser(getInfoUserPayload))
   })
 
-  if (isSuccess && message) {
+  if (isSuccessChangeAvatar && message) {
     setTimeout(() => {
       dispatch(deleteMessage())
       setAvatarUser('')
@@ -148,7 +148,7 @@ const MyProfile = (props: Props) => {
 
   return (
     <div className='my-profile'>
-      {isLoading || isLoadingProfile ? (
+      {isLoading || isLoadingChangeAvatar ? (
         <Loading />
       ) : (
         <>
@@ -206,7 +206,7 @@ const MyProfile = (props: Props) => {
       )}
 
       {/* Popup update success */}
-      {isSuccess && message && (
+      {isSuccessChangeAvatar && message && (
         <div className='update-success-overlay d-flex align-items-center justify-content-center'>
           <div className='update-success-wrap' ref={popupRef}>
             <PopupUpdateProfileSuccess

@@ -24,7 +24,9 @@ const AccountSettings = () => {
   }, [])
 
   const dispatch = useAppDispatch()
-  const {infoUser, isLoading} = useAppSelector((state) => state.profileReducer)
+  const {infoUser, isLoadingGetInfo} = useAppSelector(
+    (state) => state.profileReducer
+  )
 
   return (
     <DefaultLayout>
@@ -35,7 +37,7 @@ const AccountSettings = () => {
 
         <div className='d-flex'>
           {/* My Profile */}
-          <MyProfile data={infoUser} isLoading={isLoading} />
+          <MyProfile data={infoUser} isLoading={isLoadingGetInfo} />
 
           <div className='account-settings__right d-flex flex-column'>
             {/* Settings */}
