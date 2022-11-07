@@ -18,6 +18,7 @@ import {
 import createNewAttributeSchema from './Schema'
 import './style.scss'
 import UpdateAttr from './UpdateAttr'
+import editIcon from './../../../app/Images/icons/edit-icon.svg'
 
 const Attributes = () => {
   const [isActiveIndex, setActiveIndex] = useState<number>()
@@ -174,7 +175,7 @@ const Attributes = () => {
                 </ButtonPrimary>
               </div>
               <div onClick={() => handleShowEditForm(parent.label)}>
-                <FontAwesomeIcon icon={faPenToSquare} />
+                <img src={editIcon} alt='edit' className='cursor-pointer' />
               </div>
             </div>
 
@@ -193,7 +194,11 @@ const Attributes = () => {
                           item.label
                         )
                       }>
-                      <FontAwesomeIcon icon={faPenToSquare} />
+                      <img
+                        src={editIcon}
+                        alt='edit'
+                        className='cursor-pointer'
+                      />
                     </div>
                   </div>
                 ))}
