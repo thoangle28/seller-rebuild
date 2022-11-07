@@ -37,7 +37,7 @@ export const editInfoUserReducer = (state: any = initialState, action: any) => {
       return {...state, ...requestSuccess, message: payload}
 
     case actionTypes.DELETE_MESSAGE:
-      return {...state, ...requestFailure, message: ''}
+      return {...state, message: ''}
     default:
       return state
   }

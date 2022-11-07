@@ -145,6 +145,18 @@
   }
 }
 
+.update-success {
+  &-wrap {
+    z-index: 1;
+    animation: showPopup 0.15s linear;
+  }
+  &-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+}
+
 @media (max-width: 1699px) {
   .my-profile {
     width: 300px;

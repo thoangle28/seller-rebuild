@@ -15,8 +15,12 @@ const changeAvatarSuccess = (payload: string) => ({
   payload,
 })
 
+const removeMessage = () => ({
+  type: actionTypes.DELETE_MESSAGE,
+})
+
 export const changeAvatar = (payload: any) => async (dispatch: any) => {
-  dispatch(changeAvatarRequest)
+  dispatch(changeAvatarRequest())
   try {
     const endPoint = '/user/profile/update'
     const res = await axiosConfig.post(endPoint, payload)
@@ -29,4 +33,8 @@ export const changeAvatar = (payload: any) => async (dispatch: any) => {
   } catch (error) {
     dispatch(changeAvatarFailure(error.message))
   }
+}
+
+export const deleteMessage = () => async (dispatch: any) => {
+  dispatch(removeMessage())
 }

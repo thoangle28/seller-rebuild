@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useRef, useState, useEffect} from 'react'
 import {
   faUser,
   faEnvelope,
@@ -14,7 +14,11 @@ import {convertBase64} from 'app/Utils'
 import {useAppDispatch, useAppSelector} from 'app/Hooks/hooks'
 import changeAvatarIcon from './../../../app/Images/icons/upload-avatar-icon.svg'
 import deleteChangeAvatarIcon from './../../../app/Images/icons/delete-upload-icon.jpg'
-import {changeAvatar} from './Redex/actions'
+import {changeAvatar, deleteMessage} from './Redex/actions'
+import PopupUpdateProfileSuccess from '../PopupUpdateProfileSuccess'
+import {useNavigate} from 'react-router-dom'
+import {useOnClickOutside} from 'app/Hooks/UseClickOutSide'
+import {getInfoUser} from 'Components/Pages/Profile/Redux/actions'
 
 interface Props {
   data: any
@@ -29,19 +33,32 @@ const MyProfile = (props: Props) => {
   const dispatch = useAppDispatch()
 
   const {user, accessToken} = useAppSelector((state) => state.loginReducer)
-  const {user_login} = user
+  const {user_login, ID, user_email} = user
+  const getInfoUserPayload = {
+    user_id: ID,
+    user_email: user_email,
+  }
 
   const {
+    brand,
     firstname,
     lastname,
     personal_photo,
     contactEmail,
     contactPhone,
     address,
+    communications,
   } = data
+
+  const {
+    isSuccess,
+    isLoading: isLoadingProfile,
+    message,
+  } = useAppSelector((state) => state.changeAvatarReducer)
+
   const fullName = `${firstname} ${lastname}`
 
-  const infoUser = [
+  const userInfo = [
     {
       icon: faUser,
       text: fullName,
@@ -61,6 +78,23 @@ const MyProfile = (props: Props) => {
     },
   ]
 
+  const popupRef = useRef<HTMLDivElement>(null)
+  const navigate = useNavigate()
+
+  useOnClickOutside(popupRef, () => {
+    dispatch(deleteMessage())
+    setAvatarUser('')
+    dispatch(getInfoUser(getInfoUserPayload))
+  })
+
+  if (isSuccess && message) {
+    setTimeout(() => {
+      dispatch(deleteMessage())
+      setAvatarUser('')
+      dispatch(getInfoUser(getInfoUserPayload))
+    }, 3000)
+  }
+
   const handleUploadAvatar = async (e: any) => {
     const file = e.target.files[0]
 
@@ -79,6 +113,15 @@ const MyProfile = (props: Props) => {
       profile: {
         personal_photo: personal_photo || '',
         new_personal_photo: avatarUser,
+        brand: {id: brand?.id, name: brand?.name, logo: ''},
+        communications: {
+          email: communications?.email,
+          phone: communications?.phone,
+        },
+        firstname,
+        lastname,
+        address,
+        contactPhone,
       },
       userInfo: {
         userEmail: user_login,
@@ -89,7 +132,7 @@ const MyProfile = (props: Props) => {
   }
 
   // Render list info
-  const infoUserList = infoUser.map((item, index) => (
+  const userInfoList = userInfo.map((item, index) => (
     <li className='user-info__item' key={index}>
       <span className='user-info__icon d-inline-block'>
         <FontAwesomeIcon icon={item.icon} />
@@ -105,7 +148,7 @@ const MyProfile = (props: Props) => {
 
   return (
     <div className='my-profile'>
-      {isLoading ? (
+      {isLoading || isLoadingProfile ? (
         <Loading />
       ) : (
         <>
@@ -157,9 +200,24 @@ const MyProfile = (props: Props) => {
             className={`user-info ${
               !avatarUser ? 'user-info--no-avatar-change' : ''
             }`}>
-            <ul className='user-info__list p-0 m-0'>{infoUserList}</ul>
+            <ul className='user-info__list p-0 m-0'>{userInfoList}</ul>
           </div>
         </>
+      )}
+
+      {/* Popup update success */}
+      {isSuccess && message && (
+        <div className='update-success-overlay d-flex align-items-center justify-content-center'>
+          <div className='update-success-wrap' ref={popupRef}>
+            <PopupUpdateProfileSuccess
+              message='Your profile has been updated successfully'
+              textButton='General View'
+              onClickButton={() => {
+                navigate('/my-profile')
+              }}
+            />
+          </div>
+        </div>
       )}
     </div>
   )

@@ -35,6 +35,8 @@ export const changeAvatarReducer = (state: any = initialState, action: any) => {
       return {...state, ...requestFailure, message: payload}
     case actionTypes.CHANGE_AVATAR_SUCCESS:
       return {...state, ...requestSuccess, message: payload}
+    case actionTypes.DELETE_MESSAGE:
+      return {...state, message: ''}
     default:
       return state
   }

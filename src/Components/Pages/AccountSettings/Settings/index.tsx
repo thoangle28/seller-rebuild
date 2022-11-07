@@ -12,6 +12,7 @@ import Loading from 'Components/Common/Loading'
 import PopupUpdateProfileSuccess from 'Components/Common/PopupUpdateProfileSuccess'
 import {useOnClickOutside} from 'app/Hooks/UseClickOutSide'
 import {deleteMessage, editInfoUser} from './Redex/actions'
+import {getInfoUser} from 'Components/Pages/Profile/Redux/actions'
 
 const Settings = () => {
   const [brandLogo, setBrandLogo] = useState<string>('')
@@ -58,13 +59,13 @@ const Settings = () => {
 
   useOnClickOutside(popupRef, () => {
     dispatch(deleteMessage())
-    resetForm()
+    setSubmitting(false)
   })
 
   if (isSuccess && message) {
     setTimeout(() => {
       dispatch(deleteMessage())
-      resetForm()
+      setSubmitting(false)
     }, 3000)
   }
 
@@ -133,7 +134,6 @@ const Settings = () => {
     setSubmitting,
     setFieldTouched,
     setValues,
-    resetForm,
   } = useFormik({
     initialValues: {
       firstName: '',

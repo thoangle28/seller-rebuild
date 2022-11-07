@@ -38,7 +38,7 @@ export const profileReducer = (state: any = initialState, action: any) => {
       return {...state, ...requestSuccess, infoUser: payload}
 
     case actionTypes.DELETE_MESSAGE:
-      return {...state, ...requestFailure, message: ''}
+      return {...state, message: ''}
     default:
       return state
   }

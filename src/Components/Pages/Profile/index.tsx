@@ -14,12 +14,16 @@ const Profile = () => {
 
   const dispatch = useAppDispatch()
   const {infoUser, isLoading} = useAppSelector((state) => state.profileReducer)
+  const {isSuccess, message} = useAppSelector(
+    (state) => state.changeAvatarReducer
+  )
 
   const {
     firstname,
     lastname,
     avatar,
     brand,
+    personal_photo,
     contactPhone,
     contactEmail,
     address,
@@ -36,7 +40,7 @@ const Profile = () => {
   useEffect(() => {
     dispatch(getInfoUser(getInfoUserPayload))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [personal_photo])
 
   const infoDetails = [
     {
