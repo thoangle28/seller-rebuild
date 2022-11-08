@@ -1,7 +1,7 @@
-import { Suspense, FC } from 'react'
+import {Suspense, FC} from 'react'
 import NotFoundPage from '../Components/Pages/NotFoundPage'
 
-import { Routes, Route } from 'react-router-dom'
+import {Routes, Route} from 'react-router-dom'
 import ProtectedRoute from 'Components/Common/ProtectedRoute'
 
 // const Profile = lazy(() => import('../Components/Pages/Profile'))
@@ -22,7 +22,7 @@ import ForgotPassword from 'Components/Pages/ForgotPassword'
 import ProductListing from 'Components/Pages/ProductListing'
 import Attributes from 'Components/Pages/Attributes'
 import DashBoard from 'Components/Pages/DashBoard'
-
+import CreateNewProduct from 'Components/Pages/CreateNewProduct'
 
 const Router: FC = () => {
   return (
@@ -36,6 +36,7 @@ const Router: FC = () => {
           <Route path='*' element={<NotFoundPage />} />
           <Route path='/Attributes' element={<Attributes />} />
           <Route path='/product-listing' element={<ProductListing />} />
+          <Route path='/create-new-product' element={<CreateNewProduct />} />
         </Route>
         {/* Declare Public Routes Here */}
         <Route index element={<Login />} />

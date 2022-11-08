@@ -187,7 +187,7 @@ const MyProfile = (props: Props) => {
                 className='save-avt btn btn-primary border-0 me-1 cursor-pointer d-flex align-items-center'
                 onClick={handleSaveAvatar}>
                 <img src={changeAvatarIcon} alt='icon save avatar' />
-                <span className='text-white'>Save avatar</span>
+                <span className='text-white fw-medium'>Save avatar</span>
               </button>
               <button
                 className='del-save-avt border border-primary bg-transparent fw-medium'
