@@ -2,7 +2,7 @@ import './style.scss'
 
 interface Props {
   type?: 'button' | 'submit' | 'reset' | undefined
-  children: string
+  children: string | JSX.Element | JSX.Element[]
   disabled?: boolean
   className?: string
   onClick?: () => void

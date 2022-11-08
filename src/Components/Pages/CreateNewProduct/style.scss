@@ -1,0 +1,38 @@
+.create-product {
+  border-radius: 5px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+
+  &__heading {
+    &-icon {
+      $size: 70px;
+      width: $size;
+      height: $size;
+
+      svg {
+        font-size: 32px;
+      }
+    }
+
+    &-separator {
+      width: 120px;
+      height: 10px;
+      border-radius: 10px;
+
+      &.pending {
+        background: linear-gradient(
+          90deg,
+          #000080 23.44%,
+          rgba(0, 0, 128, 0.22) 100%
+        );
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      }
+    }
+  }
+
+  &__bottom {
+    width: 884px;
+    background: #ffffff;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+  }
+}

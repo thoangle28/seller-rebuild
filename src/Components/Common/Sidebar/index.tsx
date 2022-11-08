@@ -27,7 +27,7 @@ interface iMenu {
 const sideMenu: iMenu[] = [
   {icon: faChartSimple, name: 'Dashboard', path: '/dashboard'},
   {icon: faList, name: 'Products Listing', path: '/product-listing'},
-  {icon: faPlus, name: 'Create New Product', path: '/new-product'},
+  {icon: faPlus, name: 'Create New Product', path: '/create-new-product'},
   {icon: faToggleOn, name: 'Attributes', path: '/attributes'},
   {icon: faChartLine, name: 'Sales Report', path: '/sale-reports'},
 ]
