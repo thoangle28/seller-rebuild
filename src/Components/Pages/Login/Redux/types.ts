@@ -9,12 +9,15 @@ const verifyToken = {
     VERIFY_TOKEN_REQUEST: "VERIFY_TOKEN_REQUEST",
 }
 
-
-// Example 
-const actionTypes = {
+const synchronousActions = {
     LOGOUT: "LOGOUT",
     IS_LOGIN: "IS_LOGIN",
-    CLEAR_MESSAGE:"CLEAR_MESSSAGE",
+    CLEAR_MESSAGE: "CLEAR_MESSSAGE",
+}
+// Example 
+const actionTypes = {
+    ...synchronousActions,
+    // Async actions
     ...loginActions,
     ...verifyToken,
 }

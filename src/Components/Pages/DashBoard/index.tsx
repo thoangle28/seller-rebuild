@@ -22,6 +22,8 @@ import { monthSerializable, MONTH_COLORS, TABLE_PRODUCT_LIST, TABLE_PRODUCT_SALE
 import defaultImg from './../../../app/Images/default-img-err.jpg'
 import notFound from './../../../app/Images/not-found.png'
 import { currencyFormat } from './../../../app/Utils'
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 type Props = {}
 
@@ -122,23 +124,13 @@ const DashBoard: FC<Props> = (props: Props) => {
         {infoData.map((item, index) => {
           const { icon, number, subtitle, title } = item
           return (
-            <div
-              className='col-12 col-md-12 col-lg-12 col col-xl-6 col-xxl-3'
-              key={index}>
-              {isLoading ? (
-                <Loading />
-              ) : (
-                <InfoTag
-                  icon={icon}
-                  number={number}
-                  subTitle={subtitle}
-                  title={title}
-                />
-              )}
+            <div className='col-12 col-md-12 col-lg-12 col col-xl-6 col-xxl-3' key={index}>
+              <InfoTag isLoading={isLoading} icon={icon} number={number} subTitle={subtitle} title={title} />
             </div>
           )
-        })}
-      </div>
+        })
+        }
+      </div >
     )
   }
 
@@ -314,22 +306,20 @@ const DashBoard: FC<Props> = (props: Props) => {
           </button>
         </div>
         <div className='table-wrapper bg-white p-4'>
-          {productListSelector.isLoading ? (
-            <Loading />
-          ) : (
-            <div className='bg-white'>
-              <Table dataTableHead={TABLE_PRODUCT_LIST}>{renderTableBody()}</Table>
-              {productListSelector.isSuccess && (
-                <div className='text-center'>
-                  <Link
-                    to={'/product-listing'}
-                    className='view-more-button btn btn-primary'>
-                    View More Products
-                  </Link>
-                </div>
-              )}
-            </div>
-          )}
+          <div className='bg-white'>
+            <Table isLoading={productListSelector.isLoading} dataTableHead={TABLE_PRODUCT_LIST}>
+              {renderTableBody()}
+            </Table>
+            {productListSelector.isSuccess && (
+              <div className='text-center'>
+                <Link
+                  to={'/product-listing'}
+                  className='view-more-button btn btn-primary'>
+                  View More Products
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     )

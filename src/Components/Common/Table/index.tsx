@@ -1,15 +1,17 @@
-import {iTableHead} from 'app/Models'
-import {FC} from 'react'
+import { iTableHead } from 'app/Models'
+import { FC } from 'react'
+import Skeleton from 'react-loading-skeleton'
 
 import './style.scss'
 
-type Props = {
-  children: JSX.Element | JSX.Element[]
-  dataTableHead: iTableHead[]
+interface Props {
+  children: JSX.Element | JSX.Element[],
+  dataTableHead: iTableHead[],
+  isLoading?: boolean
 }
 
 const Table: FC<Props> = (props: Props) => {
-  const {dataTableHead, children} = props
+  const { dataTableHead, children, isLoading } = props
 
   //   Render table header
   const RenderTableHeader = () => {
@@ -17,8 +19,8 @@ const Table: FC<Props> = (props: Props) => {
       <thead>
         <tr>
           {dataTableHead.map((item) => (
-            <th className={`${item.className} p-0 pb-4`} key={item.name}>
-              {item.name}
+            <th className={`${item.className} p-0 pb-4 px-2`} key={item.name}>
+              {isLoading ? <Skeleton /> : item.name}
             </th>
           ))}
         </tr>
