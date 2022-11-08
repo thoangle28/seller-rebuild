@@ -4,17 +4,17 @@ interface iLiveUrl {
     [key: string]: string
 }
 
-const devBaseUrl: string = 'https://addin-sg.lotustest.net/wp-json/addin-seller/v1'
+const devBaseUrl: string = 'https://aws.addin.sg/wp-json/addin-seller/v1'
 
-const liveBaseUrl: iLiveUrl = {
-    'SG': 'https://aws.addin.sg/wp-json/addin-seller/v1'
+const testBaseUrl: iLiveUrl = {
+    'SG': 'https://addin-sg.lotustest.net/wp-json/addin-seller/v1'
 }
 
 const appMode = process.env.REACT_APP_MODE
 const location: string = process.env.REACT_APP_LOCATION || 'SG'
 
 const axiosConfig = axios.create({
-    baseURL: appMode === 'DEV' ? devBaseUrl : liveBaseUrl[location],
+    baseURL: appMode === 'DEV' ? devBaseUrl : testBaseUrl[location],
     headers: {
         'Content-Type': 'application/json'
     }

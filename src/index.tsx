@@ -6,17 +6,21 @@ import './app/Sass/App.scss'
 import { persistor, store } from './store'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react';
+import Loading from 'Components/Common/Loading';
+import { SkeletonTheme } from 'react-loading-skeleton';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
 root.render(
-  <Provider store={store}>
-    <PersistGate loading={<p>...loading</p>} persistor={persistor}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+  <Provider store={store}> 
+    <PersistGate loading={<Loading />} persistor={persistor}>
+      <SkeletonTheme highlightColor="#dbdbdb" baseColor='#f0f0f0'>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </SkeletonTheme>
     </PersistGate>
   </Provider>
 );
