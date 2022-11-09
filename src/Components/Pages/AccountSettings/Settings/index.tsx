@@ -169,7 +169,7 @@ const Settings = () => {
             </ButtonPrimary>
           </div>
 
-          <ul className='settings-details__list p-0 m-0'>
+          <ul className='settings-details__list pb-0 ps-0 m-0'>
             <li className='settings-details__item w-100 d-flex'>
               <h3 className='settings-details__title m-0 text-capitalize'>
                 Brand Name

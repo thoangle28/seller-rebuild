@@ -3,14 +3,19 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import DefaultLayout from 'Components/Layouts/DefaultLayout'
 import {FC, useState, Fragment} from 'react'
 import CreateProductStepOne from './CreateProductStepOne'
+import CreateProductStepThree from './CreateProductStepThree'
 import CreateProductStepTwo from './CreateProductStepTwo'
 import './style.scss'
 
 const CreateNewProduct: FC = () => {
-  const [step, setStep] = useState<number>(1)
+  const [step, setStep] = useState<number>(3)
 
   const handleNextStep = () => {
     setStep((step) => step + 1)
+  }
+
+  const handleBackStep = () => {
+    setStep((step) => step - 1)
   }
 
   const dataHeading = [
@@ -65,6 +70,7 @@ const CreateNewProduct: FC = () => {
 
         {step === 1 && <CreateProductStepOne nextStep={handleNextStep} />}
         {step === 2 && <CreateProductStepTwo nextStep={handleNextStep} />}
+        {step === 3 && <CreateProductStepThree previousStep={handleBackStep} />}
       </div>
     </DefaultLayout>
   )
