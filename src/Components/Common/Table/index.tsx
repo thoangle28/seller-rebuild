@@ -19,8 +19,8 @@ const Table: FC<Props> = (props: Props) => {
       <thead>
         <tr>
           {dataTableHead.map((item) => (
-            <th className={`${item.className} p-0 pb-4 px-2`} key={item.name}>
-              {isLoading ? <Skeleton /> : item.name}
+            <th className={`${item.className} p-0 pb-4`} key={item.name}>
+              {isLoading ? <div className='px-3'><Skeleton /></div> : item.name}
             </th>
           ))}
         </tr>

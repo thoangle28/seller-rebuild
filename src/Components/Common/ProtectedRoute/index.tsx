@@ -12,14 +12,16 @@ const ProtectedRoute = () => {
     const currentUserId: number = user ? user.ID : 0
 
     const dispatch = useAppDispatch()
-
+ 
     const requestData = () => {
+        if (!currentUserId) return;
         const payload: iVerifyToken = {
             access_token: accessToken,
             user_id: currentUserId.toString()
         }
         dispatch(verifyToken(payload))
     }
+
     useEffect(() => {
         requestData()
     }, [])
