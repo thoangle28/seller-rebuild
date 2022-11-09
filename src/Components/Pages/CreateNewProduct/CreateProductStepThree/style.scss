@@ -1,0 +1,227 @@
+.product-type {
+  &__heading {
+    &-title {
+      font-size: 20px;
+      line-height: 24px;
+    }
+  }
+
+  &__select {
+    width: 300px;
+    padding: 12px 24px 11px !important;
+    border: 1px solid #c9c9c9;
+    border-radius: 5px;
+    appearance: none;
+    outline: none;
+    background-image: url('./../../../../app/Images/arrow-down.png');
+    background-repeat: no-repeat;
+    background-position: calc(100% - 16.29px) 50%;
+    font-size: 16px;
+    line-height: 20px;
+    flex-shrink: 0;
+
+    &::before {
+      position: absolute;
+      top: 50%;
+      right: 16.29px;
+      width: 100%;
+      height: auto;
+      background-image: url('./../../../../app/Images/arrow-down.png');
+      background-repeat: no-repeat;
+    }
+  }
+
+  &__content {
+    width: 884px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+
+    &-title {
+      font-size: 16px;
+      line-height: 20px;
+    }
+
+    .separator {
+      height: 1px;
+      background-color: #d9d9d9;
+    }
+  }
+
+  &__bottom {
+    &-back {
+      svg {
+        font-size: 18px;
+        position: relative;
+        top: 2px;
+      }
+      span {
+        margin-left: 14px;
+        font-size: 14px;
+        line-height: 17px;
+      }
+    }
+
+    &-actions {
+      span {
+        font-size: 14px;
+        line-height: 17px;
+        color: #4285f4;
+        margin-right: 25px;
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+}
+
+.create-product .general {
+  &__left {
+    row-gap: 16px;
+
+    .general__input-wrap {
+      border: 1px solid #c9c9c9;
+      padding-left: 12px;
+      padding-right: 13.67px;
+      border-radius: 5px;
+      width: 300px;
+      flex-shrink: 0;
+
+      .separator {
+        width: 1px;
+        height: 22px;
+        background-color: #d9d9d9;
+        margin-inline: 10px;
+      }
+
+      .close-img {
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+
+    .general__input {
+      font-size: 16px;
+      line-height: 20px;
+      border: none;
+      outline: none;
+      padding: 12px;
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        appearance: none;
+      }
+    }
+  }
+
+  &__right {
+    row-gap: 16px;
+
+    .general__input-wrap {
+      border: 1px solid #c9c9c9;
+      border: 0.5px solid rgba(0, 0, 0, 0.6);
+      border-radius: 5px;
+      width: 209px;
+      flex-shrink: 0;
+    }
+
+    .general__input {
+      border: 0.5px solid rgba(0, 0, 0, 0.6);
+      border-radius: 5px;
+      font-size: 16px;
+      line-height: 20px;
+      border: none;
+      outline: none;
+      padding-block: 13px;
+      padding-inline: 12px;
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        appearance: none;
+      }
+    }
+  }
+
+  &__title {
+    font-size: 16px;
+    line-height: 20px;
+    white-space: nowrap;
+  }
+}
+
+.create-product .categories {
+}
+
+.create-product .inventory {
+  &__top {
+    label {
+      font-size: 16px;
+      line-height: 20px;
+      width: 34px;
+    }
+
+    input {
+      padding-top: 12px;
+      padding-bottom: 13px;
+      font-size: 16px;
+      line-height: 20px;
+      border: 0.5px solid rgba(0, 0, 0, 0.6);
+      border-radius: 5px;
+      outline: none;
+      width: 711px;
+      margin-right: 6px !important;
+    }
+
+    &-desc {
+      &.variable {
+        margin-bottom: 212px;
+      }
+
+      p {
+        flex-shrink: 0;
+        width: 717px;
+        max-width: 100%;
+        font-size: 12px;
+        line-height: 15px;
+        color: rgba(0, 0, 0, 0.6);
+      }
+    }
+  }
+
+  &__bottom {
+    h3 {
+      font-size: 16px;
+      line-height: 20px;
+      width: 102px;
+    }
+
+    &-checkbox {
+      column-gap: 23px;
+      width: 711px;
+
+      label {
+        font-size: 16px;
+        line-height: 20px;
+      }
+
+      input:checked ~ .radio-custom {
+        border: 5px solid var(--primary) !important;
+      }
+
+      .radio-custom {
+        $size: 20px;
+        width: $size;
+        height: $size;
+      }
+
+      &-desc {
+        font-size: 12px;
+        line-height: 15px;
+        color: rgba(0, 0, 0, 0.6);
+        padding-bottom: 96px !important;
+      }
+    }
+  }
+}
