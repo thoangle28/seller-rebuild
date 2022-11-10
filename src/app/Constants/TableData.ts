@@ -2,7 +2,7 @@ import { iTableHead } from "app/Models";
 
 export const TABLE_PRODUCT_LIST: iTableHead[] = [
     { name: '#ID', className: '' },
-    { name: 'Product Name', className: '' },
+    { name: 'Product Name', className: 'w-25' },
     { name: 'Type', className: 'text-center' },
     { name: 'SKU', className: 'text-center' },
     { name: 'Price', className: 'text-center' },
