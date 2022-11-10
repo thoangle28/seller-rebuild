@@ -22,8 +22,8 @@ import { monthSerializable, MONTH_COLORS, TABLE_PRODUCT_LIST, TABLE_PRODUCT_SALE
 import defaultImg from './../../../app/Images/default-img-err.jpg'
 import notFound from './../../../app/Images/not-found.png'
 import { currencyFormat } from './../../../app/Utils'
-import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import Skeleton from 'react-loading-skeleton'
 
 type Props = {}
 
@@ -68,7 +68,7 @@ const DashBoard: FC<Props> = (props: Props) => {
   useEffect(() => {
     const payload: iProductListing = {
       user_id: userId,
-      page_size: 12,
+      page_size: 10,
       current_page: 1,
       search: '',
       status: '',
@@ -201,7 +201,7 @@ const DashBoard: FC<Props> = (props: Props) => {
   const renderTableBody = () => {
     return (
       <>
-        {productListSelector.isSuccess && productList.length > 0 && (
+        {productListSelector.isSuccess && productList.length > 0 ? (
           <tbody>
             {productList.map((item: any) => (
               <tr key={item.product_id}>
@@ -211,7 +211,7 @@ const DashBoard: FC<Props> = (props: Props) => {
                   </span>
                 </td>
 
-                <td>
+                <td className='w-25'>
                   <div className='table__product d-flex align-items-center'>
                     <img
                       src={item.thumbnail || defaultImg}
@@ -270,13 +270,13 @@ const DashBoard: FC<Props> = (props: Props) => {
               </tr>
             ))}
           </tbody>
-        )}
+        ) : <tr><td colSpan={TABLE_PRODUCT_LIST.length}><Skeleton/></td></tr>}
 
         {productListSelector.isFailure && (
           <tbody>
             <tr>
               <td colSpan={TABLE_PRODUCT_LIST.length}>
-                <div className='d-flex justify-content-center align-items-center flex-column'>
+                <div style={{ marginTop: 10.5 }} className='d-flex justify-content-center align-items-center flex-column'>
                   <img className='mb-2' src={notFound} alt="search" />
                   <span className='table__no-product mt-0 fs-6 text-center d-block text-capitalize'>
                     {productListSelector.message}
