@@ -8,7 +8,7 @@ export const TABLE_PRODUCT_LIST: iTableHead[] = [
     { name: 'Price', className: 'text-center' },
     { name: 'Date', className: 'text-center' },
     { name: 'Status', className: 'text-center' },
-    { name: 'Actions', className: 'text-center' },
+    { name: 'Actions', className: 'text-end' },
 ]
 
 export const TABLE_PRODUCT_SALE_STATUS = [

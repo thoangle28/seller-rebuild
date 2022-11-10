@@ -201,7 +201,7 @@ const DashBoard: FC<Props> = (props: Props) => {
   const renderTableBody = () => {
     return (
       <>
-        {productListSelector.isSuccess && productList.length > 0 ? (
+        {productListSelector.isSuccess && productList.length > 0 && (
           <tbody>
             {productList.map((item: any) => (
               <tr key={item.product_id}>
@@ -263,14 +263,14 @@ const DashBoard: FC<Props> = (props: Props) => {
                 </td>
 
                 <td>
-                  <h4 className='table__product-action text-center m-0'>
+                  <h4 className='table__product-action text-end m-0'>
                     <img src={editIcon} alt='edit icon' />
                   </h4>
                 </td>
               </tr>
             ))}
           </tbody>
-        ) : <tr><td colSpan={TABLE_PRODUCT_LIST.length}><Skeleton/></td></tr>}
+        )}
 
         {productListSelector.isFailure && (
           <tbody>
@@ -308,7 +308,7 @@ const DashBoard: FC<Props> = (props: Props) => {
         <div className='table-wrapper bg-white p-4'>
           <div className='bg-white'>
             <Table isLoading={productListSelector.isLoading} dataTableHead={TABLE_PRODUCT_LIST}>
-              {renderTableBody()}
+              {productList.isLoading ? <tr><td><Skeleton /></td></tr> : renderTableBody()}
             </Table>
             {productListSelector.isSuccess && (
               <div className='text-center'>
