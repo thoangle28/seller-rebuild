@@ -1,7 +1,4 @@
 import {useState} from 'react'
-import priceImg from './../../../../app/Images/price.png'
-import closeIcon from './../../../../app/Images/icons/close-circle.svg'
-
 interface Props {
   productType: string
 }
@@ -29,7 +26,14 @@ const Inventory = (props: Props) => {
   const renderCheckbox = () => {
     return dataCheckbox.map((item: any, index: number) => (
       <div className='d-flex align-items-center' key={index}>
-        <input type='radio' name='inventory' id={item.id} hidden />
+        <input
+          type='radio'
+          name='inventory'
+          id={item.id}
+          hidden
+          checked={stock === item.id}
+          onChange={() => setStock(item.id)}
+        />
         <label
           htmlFor={item.id}
           className='radio-custom border rounded-circle border-dark cursor-pointer'></label>
@@ -51,16 +55,13 @@ const Inventory = (props: Props) => {
             id='sku'
             name='sku'
             type='text'
-            value={valueSKU}
             className='fw-medium px-4'
+            value={valueSKU}
             onChange={(e: any) => setValueSKU(e.target.value)}
           />
         </div>
 
-        <div
-          className={`inventory__top-desc d-flex justify-content-end mt-2 ${
-            productType ? 'variable' : ''
-          }`}>
+        <div className='inventory__top-desc d-flex justify-content-end mt-2'>
           <p className='m-0 fw-medium'>
             SKU refers to a Stock-keeping unit, a unique identifier for each
             distinct product and service that can be purchased.
