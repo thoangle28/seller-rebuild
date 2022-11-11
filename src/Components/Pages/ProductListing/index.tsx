@@ -13,7 +13,9 @@ const ProductListing = () => {
           dataTableBody.map((item) => (
             <tr key={item.id}>
               <td>
-                <span className='table__product-id text-start'>{item.id}</span>
+                <span className='table__product-id fw-medium text-start'>
+                  {item.id}
+                </span>
               </td>
 
               <td>
@@ -71,7 +73,7 @@ const ProductListing = () => {
               </td>
 
               <td>
-                <h4 className='table__product-action text-center m-0'>
+                <h4 className='table__product-action text-end m-0 me-3'>
                   <img src={editIcon} alt='edit icon' />
                 </h4>
               </td>

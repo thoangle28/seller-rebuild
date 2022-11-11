@@ -6,7 +6,7 @@ export const dataTableHead: iTableHead[] = [
   },
   {
     name: 'Product Name',
-    className: 'text-start',
+    className: 'w-25',
   },
   {
     name: 'Type',
@@ -30,7 +30,7 @@ export const dataTableHead: iTableHead[] = [
   },
   {
     name: 'Actions',
-    className: 'text-center',
+    className: 'text-end',
   },
 ]
 
