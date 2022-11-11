@@ -1,13 +1,11 @@
-import {faPenToSquare} from '@fortawesome/free-solid-svg-icons'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {useAppDispatch, useAppSelector} from 'app/Hooks/hooks'
+import { useAppDispatch, useAppSelector } from 'app/Hooks/hooks'
 import ButtonPrimary from 'Components/Common/ButtonPrimary'
 import Loading from 'Components/Common/Loading'
 import DefaultLayout from 'Components/Layouts/DefaultLayout'
 import iconError from './../../../app/Images/icons/icon-error.svg'
 import iconSuccess from './../../../app/Images/icons/icon-success.svg'
-import {useFormik} from 'formik'
-import {Fragment, useEffect, useState} from 'react'
+import { useFormik } from 'formik'
+import { Fragment, useEffect, useState } from 'react'
 import {
   createNewAttribute,
   createNewChildrenAttribute,
@@ -33,14 +31,14 @@ const Attributes = () => {
   const [parentId, setParentId] = useState<number | string>('')
 
   const dispatch = useAppDispatch()
-  const {isLoading, message, attributeList, isUpdate, isFailure, isSuccess} =
+  const { isLoading, message, attributeList, isUpdate, isFailure, isSuccess } =
     useAppSelector((state) => state.attributesReducer)
 
   // Get user_id and access_token from localStorage
-  const {user, accessToken: access_token} = useAppSelector(
+  const { user, accessToken: access_token } = useAppSelector(
     (state) => state.loginReducer
   )
-  const {ID} = user
+  const { ID } = user
 
   const getAllDataPayload = {
     user_id: ID,
@@ -70,7 +68,7 @@ const Attributes = () => {
 
   // Handle submit form create new attribute
   const handleAddNewAttribute = (values: any) => {
-    const {newAttribute} = values
+    const { newAttribute } = values
     const payload = {
       user_id: ID,
       access_token: access_token,
@@ -234,7 +232,7 @@ const Attributes = () => {
               {isFailure && message && (
                 <div
                   className='mess-box d-flex flex-column py-2 align-items-center mb-3'
-                  style={{backgroundColor: 'rgba(197, 34, 31, 0.2)'}}>
+                  style={{ backgroundColor: 'rgba(197, 34, 31, 0.2)' }}>
                   <img src={iconError} alt='icon error' />
                   <h3 className='m-0 mt-2 text-danger'>{message}</h3>
                 </div>
@@ -243,7 +241,7 @@ const Attributes = () => {
               {isSuccess && message && (
                 <div
                   className='mess-box d-flex flex-column py-2 align-items-center mb-3'
-                  style={{backgroundColor: 'rgba(52, 168, 83, 0.2)'}}>
+                  style={{ backgroundColor: 'rgba(52, 168, 83, 0.2)' }}>
                   <img src={iconSuccess} alt='icon success' />
                   <h3 className='m-0 mt-2 text-success'>{message}</h3>
                 </div>
@@ -252,7 +250,7 @@ const Attributes = () => {
               <div className='attributes__create mb-3'>
                 <label
                   htmlFor='parent-attributes'
-                  className='attributes__content-title text-capitalize pb-2'>
+                  className='attributes__content-title text-capitalize pb-2 fw-medium'>
                   Parent Attribute
                 </label>
                 <select
@@ -268,7 +266,7 @@ const Attributes = () => {
               <div className='attributes__content-bot'>
                 <label
                   htmlFor='add-attribute'
-                  className='attributes__content-title text-capitalize pb-2'>
+                  className='attributes__content-title text-capitalize pb-2 fw-medium'>
                   Child Attribute Name
                 </label>
 
@@ -288,7 +286,7 @@ const Attributes = () => {
                   />
 
                   {errors.newAttribute && touched.newAttribute && (
-                    <p className='attributes__content-text-error m-0 pt-2'>
+                    <p className='attributes__content-text-error m-0 pt-2 fw-medium'>
                       {errors.newAttribute}
                     </p>
                   )}
@@ -299,7 +297,7 @@ const Attributes = () => {
                       type='submit'
                       disabled={isSubmitting}>
                       Add New
-                    </ButtonPrimary>
+                    </ButtonPrimary> 
                   </div>
                 </form>
               </div>

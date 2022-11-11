@@ -175,7 +175,7 @@ const DashBoard: FC<Props> = (props: Props) => {
                               key={i}
                               className='cursor-pointer month-list__item mb-2'
                               onClick={() => setCurrentMonth({ color: MONTH_COLORS[i], fullName: `${monthSerializable[item.month]} - ${item.year}`, name: item.month, total: item.total })}>
-                              <p className='mb-0 d-flex text-capitalize justify-content-between align-items-center'>
+                              <p className='mb-0 fw-medium d-flex text-capitalize justify-content-between align-items-center'>
                                 <span
                                   className='me-2'
                                   style={{ background: MONTH_COLORS[i] }}
