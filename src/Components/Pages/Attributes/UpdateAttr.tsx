@@ -106,7 +106,7 @@ const UpdateAttr: FC<updateForm> = (props: updateForm) => {
 
                 <label
                   htmlFor='editAttribute'
-                  className='attributes__content-title text-capitalize pb-2 cursor-pointer'>
+                  className='attributes__content-title text-capitalize pb-2 fw-medium cursor-pointer'>
                   New Attribute Name
                 </label>
                 <input
@@ -126,7 +126,7 @@ const UpdateAttr: FC<updateForm> = (props: updateForm) => {
 
                 {updateAttr.errors.newAttribute &&
                   updateAttr.touched.newAttribute && (
-                    <p className='attributes__content-text-error m-0 pt-2'>
+                    <p className='attributes__content-text-error m-0 pt-2 fw-medium'>
                       {updateAttr.errors.newAttribute}
                     </p>
                   )}
@@ -196,7 +196,7 @@ const UpdateAttr: FC<updateForm> = (props: updateForm) => {
 
               <form onSubmit={updateChildAttribute.handleSubmit}>
                 <div className='mb-3'>
-                  <div className='attributes__content-title text-capitalize pb-2'>
+                  <div className='attributes__content-title text-capitalize pb-2 fw-medium'>
                     Parent Attribute
                   </div>
 
@@ -212,7 +212,7 @@ const UpdateAttr: FC<updateForm> = (props: updateForm) => {
 
                 <label
                   htmlFor='editAttribute'
-                  className='attributes__content-title text-capitalize pb-2 cursor-pointer'>
+                  className='attributes__content-title text-capitalize pb-2 fw-medium cursor-pointer'>
                   Children Attribute Name
                 </label>
                 <input
