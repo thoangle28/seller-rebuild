@@ -19,15 +19,13 @@ const CreateProductStepTwo = (props: Props) => {
   const [photoGallery, setPhotoGallery] = useState<string[]>([])
   const [skipStep, setSkipStep] = useState<boolean>(true)
 
-  console.log(photoGallery)
-
   useEffect(() => {
-    if (thumbnail || photoGallery.length > 0) {
+    if (thumbnail || (!checkUsePhotoContent && photoGallery.length > 0)) {
       setSkipStep(false)
     } else {
       setSkipStep(true)
     }
-  }, [thumbnail, photoGallery.length])
+  }, [thumbnail, photoGallery.length, checkUsePhotoContent])
 
   const handleChangeThumbnail = (e: any) => {
     let file = e.target.files[0]

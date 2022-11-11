@@ -28,13 +28,13 @@ const ProductListing = () => {
               </td>
 
               <td>
-                <h4 className='table__product-type m-0 text-center text-capitalize fw-normal'>
+                <h4 className='table__product-type fw-medium m-0 text-center text-capitalize fw-normal'>
                   {item.type}
                 </h4>
               </td>
 
               <td>
-                <h4 className='table__product-sku m-0 text-center fw-normal'>
+                <h4 className='table__product-sku fw-medium m-0 text-center fw-normal'>
                   {item.sku}
                 </h4>
               </td>
@@ -51,7 +51,7 @@ const ProductListing = () => {
               </td>
 
               <td>
-                <h4 className='table__product-date text-center m-0'>
+                <h4 className='table__product-date fw-medium text-center m-0'>
                   {item.date}
                 </h4>
               </td>
