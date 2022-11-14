@@ -20,7 +20,7 @@ const CreateProductStepThree = (props: Props) => {
 
   const [productType, setProductType] = useState<string>('')
   const [listUseForVariations, setListUseForVariations] = useState<any>([])
-  const [content, setContent] = useState<string>('Linked Products')
+  const [content, setContent] = useState<string>('General')
 
   const dataHeading = [
     'General',
