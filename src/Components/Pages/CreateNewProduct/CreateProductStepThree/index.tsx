@@ -19,7 +19,8 @@ const CreateProductStepThree = (props: Props) => {
   const {previousStep} = props
 
   const [productType, setProductType] = useState<string>('')
-  const [content, setContent] = useState<string>('Attributes')
+  const [listUseForVariations, setListUseForVariations] = useState<any>([])
+  const [content, setContent] = useState<string>('General')
 
   const dataHeading = [
     'General',
@@ -30,6 +31,17 @@ const CreateProductStepThree = (props: Props) => {
     'Attributes',
     productType && 'Variations',
   ]
+
+  const handleChangeListUseForVariations = (id: number) => {
+    setListUseForVariations((pre: any) => {
+      const isCheck = listUseForVariations.includes(id)
+      if (isCheck) {
+        return listUseForVariations.filter((item: any) => item !== id)
+      } else {
+        return [...pre, id]
+      }
+    })
+  }
 
   const handleChangProductType = (e: any) => {
     setProductType(e.target.value)
@@ -73,11 +85,20 @@ const CreateProductStepThree = (props: Props) => {
         <div className='separator my-4'></div>
 
         {content === 'General' && <General productType={productType} />}
-        {content === 'Categories' && <Categories productType={productType} />}
+        {content === 'Categories' && <Categories />}
         {content === 'Inventory' && <Inventory productType={productType} />}
         {content === 'Shipping' && <Shipping />}
         {content === 'Linked Products' && <LinkedProducts />}
-        {content === 'Attributes' && <Attributes />}
+        {content === 'Attributes' && (
+          <Attributes
+            productType={productType}
+            listUseForVariations={listUseForVariations}
+            onChangeListUseForVariations={(id: number) =>
+              handleChangeListUseForVariations(id)
+            }
+            setListUseForVariations={setListUseForVariations}
+          />
+        )}
         {content === 'Variations' && <Variations />}
 
         <div className='mt-auto'>

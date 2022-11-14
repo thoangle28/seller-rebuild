@@ -5,8 +5,21 @@ import closeIcon from './../../../../app/Images/icons/close-no-border.svg'
 import arrowIcon from './../../../../app/Images/arrow-down.png'
 import {useOnClickOutside} from 'app/Hooks/UseClickOutSide'
 import closeCircleIcon from './../../../../app/Images/icons/close-circle.svg'
+interface Props {
+  productType: string
+  listUseForVariations: any[]
+  onChangeListUseForVariations: (id: number) => any
+  setListUseForVariations: any
+}
 
-const Attributes = () => {
+const Attributes = (props: Props) => {
+  const {
+    productType,
+    listUseForVariations,
+    onChangeListUseForVariations,
+    setListUseForVariations,
+  } = props
+
   const [loading, setLoading] = useState<boolean>(false)
   const [checkVisibleOnTheProduct, setCheckVisibleOnTheProduct] = useState<
     any[]
@@ -26,10 +39,8 @@ const Attributes = () => {
     useState<any[]>([])
   const [filterChildrenAttribute, setFilterChildrenAttribute] =
     useState<string>('')
-  const [
-    childrenAttributeListUserSelected,
-    setChildrenAttributeListUserSelected,
-  ] = useState<any[]>([])
+  const [childrenAttributeListSelected, setChildrenAttributeListSelected] =
+    useState<any[]>([])
 
   const attributeSelectedRef = useRef<HTMLDivElement>(null)
   const childrenAttributeRef = useRef<HTMLDivElement>(null)
@@ -149,7 +160,7 @@ const Attributes = () => {
     const newChildrenAttributeListSearch = childrenAttributeListSearch.filter(
       (item) => item.id !== attr.id
     )
-    setChildrenAttributeListUserSelected((pre) => [...pre, attr])
+    setChildrenAttributeListSelected((pre) => [...pre, attr])
     setChildrenAttributeListSearch(newChildrenAttributeListSearch)
     setChildrenAttributeList(newChildrenAttributeList)
     inputRef.current?.focus()
@@ -166,23 +177,26 @@ const Attributes = () => {
       (item) => item.id !== attr.id
     )
     setAttributeListSelected(newAttributeListUserSelected)
+    setListUseForVariations(
+      listUseForVariations.filter((item) => item !== attr.id)
+    )
   }
 
   const handleRemoveChildrenAttributeSelected = (attr: any) => {
     const newChildrenAttributeListUserSelect =
-      childrenAttributeListUserSelected.filter((item) => item.id !== attr.id)
+      childrenAttributeListSelected.filter((item) => item.id !== attr.id)
     const findId = childrenAttributeList.findIndex((item) => item.id > attr.id)
 
     findId === -1
       ? setChildrenAttributeList((pre) => [...pre, {...attr}])
       : childrenAttributeList.splice(findId, 0, attr)
     inputRef.current?.focus()
-    setChildrenAttributeListUserSelected(newChildrenAttributeListUserSelect)
+    setChildrenAttributeListSelected(newChildrenAttributeListUserSelect)
   }
 
-  const handleRemoveAllChilrenAttrSelected = () => {
+  const handleRemoveAllChildrenAttrSelected = () => {
     setFilterChildrenAttribute('')
-    setChildrenAttributeListUserSelected([])
+    setChildrenAttributeListSelected([])
     setChildrenAttributeList(dataListChildrenAttribute)
   }
 
@@ -248,29 +262,57 @@ const Attributes = () => {
   const renderAttrActive = (attr: any) => {
     return (
       <div className='attributes__selected-detail d-flex flex-column'>
-        <div className='top d-flex mt-3'>
-          <input
-            type='checkbox'
-            id='check-visible-on-product'
-            checked={checkVisibleOnTheProduct.includes(attr.id)}
-            onChange={() => handleToggleCheckVisibleOnTheProduct(attr.id)}
-            hidden
-          />
-          <label
-            htmlFor='check-visible-on-product'
-            className=' cursor-pointer fw-medium'>
-            Visible on the product page
-          </label>
-          <label
-            htmlFor='check-visible-on-product'
-            className={`checkbox-custom ms-3 cursor-pointer ${
-              checkVisibleOnTheProduct.includes(attr.id) ? 'bg-primary' : ''
-            }`}>
-            <div
-              className={`${
-                checkVisibleOnTheProduct.includes(attr.id) ? 'active' : ''
-              }`}></div>
-          </label>
+        <div className='top mt-3'>
+          <div className='d-flex'>
+            <input
+              type='checkbox'
+              id='check-visible-on-product'
+              checked={checkVisibleOnTheProduct.includes(attr.id)}
+              onChange={() => handleToggleCheckVisibleOnTheProduct(attr.id)}
+              hidden
+            />
+            <label
+              htmlFor='check-visible-on-product'
+              className=' cursor-pointer fw-medium'>
+              Visible on the product page
+            </label>
+            <label
+              htmlFor='check-visible-on-product'
+              className={`checkbox-custom ms-3 cursor-pointer ${
+                checkVisibleOnTheProduct.includes(attr.id) ? 'bg-primary' : ''
+              }`}>
+              <div
+                className={`${
+                  checkVisibleOnTheProduct.includes(attr.id) ? 'active' : ''
+                }`}></div>
+            </label>
+          </div>
+          {productType && (
+            <div className='d-flex mt-4'>
+              <input
+                type='checkbox'
+                id='use-for-variations'
+                checked={listUseForVariations.includes(attr.id)}
+                onChange={() => onChangeListUseForVariations(attr.id)}
+                hidden
+              />
+              <label
+                htmlFor='use-for-variations'
+                className=' cursor-pointer fw-medium'>
+                Used for variations
+              </label>
+              <label
+                htmlFor='use-for-variations'
+                className={`checkbox-custom ms-3 cursor-pointer ${
+                  listUseForVariations.includes(attr.id) ? 'bg-primary' : ''
+                }`}>
+                <div
+                  className={`${
+                    listUseForVariations.includes(attr.id) ? 'active' : ''
+                  }`}></div>
+              </label>
+            </div>
+          )}
         </div>
         <div className='bot d-flex align-items-start my-3'>
           <h3 className='m-0 fw-medium me-3'>Value(s)</h3>
@@ -280,7 +322,7 @@ const Attributes = () => {
               src={closeIcon}
               alt='close'
               className='close-img cursor-pointer'
-              onClick={handleRemoveAllChilrenAttrSelected}
+              onClick={handleRemoveAllChildrenAttrSelected}
             />
 
             <div className='separator'></div>
@@ -291,15 +333,13 @@ const Attributes = () => {
               <div className='select d-flex align-items-center flex-wrap ps-3'>
                 <div
                   className={`d-flex flex-wrap w-100 selected__list  ${
-                    childrenAttributeListUserSelected.length > 0 ? '' : 'm-0'
+                    childrenAttributeListSelected.length > 0 ? '' : 'm-0'
                   }`}>
                   {renderChildrenAttrListSelected()}
                   <input
                     type='text'
                     className={`flex-grow-1 ${
-                      childrenAttributeListUserSelected.length > 0
-                        ? ''
-                        : 'no-item'
+                      childrenAttributeListSelected.length > 0 ? '' : 'no-item'
                     } `}
                     autoComplete='off'
                     value={filterChildrenAttribute}
@@ -378,7 +418,7 @@ const Attributes = () => {
   }
 
   const renderChildrenAttrListSelected = () => {
-    return childrenAttributeListUserSelected.map((attr) => (
+    return childrenAttributeListSelected.map((attr) => (
       <div className='item__selected d-flex align-items-center' key={attr.id}>
         <p className='fw-medium text-black m-0'>{attr.name}</p>
         <img
