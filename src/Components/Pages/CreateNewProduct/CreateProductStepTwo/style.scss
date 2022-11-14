@@ -1,9 +1,18 @@
 .create-product {
   &__upload-heading {
-    &-left label {
-      margin-left: 18px;
-      font-size: 14px;
-      line-height: 21px;
+    &-left {
+      label {
+        margin-left: 18px;
+        font-size: 14px;
+        line-height: 21px;
+      }
+
+      input {
+        $size: 20px;
+        width: $size;
+        height: $size;
+        filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.25));
+      }
     }
 
     &-right span {

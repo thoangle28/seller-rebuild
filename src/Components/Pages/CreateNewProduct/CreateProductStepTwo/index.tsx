@@ -131,7 +131,7 @@ const CreateProductStepTwo = (props: Props) => {
     <>
       <div className='create-product__bottom p-4 mb-3'>
         <div className='d-flex justify-content-between align-items-center mb-4'>
-          <div className='create-product__upload-heading-left'>
+          <div className='create-product__upload-heading-left d-flex align-items-center'>
             <input
               type='checkbox'
               checked={checkUsePhotoContent}
