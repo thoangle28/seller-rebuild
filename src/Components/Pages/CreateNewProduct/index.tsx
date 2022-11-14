@@ -8,7 +8,7 @@ import CreateProductStepTwo from './CreateProductStepTwo'
 import './style.scss'
 
 const CreateNewProduct: FC = () => {
-  const [step, setStep] = useState<number>(1)
+  const [step, setStep] = useState<number>(3)
 
   const handleNextStep = () => {
     setStep((step) => step + 1)

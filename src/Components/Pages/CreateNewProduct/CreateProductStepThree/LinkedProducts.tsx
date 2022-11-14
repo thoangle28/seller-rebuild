@@ -1,351 +1,447 @@
 import {useState, useRef, useEffect} from 'react'
 import {useOnClickOutside} from 'app/Hooks/UseClickOutSide'
 import closeIcon from './../../../../app/Images/icons/close-no-border.svg'
+import arrowIcon from './../../../../app/Images/arrow-down.png'
+import addIcon from './../../../../app/Images/icons/add.svg'
 import closeCircleIcon from './../../../../app/Images/icons/close-circle.svg'
+import useDebounce from 'app/Hooks/UseDebounce'
 
 const LinkedProducts = () => {
+  const [showUpsells, setShowUpsells] = useState<boolean>(false)
+  const [upsellsList, setUpsellsList] = useState<any[]>([])
+  const [upsellsListSearch, setUpsellsListSearch] = useState<any[]>([])
+  const [upsellsListSelected, setUpsellsListSelected] = useState<any[]>([])
+  const [filterUpsells, setFilterUpsells] = useState<string>('')
   const [loadingUpsells, setLoadingUpsells] = useState<boolean>(false)
-  const [productListUpsells, setProductListUpsells] = useState<any[]>([])
-  const [showProductListUpsells, setShowProductListUpsells] =
-    useState<boolean>(false)
-  const [productSelectUpsells, setProductSelectUpsells] = useState<any[]>([])
 
-  const [loadingCrossSells, setLoadingCrossSells] = useState<boolean>(false)
-  const [productListCrossSells, setProductListCrossSells] = useState<any[]>([])
-  const [showProductListCrossSells, setShowProductListCrossSells] =
-    useState<boolean>(false)
-  const [productSelectCrossSells, setProductSelectCrossSells] = useState<any[]>(
+  const [showCrossSells, setShowCrossSells] = useState<boolean>(false)
+  const [crossSellsList, setCrossSellsList] = useState<any[]>([])
+  const [crossSellsListSearch, setCrossSellsListSearch] = useState<any[]>([])
+  const [crossSellsListSelected, setCrossSellsListSelected] = useState<any[]>(
     []
   )
+  const [filterCrossSells, setFilterCrossSells] = useState<string>('')
+  const [loadingCrossSells, setLoadingCrossSells] = useState<boolean>(false)
 
-  const selectListUpsellsRef = useRef<HTMLDivElement>(null)
-  const selectListCrossSellsRef = useRef<HTMLDivElement>(null)
+  const upsellsRef = useRef<HTMLDivElement>(null)
+  const inputUpsellsRef = useRef<HTMLInputElement>(null)
+  const crossSellsRef = useRef<HTMLDivElement>(null)
+  const inputCrossSellsRef = useRef<HTMLInputElement>(null)
 
-  useOnClickOutside(selectListUpsellsRef, () => {
-    setShowProductListUpsells(false)
-  })
-  useOnClickOutside(selectListCrossSellsRef, () => {
-    setShowProductListCrossSells(false)
-  })
+  const valueUpsellsDebounce = useDebounce(filterUpsells, 800)
+  const valueCrossSellsDebounce = useDebounce(filterCrossSells, 800)
 
-  const dataProductListUpsells = [
+  useOnClickOutside(upsellsRef, () => setShowUpsells(false))
+  useOnClickOutside(crossSellsRef, () => setShowCrossSells(false))
+
+  useEffect(() => {
+    setUpsellsList(dataUpsells)
+    setCrossSellsList(dataCrossSells)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    const newUpsellsListSearch = upsellsList.filter((upsells) =>
+      upsells.name.toLocaleLowerCase().trim().includes(filterUpsells)
+    )
+    setUpsellsListSearch(newUpsellsListSearch)
+
+    setLoadingUpsells(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [valueUpsellsDebounce])
+  useEffect(() => {
+    const newCrossSellsListSearch = upsellsList.filter((crossSells) =>
+      crossSells.name.toLocaleLowerCase().trim().includes(filterCrossSells)
+    )
+    setCrossSellsListSearch(newCrossSellsListSearch)
+
+    setLoadingCrossSells(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [valueCrossSellsDebounce])
+
+  const dataUpsells = [
     {
       id: 1,
-      productName: 'te1st',
+      name: 'test',
     },
     {
       id: 2,
-      productName: 'test1 test',
+      name: 'test1 test',
     },
     {
       id: 3,
-      productName: 'test test1 test',
+      name: 'test test1 test',
     },
     {
       id: 4,
-      productName: 'test1',
+      name: 'test1',
     },
     {
       id: 5,
-      productName: 'tes1t test1',
+      name: 'tes1t test1',
     },
     {
       id: 6,
-      productName: 'test te2st test1',
+      name: 'test te2st test1',
     },
     {
       id: 7,
-      productName: 'test test test1',
+      name: 'test test test1',
     },
   ]
-  const dataProductListCrossSells = [
+
+  const dataCrossSells = [
     {
       id: 1,
-      productName: '2  te1st',
+      name: '2  te1st',
     },
     {
       id: 2,
-      productName: '2 test1 test',
+      name: '2 test1 test',
     },
     {
       id: 3,
-      productName: '2 test test1 test',
+      name: '2 test test1 test',
     },
     {
       id: 4,
-      productName: '2 test1',
+      name: '2 test1',
     },
     {
       id: 5,
-      productName: '2 tes1t test1',
+      name: '2 tes1t test1',
     },
     {
       id: 6,
-      productName: '2 test te2st test1',
+      name: '2 test te2st test1',
     },
     {
       id: 7,
-      productName: '2 test test test1',
+      name: '2 test test test1',
     },
   ]
 
-  const handleShowProductListUpsells = () => {
-    if (productListUpsells.length > 0 || productSelectUpsells.length > 0) {
-      return setShowProductListUpsells(true)
-    } else {
-      setShowProductListUpsells(true)
-      setLoadingUpsells(true)
-      const data = new Promise<any>((resolve) => {
-        setTimeout(() => resolve(dataProductListUpsells), 2000)
-      })
+  // ================== Upsells ===========================
 
-      data
-        .then((data) => {
-          setProductListUpsells(data)
-          renderProductListUpsells()
-        })
-        .catch((err) => console.log(err))
-        .finally(() => setLoadingUpsells(false))
-    }
+  const handleFilterUpsells = (e: any) => {
+    setFilterUpsells(e.target.value)
+    setShowUpsells(true)
+    setLoadingUpsells(true)
   }
 
-  const handleShowProductListCrossSells = () => {
-    if (
-      productListCrossSells.length > 0 ||
-      productSelectCrossSells.length > 0
-    ) {
-      return setShowProductListCrossSells(true)
-    } else {
-      setShowProductListCrossSells(true)
-      setLoadingCrossSells(true)
-      const data = new Promise<any>((resolve) => {
-        setTimeout(() => resolve(dataProductListCrossSells), 2000)
-      })
+  const handleRemoveUpsellsSelected = (upsells: any) => {
+    const findId = upsellsList.findIndex((item) => item.id > upsells.id)
 
-      data
-        .then((data) => {
-          setProductListCrossSells(data)
-          renderProductListCrossSells()
-        })
-        .catch((err) => console.log(err))
-        .finally(() => setLoadingCrossSells(false))
-    }
-  }
+    findId === -1
+      ? setUpsellsList((pre) => [...pre, {...upsells}])
+      : upsellsList.splice(findId, 0, upsells)
 
-  const handleChangeProductSelectUpsells = (
-    productName: string,
-    id: number
-  ) => {
-    const newProductListUpsells = productListUpsells.filter(
-      (item) => item.productName !== productName
+    const newUpsellsListUserSelected = upsellsListSelected.filter(
+      (item) => item.id !== upsells.id
     )
-
-    setProductSelectUpsells((pre) => [...pre, {id, productName}])
-
-    setProductListUpsells(newProductListUpsells)
+    setUpsellsListSelected(newUpsellsListUserSelected)
   }
 
-  const handleChangeProductSelectCrossSells = (
-    productName: string,
-    id: number
-  ) => {
-    const newProductListCrossSells = productListCrossSells.filter(
-      (item) => item.productName !== productName
+  const handleRemoveAllUpsellsSelected = () => {
+    setFilterUpsells('')
+    setUpsellsListSelected([])
+    setUpsellsList(dataUpsells)
+  }
+
+  const handleSelectedUpsells = (upsells: any) => {
+    const newUpsellsList = upsellsList.filter((item) => item.id !== upsells.id)
+    const newUpsellsListSearch = upsellsListSearch.filter(
+      (item) => item.id !== upsells.id
     )
-
-    setProductSelectCrossSells((pre) => [...pre, {id, productName}])
-
-    setProductListCrossSells(newProductListCrossSells)
+    setUpsellsListSelected((pre) => [...pre, upsells])
+    setUpsellsListSearch(newUpsellsListSearch)
+    setUpsellsList(newUpsellsList)
+    inputUpsellsRef.current?.focus()
   }
 
-  const renderProductListUpsells = () =>
-    productListUpsells.length === 0 ? (
-      <p className='m-0 text-center py-3'>No products found</p>
+  const renderUpsellsList = () => {
+    return upsellsList.length === 0 ? (
+      <p className='m-0 ms-2 fw-medium py-2 text-center'>No Upsells Found</p>
     ) : (
-      productListUpsells.map((product) => (
-        <p
-          className='m-0 select__item fw-medium cursor-pointer'
-          key={product.id}
-          onClick={() =>
-            handleChangeProductSelectUpsells(product.productName, product.id)
-          }>
-          {product.productName}
-        </p>
+      upsellsList.map((upsells) => (
+        <div
+          onClick={() => handleSelectedUpsells(upsells)}
+          className='m-0 cursor-pointer py-2 ps-3 d-flex align-items-center bg-white'
+          key={upsells.id}>
+          <img src={addIcon} alt='add' />
+          <p className='m-0 ms-2 fw-medium bg-white'>{upsells.name}</p>
+        </div>
       ))
     )
+  }
 
-  const renderProductListCrossSells = () =>
-    productListCrossSells.length === 0 ? (
-      <p className='m-0 text-center py-3'>No products found</p>
+  const renderUpsellsListSearch = () => {
+    return upsellsListSearch.length === 0 ? (
+      <p className='m-0 ms-2 fw-medium py-2 text-center'>No Upsells Found</p>
     ) : (
-      productListCrossSells.map((product) => (
-        <p
-          className='m-0 select__item fw-medium cursor-pointer'
-          key={product.id}
-          onClick={() =>
-            handleChangeProductSelectCrossSells(product.productName, product.id)
-          }>
-          {product.productName}
-        </p>
+      upsellsListSearch.map((upsells) => (
+        <div
+          onClick={() => handleSelectedUpsells(upsells)}
+          className='m-0 cursor-pointer py-2 ps-3 d-flex align-items-center bg-white'
+          key={upsells.id}>
+          <img src={addIcon} alt='add' />
+          <p className='m-0 ms-2 fw-medium bg-white'>{upsells.name}</p>
+        </div>
       ))
     )
-
-  const handleRemoveProductSelectUpsells = (
-    productName: string,
-    id: number
-  ) => {
-    const newProductSelectUpsells = productSelectUpsells.filter(
-      (item) => item.productName !== productName
-    )
-    const newProductListUpsells = [
-      ...productListUpsells,
-      {id: id, productName: productName},
-    ]
-
-    setProductSelectUpsells(newProductSelectUpsells)
-    setProductListUpsells(newProductListUpsells)
   }
 
-  const handleRemoveProductSelectCrossSells = (
-    productName: string,
-    id: number
-  ) => {
-    const newProductSelectCrossSells = productSelectCrossSells.filter(
-      (item) => item.productName !== productName
-    )
-    const newProductListCrossSells = [
-      ...productListCrossSells,
-      {id: id, productName: productName},
-    ]
-
-    setProductSelectCrossSells(newProductSelectCrossSells)
-    setProductListCrossSells(newProductListCrossSells)
-  }
-
-  const handleRemoveAllProductUpsellsSelected = () => {
-    setProductListUpsells((pre) => [...pre, ...productSelectUpsells])
-    setProductSelectUpsells([])
-  }
-
-  const handleRemoveAllProductCrossSellsSelected = () => {
-    setProductListCrossSells((pre) => [...pre, ...productSelectCrossSells])
-    setProductSelectCrossSells([])
-  }
-
-  const renderProductSelectUpsells = () =>
-    productSelectUpsells.map((item) => (
+  const renderUpsellsListSelected = () => {
+    return upsellsListSelected.map((upsells) => (
       <div
-        className='product__selected d-flex align-items-center'
-        key={item.id}>
-        <span className='fw-medium text-black'>{item.productName}</span>
+        className='item__selected d-flex align-items-center'
+        key={upsells.id}>
+        <p className='fw-medium text-black m-0'>{upsells.name}</p>
         <img
           src={closeCircleIcon}
           alt='close'
-          onClick={() =>
-            handleRemoveProductSelectUpsells(item.productName, item.id)
-          }
+          className='cursor-pointer'
+          onClick={() => handleRemoveUpsellsSelected(upsells)}
         />
       </div>
     ))
+  }
 
-  const renderProductSelectCrossSells = () =>
-    productSelectCrossSells.map((item) => (
+  // ====================== End Upsells ============================
+
+  // ======================== Cross-sells ==========================
+
+  const handleFilterCrossSells = (e: any) => {
+    setFilterCrossSells(e.target.value)
+    setShowCrossSells(true)
+    setLoadingCrossSells(true)
+  }
+
+  const handleRemoveCrossSellsSelected = (crossSells: any) => {
+    const findId = crossSellsList.findIndex((item) => item.id > crossSells.id)
+
+    findId === -1
+      ? setCrossSellsList((pre) => [...pre, {...crossSells}])
+      : crossSellsList.splice(findId, 0, crossSells)
+
+    const newCrossSellsListUserSelected = crossSellsListSelected.filter(
+      (item) => item.id !== crossSells.id
+    )
+    setCrossSellsListSelected(newCrossSellsListUserSelected)
+  }
+
+  const handleRemoveAllCrossSellsSelected = () => {
+    setFilterCrossSells('')
+    setCrossSellsListSelected([])
+    setCrossSellsList(dataCrossSells)
+  }
+
+  const handleSelectedCrossSells = (crossSells: any) => {
+    const newCrossSellsList = crossSellsList.filter(
+      (item) => item.id !== crossSells.id
+    )
+    const newCrossSellsListSearch = crossSellsListSearch.filter(
+      (item) => item.id !== crossSells.id
+    )
+    setCrossSellsListSelected((pre) => [...pre, crossSells])
+    setCrossSellsListSearch(newCrossSellsListSearch)
+    setCrossSellsList(newCrossSellsList)
+    inputCrossSellsRef.current?.focus()
+  }
+
+  const renderCrossSellsList = () => {
+    return crossSellsList.length === 0 ? (
+      <p className='m-0 ms-2 fw-medium py-2 text-center'>
+        No Cross-sells Found
+      </p>
+    ) : (
+      crossSellsList.map((crossSells) => (
+        <div
+          onClick={() => handleSelectedCrossSells(crossSells)}
+          className='m-0 cursor-pointer py-2 ps-3 d-flex align-items-center bg-white'
+          key={crossSells.id}>
+          <img src={addIcon} alt='add' />
+          <p className='m-0 ms-2 fw-medium bg-white'>{crossSells.name}</p>
+        </div>
+      ))
+    )
+  }
+
+  const renderCrossSellsListSearch = () => {
+    return crossSellsListSearch.length === 0 ? (
+      <p className='m-0 ms-2 fw-medium py-2 text-center'>
+        No Cross-sells Found
+      </p>
+    ) : (
+      crossSellsListSearch.map((crossSells) => (
+        <div
+          onClick={() => handleSelectedCrossSells(crossSells)}
+          className='m-0 cursor-pointer py-2 ps-3 d-flex align-items-center bg-white'
+          key={crossSells.id}>
+          <img src={addIcon} alt='add' />
+          <p className='m-0 ms-2 fw-medium bg-white'>{crossSells.name}</p>
+        </div>
+      ))
+    )
+  }
+
+  const renderCrossSellsListSelected = () => {
+    return crossSellsListSelected.map((crossSells) => (
       <div
-        className='product__selected d-flex align-items-center'
-        key={item.id}>
-        <span className='fw-medium text-black'>{item.productName}</span>
+        className='item__selected d-flex align-items-center'
+        key={crossSells.id}>
+        <p className='fw-medium text-black m-0'>{crossSells.name}</p>
         <img
           src={closeCircleIcon}
           alt='close'
-          onClick={() =>
-            handleRemoveProductSelectCrossSells(item.productName, item.id)
-          }
+          className='cursor-pointer'
+          onClick={() => handleRemoveCrossSellsSelected(crossSells)}
         />
       </div>
     ))
+  }
+
+  // ===================== End Cross Sells ==============================
 
   return (
     <div className='linked-products d-flex flex-column align-items-end'>
       <div className='up-sells'>
-        <div className='product-type__select-custom d-flex align-items-center'>
-          <h3 className='linked-products__name m-0 fw-medium'>Upsells</h3>
-          <img
-            src={closeIcon}
-            alt='close'
-            className={`close-img cursor-pointer ${
-              productSelectUpsells.length <= 0 ? 'no-data' : ''
-            }`}
-            onClick={handleRemoveAllProductUpsellsSelected}
-          />
+        <div className='d-flex'>
+          <h3 className='linked-products__name m-0 fw-medium me-3'>Upsells</h3>
 
-          <div className='separator mx-3'></div>
+          <div className='select-custom-wrap d-flex align-items-center'>
+            <img
+              src={closeIcon}
+              alt='close'
+              className='close-img cursor-pointer'
+              onClick={handleRemoveAllUpsellsSelected}
+            />
 
-          <div
-            className='select cursor-pointer d-flex flex-wrap align-items-center h-100'
-            onClick={handleShowProductListUpsells}>
-            {productSelectUpsells.length <= 0 ? (
-              <span className='user-select-none'>Select product</span>
-            ) : (
-              renderProductSelectUpsells()
-            )}
-          </div>
+            <div className='separator'></div>
 
-          <div ref={selectListUpsellsRef}>
-            {showProductListUpsells && (
-              <div className='select__list'>
-                {loadingUpsells ? (
-                  <p className='m-0 text-center py-3'>Loading data...</p>
-                ) : (
-                  renderProductListUpsells()
-                )}
+            <div
+              ref={upsellsRef}
+              className='d-flex flex-grow-1 align-items-center'>
+              <div className='select d-flex align-items-center flex-wrap ps-3'>
+                <div
+                  className={`d-flex flex-wrap w-100 selected__list ${
+                    upsellsListSelected.length > 0 ? '' : 'm-0'
+                  }`}>
+                  {renderUpsellsListSelected()}
+                  <input
+                    type='text'
+                    className={`flex-grow-1 ${
+                      upsellsListSelected.length > 0 ? '' : 'no-item'
+                    } `}
+                    autoComplete='off'
+                    value={filterUpsells}
+                    onChange={handleFilterUpsells}
+                    ref={inputUpsellsRef}
+                    hidden={upsellsList.length <= 0}
+                    onClick={() => {
+                      setShowUpsells(!showUpsells)
+                    }}
+                  />
+                </div>
               </div>
-            )}
+
+              {showUpsells && (
+                <div className='select__children-list py-2'>
+                  {filterUpsells ? (
+                    loadingUpsells ? (
+                      <p className='m-0 ms-2 fw-medium py-2 text-center'>
+                        Loading data. Please wait...
+                      </p>
+                    ) : (
+                      renderUpsellsListSearch()
+                    )
+                  ) : (
+                    renderUpsellsList()
+                  )}
+                </div>
+              )}
+
+              <div
+                onClick={() => setShowUpsells(!showUpsells)}
+                className='arr-img h-100 d-flex align-items-center'>
+                <img src={arrowIcon} alt='arrow' />
+              </div>
+            </div>
           </div>
         </div>
-        <div className='linked-products__desc fw-medium mt-2'>
+        <div className='linked-products__desc fw-medium mt-2 ms-auto'>
           Upsells are products which you recommend instead of the currently
           viewed product, for example, products that are more profitable or
           better quality or more expensive.
         </div>
       </div>
-
       <div className='cross-sells'>
-        <div className='product-type__select-custom d-flex align-items-center'>
-          <h3 className='linked-products__name m-0 fw-medium'>Cross-sells</h3>
-          <img
-            src={closeIcon}
-            alt='close'
-            className={`close-img cursor-pointer ${
-              productSelectCrossSells.length <= 0 ? 'no-data' : ''
-            }`}
-            onClick={handleRemoveAllProductCrossSellsSelected}
-          />
+        <div className='d-flex'>
+          <h3 className='linked-products__name m-0 fw-medium me-3'>
+            Cross-sells
+          </h3>
 
-          <div className='separator mx-3'></div>
+          <div className='select-custom-wrap d-flex align-items-center'>
+            <img
+              src={closeIcon}
+              alt='close'
+              className='close-img cursor-pointer'
+              onClick={handleRemoveAllCrossSellsSelected}
+            />
 
-          <div
-            className='select cursor-pointer d-flex flex-wrap align-items-center h-100'
-            onClick={handleShowProductListCrossSells}>
-            {productSelectCrossSells.length <= 0 ? (
-              <span className='user-select-none'>Select product</span>
-            ) : (
-              renderProductSelectCrossSells()
-            )}
-          </div>
+            <div className='separator'></div>
 
-          <div ref={selectListCrossSellsRef}>
-            {showProductListCrossSells && (
-              <div className='select__list'>
-                {loadingCrossSells ? (
-                  <p className='m-0 text-center py-3'>Loading data...</p>
-                ) : (
-                  renderProductListCrossSells()
-                )}
+            <div
+              ref={crossSellsRef}
+              className='d-flex flex-grow-1 align-items-center'>
+              <div className='select d-flex align-items-center flex-wrap ps-3'>
+                <div
+                  className={`d-flex flex-wrap w-100 selected__list ${
+                    crossSellsListSelected.length > 0 ? '' : 'm-0'
+                  }`}>
+                  {renderCrossSellsListSelected()}
+                  <input
+                    type='text'
+                    className={`flex-grow-1 ${
+                      crossSellsListSelected.length > 0 ? '' : 'no-item'
+                    } `}
+                    autoComplete='off'
+                    value={filterCrossSells}
+                    onChange={handleFilterCrossSells}
+                    ref={inputCrossSellsRef}
+                    hidden={crossSellsList.length <= 0}
+                    onClick={() => {
+                      setShowCrossSells(!showCrossSells)
+                    }}
+                  />
+                </div>
               </div>
-            )}
+
+              {showCrossSells && (
+                <div className='select__children-list py-2'>
+                  {filterCrossSells ? (
+                    loadingCrossSells ? (
+                      <p className='m-0 ms-2 fw-medium py-2 text-center'>
+                        Loading data. Please wait...
+                      </p>
+                    ) : (
+                      renderCrossSellsListSearch()
+                    )
+                  ) : (
+                    renderCrossSellsList()
+                  )}
+                </div>
+              )}
+
+              <div
+                onClick={() => setShowCrossSells(!showCrossSells)}
+                className='arr-img h-100 d-flex align-items-center'>
+                <img src={arrowIcon} alt='arrow' />
+              </div>
+            </div>
           </div>
         </div>
-        <div className='linked-products__desc fw-medium mt-2'>
+        <div className='linked-products__desc fw-medium mt-2 ms-auto'>
           Cross-sells are products which you promote in the cart, based on the
           current product.
         </div>
