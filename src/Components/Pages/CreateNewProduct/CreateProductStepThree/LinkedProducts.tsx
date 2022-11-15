@@ -50,7 +50,7 @@ const LinkedProducts = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [valueUpsellsDebounce])
   useEffect(() => {
-    const newCrossSellsListSearch = upsellsList.filter((crossSells) =>
+    const newCrossSellsListSearch = crossSellsList.filter((crossSells) =>
       crossSells.name.toLocaleLowerCase().trim().includes(filterCrossSells)
     )
     setCrossSellsListSearch(newCrossSellsListSearch)
@@ -234,6 +234,7 @@ const LinkedProducts = () => {
     setFilterCrossSells('')
     setCrossSellsListSelected([])
     setCrossSellsList(dataCrossSells)
+    setFilterCrossSells('')
   }
 
   const handleSelectedCrossSells = (crossSells: any) => {
@@ -325,7 +326,7 @@ const LinkedProducts = () => {
               <div className='select d-flex align-items-center flex-wrap ps-3'>
                 <div
                   className={`d-flex flex-wrap w-100 selected__list ${
-                    upsellsListSelected.length > 0 ? '' : 'm-0'
+                    upsellsListSelected.length > 0 ? 'has-item' : 'm-0'
                   }`}>
                   {renderUpsellsListSelected()}
                   <input
@@ -397,7 +398,7 @@ const LinkedProducts = () => {
               <div className='select d-flex align-items-center flex-wrap ps-3'>
                 <div
                   className={`d-flex flex-wrap w-100 selected__list ${
-                    crossSellsListSelected.length > 0 ? '' : 'm-0'
+                    crossSellsListSelected.length > 0 ? 'has-item' : 'm-0'
                   }`}>
                   {renderCrossSellsListSelected()}
                   <input
