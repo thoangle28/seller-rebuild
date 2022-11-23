@@ -14,7 +14,7 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <Provider store={store}> 
+  <Provider store={store}>
     <PersistGate loading={<Loading />} persistor={persistor}>
       <SkeletonTheme highlightColor="#dbdbdb" baseColor='#f0f0f0'>
         <BrowserRouter>

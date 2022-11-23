@@ -23,6 +23,7 @@ import ProductListing from 'Components/Pages/ProductListing'
 import Attributes from 'Components/Pages/Attributes'
 import DashBoard from 'Components/Pages/DashBoard'
 import CreateNewProduct from 'Components/Pages/CreateNewProduct'
+import Example from 'Components/Pages/Login/Example'
 
 const Router: FC = () => {
   return (
@@ -42,6 +43,7 @@ const Router: FC = () => {
         <Route index element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
+        <Route path='/test' element={<Example />} />
       </Routes>
     </Suspense>
   )

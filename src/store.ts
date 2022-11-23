@@ -1,11 +1,12 @@
-import {profileReducer} from 'Components/Pages/Profile/Redux/reducer'
-import {combineReducers, configureStore} from '@reduxjs/toolkit'
-import {attributesReducer} from './Components/Pages/Attributes/Redux/reducer'
-import {loginReducer} from './Components/Pages/Login/Redux/reducer'
-import {registerReducer} from './Components/Pages/SignUp/Redux/reducer'
-import {generalReducer} from './Components/Pages/DashBoard/redux/reducer'
+import { profileReducer } from 'Components/Pages/Profile/Redux/reducer'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import { attributesReducer } from './Components/Pages/Attributes/Redux/reducer'
+import { loginReducer } from './Components/Pages/Login/Redux/reducer'
+import { registerReducer } from './Components/Pages/SignUp/Redux/reducer'
+import { generalReducer } from './Components/Pages/DashBoard/redux/reducer'
 import storage from 'redux-persist/lib/storage'
-import {tableReducer} from './Components/Common/Table/Redux/reducer'
+import { tableReducer } from './Components/Common/Table/Redux/reducer'
+import getDataSlice from 'Components/Pages/Login/ReduxToolkit/slice'
 
 import {
   persistReducer,
@@ -31,7 +32,8 @@ const reducer = combineReducers({
   generalReducer,
   profileReducer,
   tableReducer,
-})
+  getDataSlice: getDataSlice.reducer
+}) 
 
 const pReducer = persistReducer(persistConfig, reducer)
 
