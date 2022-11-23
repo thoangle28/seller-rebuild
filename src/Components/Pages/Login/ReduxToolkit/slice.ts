@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import loginApi from "APIs/LoginApi";
 import { iLogin } from "app/Models";
 import axios from "axios";
-import Signin from "..";
 
 const URL = 'http://jsonplaceholder.typicode.com/users'
 
@@ -11,13 +10,19 @@ export const getData = createAsyncThunk('GET DATA', async () => {
     return res.data
 })
 
-export const signIn = createAsyncThunk("LOGIN", async (payload: iLogin , thunkAPI) => {
-    console.log(thunkAPI)
-    // const res: any = await loginApi.login(payload)
-    // const { code, data } = res.data
-     
-    // return data;
-})
+export const signIn = (formData: iLogin, navigate: any) => async (dispatch: any) => {
+    dispatch(getDataPending())
+    try {
+        const res: any = await loginApi.login(formData)
+        const { data, code, message } = res.data
+        if (code === 200) {
+            dispatch(getDataFulilled(data))
+            navigate('/dashboard')
+        } else dispatch(getDataRejected(message))
+    } catch (error) {
+        dispatch(getDataRejected(error.message))
+    }
+}
 
 interface state {
     status: 'pending' | 'fulfilled' | 'rejected',
@@ -34,21 +39,22 @@ const initialState = {
 const getDataSlice = createSlice({
     name: 'test',
     initialState,
-    reducers: {},
-    extraReducers: (builder) => {
-        builder.addCase(getData.pending, (state) => {
-            return { ...state, status: 'pending' }
-        });
-        builder.addCase(getData.fulfilled, (state, action) => {
+    reducers: {
+        getDataFulilled: (state, action) => {
             return { ...state, status: 'fulfilled', data: action.payload }
-        });
-        builder.addCase(getData.rejected, (state) => {
-            return { ...state, status: 'rejected' }
-        })
-        builder.addCase(signIn.pending, (state) => ({ ...state, status: 'pending' }));
-        builder.addCase(signIn.fulfilled, (state, action) => ({ ...state, status: 'fulfilled', user: action.payload }))
-        builder.addCase(signIn.rejected, (state, action) => ({ ...state, status: 'fulfilled', message: action.payload }))
+        },
+        getDataRejected: (state, action) => {
+            return { ...state, status: 'rejected', message: action.payload }
+        },
+        getDataPending: (state) => {
+            return { ...state, status: 'pending' }
+        }
     },
 })
+export const {
+    getDataFulilled,
+    getDataPending,
+    getDataRejected,
+} = getDataSlice.actions
 
 export default getDataSlice

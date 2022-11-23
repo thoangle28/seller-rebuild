@@ -12,20 +12,20 @@ const Example = () => {
   const navigate = useNavigate()
   const formData = {
     username: 'testt1234561234562@gmail.com',
-    password: 'Admin@1234562323'
+    password: 'Admin@123456'
   } as iLogin
   useEffect(() => {
     // dispatch(getData())
   }, [])
 
   const clickEvent = () => {
-    dispatch(signIn(formData))
+    dispatch(signIn(formData, navigate))
   }
   return (
     <FullWidthLayout>
       <>
         {
-          status === 'fulfilled' ? data.map(item => <p className='text-white'>{item.name}</p>) : <Loading />
+          // status === 'fulfilled' ? data.map(item => <p className='text-white'>{item.name}</p>) : <Loading />
         }
         <button onClick={clickEvent}>Click</button>
       </>
