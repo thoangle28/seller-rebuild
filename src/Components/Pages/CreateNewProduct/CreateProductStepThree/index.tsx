@@ -21,6 +21,8 @@ const CreateProductStepThree = (props: Props) => {
   const [productType, setProductType] = useState<string>('')
   const [listUseForVariations, setListUseForVariations] = useState<any>([])
   const [content, setContent] = useState<string>('General')
+  const [childrenAttributeListSelected, setChildrenAttributeListSelected] =
+    useState<any[]>([])
 
   const dataHeading = [
     'General',
@@ -97,6 +99,8 @@ const CreateProductStepThree = (props: Props) => {
               handleChangeListUseForVariations(id)
             }
             setListUseForVariations={setListUseForVariations}
+            childrenAttributeListSelected={childrenAttributeListSelected}
+            setChildrenAttributeListSelected={setChildrenAttributeListSelected}
           />
         )}
         {content === 'Variations' && <Variations />}

@@ -10,6 +10,8 @@ interface Props {
   listUseForVariations: any[]
   onChangeListUseForVariations: (id: number) => any
   setListUseForVariations: any
+  childrenAttributeListSelected: any
+  setChildrenAttributeListSelected: any
 }
 
 const Attributes = (props: Props) => {
@@ -18,6 +20,8 @@ const Attributes = (props: Props) => {
     listUseForVariations,
     onChangeListUseForVariations,
     setListUseForVariations,
+    childrenAttributeListSelected,
+    setChildrenAttributeListSelected,
   } = props
 
   const [loading, setLoading] = useState<boolean>(false)
@@ -39,9 +43,6 @@ const Attributes = (props: Props) => {
     useState<any[]>([])
   const [filterChildrenAttribute, setFilterChildrenAttribute] =
     useState<string>('')
-  const [childrenAttributeListSelected, setChildrenAttributeListSelected] =
-    useState<any[]>([])
-
   const attributeSelectedRef = useRef<HTMLDivElement>(null)
   const childrenAttributeRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -56,7 +57,6 @@ const Attributes = (props: Props) => {
 
   useEffect(() => {
     setAttributeList(dataListAttribute)
-    setChildrenAttributeList(dataListChildrenAttribute)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -81,43 +81,70 @@ const Attributes = (props: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [valueChildrenDebounce])
 
+  useEffect(() => {
+    if (!isActiveId) {
+      return
+    }
+    const attrActive = dataListAttribute.find((item) => item.id === isActiveId)
+    const childrenAttrSelected = childrenAttributeListSelected.find(
+      (item: any) => item.parentId === isActiveId
+    )
+
+    attrActive &&
+      (childrenAttrSelected
+        ? setChildrenAttributeList(() => {
+            const idChildrenAttrSelected = childrenAttrSelected.attr.map(
+              (item: any) => item.id
+            )
+
+            const newChildrenAttr = attrActive.options.filter(
+              (item: any) => !idChildrenAttrSelected.includes(item.id)
+            )
+
+            return newChildrenAttr
+          })
+        : setChildrenAttributeList(attrActive.options))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isActiveId])
+
   const toggleAttr = (id: number) => {
     setActiveId(isActiveId === id ? undefined : id)
+    setFilterChildrenAttribute('')
   }
 
   const dataListAttribute = [
-    {id: 1, name: 'test 1'},
-    {id: 2, name: 'test 2'},
-    {id: 3, name: 'test 3'},
-    {id: 4, name: 'test 4'},
-    {id: 5, name: 'test 5'},
-    {id: 6, name: 'test 6'},
-    {id: 7, name: 'test 7'},
-    {id: 8, name: 'test 8'},
-    {id: 9, name: 'test 9'},
-    {id: 10, name: 'test 10'},
-    {id: 11, name: 'test 11'},
-    {id: 12, name: 'test 12'},
-    {id: 13, name: 'test 13'},
-    {id: 14, name: 'test 14'},
-    {id: 15, name: 'test 15'},
-    {id: 16, name: 'test 16'},
-    {id: 17, name: 'test 17'},
-    {id: 18, name: 'test 18'},
-    {id: 19, name: 'test 19'},
-    {id: 20, name: 'test 20'},
-  ]
-
-  const dataListChildrenAttribute = [
-    {id: 1, name: 'children attr 1'},
-    {id: 2, name: 'children attr 2'},
-    {id: 3, name: 'children attr 3'},
-    {id: 4, name: 'children attr 4'},
-    {id: 5, name: 'children attr 5'},
-    {id: 6, name: 'children attr 6'},
-    {id: 7, name: 'children attr 7'},
-    {id: 8, name: 'children attr 8'},
-    {id: 9, name: 'children attr 9'},
+    {
+      id: 1,
+      name: 'test 1',
+      options: [
+        {id: 1, name: 'children attr 1'},
+        {id: 2, name: 'children attr 2'},
+      ],
+    },
+    {
+      id: 2,
+      name: 'test 2',
+      options: [
+        {id: 1, name: 'children attr 3'},
+        {id: 2, name: 'children attr 4'},
+      ],
+    },
+    {
+      id: 3,
+      name: 'test 3',
+      options: [
+        {id: 1, name: 'children attr 5'},
+        {id: 2, name: 'children attr 6'},
+      ],
+    },
+    {
+      id: 4,
+      name: 'test 4',
+      options: [
+        {id: 1, name: 'children attr 7'},
+        {id: 2, name: 'children attr 8'},
+      ],
+    },
   ]
 
   const handleToggleCheckVisibleOnTheProduct = (id: number) => {
@@ -157,25 +184,45 @@ const Attributes = (props: Props) => {
     const newChildrenAttributeList = childrenAttributeList.filter(
       (item) => item.id !== attr.id
     )
+
     const newChildrenAttributeListSearch = childrenAttributeListSearch.filter(
       (item) => item.id !== attr.id
     )
-    setChildrenAttributeListSelected((pre) => [...pre, attr])
+
+    const findAttrActive = childrenAttributeListSelected.find(
+      (item: any) => item.parentId === isActiveId
+    )
+
+    findAttrActive
+      ? childrenAttributeListSelected
+          .find((item: any) => item.parentId === isActiveId)
+          .attr.push(attr)
+      : setChildrenAttributeListSelected((pre: any) => {
+          return [...pre, {parentId: isActiveId, attr: [attr]}]
+        })
+
     setChildrenAttributeListSearch(newChildrenAttributeListSearch)
     setChildrenAttributeList(newChildrenAttributeList)
+    setFilterChildrenAttribute('')
     inputRef.current?.focus()
   }
 
   const handleRemoveAttributeSelected = (attr: any) => {
     const findId = attributeList.findIndex((item) => item.id > attr.id)
+    const findIndexAttrRemove = childrenAttributeListSelected.findIndex(
+      (item: any) => item.parentId === attr.id
+    )
+    const newAttributeListUserSelected = attributeListSelected.filter(
+      (item) => item.id !== attr.id
+    )
+
+    findIndexAttrRemove !== -1 &&
+      childrenAttributeListSelected.splice(findIndexAttrRemove, 1)
 
     findId === -1
       ? setAttributeList((pre) => [...pre, {...attr}])
       : attributeList.splice(findId, 0, attr)
 
-    const newAttributeListUserSelected = attributeListSelected.filter(
-      (item) => item.id !== attr.id
-    )
     setAttributeListSelected(newAttributeListUserSelected)
     setListUseForVariations(
       listUseForVariations.filter((item) => item !== attr.id)
@@ -183,21 +230,58 @@ const Attributes = (props: Props) => {
   }
 
   const handleRemoveChildrenAttributeSelected = (attr: any) => {
-    const newChildrenAttributeListUserSelect =
-      childrenAttributeListSelected.filter((item) => item.id !== attr.id)
-    const findId = childrenAttributeList.findIndex((item) => item.id > attr.id)
+    const findChildrenAttr = childrenAttributeListSelected.find(
+      (item: any) => item.parentId === isActiveId
+    )
 
-    findId === -1
-      ? setChildrenAttributeList((pre) => [...pre, {...attr}])
-      : childrenAttributeList.splice(findId, 0, attr)
+    const findIndex = childrenAttributeList.findIndex(
+      (item) => item.id > attr.id
+    )
+
+    findIndex === -1
+      ? setChildrenAttributeList((pre) => [...pre, attr])
+      : childrenAttributeList.splice(findIndex, 0, attr)
+
+    findIndex === -1
+      ? setChildrenAttributeListSearch((pre) => [...pre, attr])
+      : childrenAttributeListSearch.splice(findIndex, 0, attr)
+
+    findChildrenAttr &&
+      setChildrenAttributeListSelected(() => {
+        const removeAttrActive = childrenAttributeListSelected.filter(
+          (item: any) => item.parentId !== findChildrenAttr.parentId
+        )
+        const newChildrenListSelected = findChildrenAttr.attr.filter(
+          (item: any) => item.id !== attr.id
+        )
+
+        removeAttrActive.push({
+          parentId: findChildrenAttr.parentId,
+          attr: newChildrenListSelected,
+        })
+        return removeAttrActive
+      })
+
     inputRef.current?.focus()
-    setChildrenAttributeListSelected(newChildrenAttributeListUserSelect)
   }
 
   const handleRemoveAllChildrenAttrSelected = () => {
+    const findChildrenAttrRemove = childrenAttributeListSelected.find(
+      (item: any) => item.parentId === isActiveId
+    )
+    const findAttrActive = dataListAttribute.find(
+      (item) => item.id === isActiveId
+    )
+
+    findChildrenAttrRemove &&
+      setChildrenAttributeListSelected(() => {
+        return childrenAttributeListSelected.filter(
+          (item: any) => item.parentId !== findChildrenAttrRemove.parentId
+        )
+      })
+
+    findAttrActive && setChildrenAttributeList(findAttrActive.options)
     setFilterChildrenAttribute('')
-    setChildrenAttributeListSelected([])
-    setChildrenAttributeList(dataListChildrenAttribute)
   }
 
   const renderAttrList = () => {
@@ -260,6 +344,9 @@ const Attributes = (props: Props) => {
   }
 
   const renderAttrActive = (attr: any) => {
+    const childrenAttrActive = childrenAttributeListSelected.find(
+      (item: any) => item.parentId === isActiveId
+    )
     return (
       <div className='attributes__selected-detail d-flex flex-column'>
         <div className='top mt-3'>
@@ -333,19 +420,19 @@ const Attributes = (props: Props) => {
               <div className='select d-flex align-items-center flex-wrap ps-3'>
                 <div
                   className={`d-flex flex-wrap w-100 selected__list  ${
-                    childrenAttributeListSelected.length > 0 ? '' : 'm-0'
+                    childrenAttrActive?.attr.length > 0 ? 'has-item' : 'm-0'
                   }`}>
                   {renderChildrenAttrListSelected()}
                   <input
                     type='text'
                     className={`flex-grow-1 ${
-                      childrenAttributeListSelected.length > 0 ? '' : 'no-item'
+                      childrenAttrActive?.attr.length > 0 ? '' : 'no-item'
                     } `}
                     autoComplete='off'
                     value={filterChildrenAttribute}
                     onChange={handleFilterChildrenAttribute}
                     ref={inputRef}
-                    hidden={childrenAttributeList.length <= 0}
+                    hidden={childrenAttributeList?.length <= 0}
                     onClick={() => {
                       setShowChildrenAttributeList(!showChildrenAttributeList)
                     }}
@@ -418,7 +505,12 @@ const Attributes = (props: Props) => {
   }
 
   const renderChildrenAttrListSelected = () => {
-    return childrenAttributeListSelected.map((attr) => (
+    const childrenAttributeListSelectedActive =
+      childrenAttributeListSelected.find(
+        (item: any) => item.parentId === isActiveId
+      )
+
+    return childrenAttributeListSelectedActive?.attr.map((attr: any) => (
       <div className='item__selected d-flex align-items-center' key={attr.id}>
         <p className='fw-medium text-black m-0'>{attr.name}</p>
         <img

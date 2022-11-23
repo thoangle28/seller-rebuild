@@ -9,7 +9,7 @@ const General = (props: Props) => {
   const {productType} = props
 
   const [taxStatus, setTaxStatus] = useState<string>('1')
-  const [taxClass, setTaxClass] = useState<string>('1')
+  const [taxClass, setTaxClass] = useState<string>('2')
   const [valueRegularPrice, setValueRegularPrice] = useState<string>('')
   const [valueSalePrice, setValueSalePrice] = useState<string>('')
   const [valueWalletCredit, setValueWalletCredit] = useState<string>('')

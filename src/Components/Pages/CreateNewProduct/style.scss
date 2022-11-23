@@ -3,13 +3,24 @@
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 
   &__heading {
+    margin-bottom: 48px;
+
     &-icon {
       $size: 70px;
       width: $size;
       height: $size;
+      position: relative;
 
       svg {
         font-size: 32px;
+      }
+
+      h3 {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
       }
     }
 

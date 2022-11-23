@@ -48,8 +48,8 @@ const CreateNewProduct: FC = () => {
               icon={item.icon}
               className={`${step >= item.step ? 'text-white' : 'text-primary'}`}
             />
+            <h3 className='m-0 fw-medium'>{item.text}</h3>
           </div>
-          <h3 className='m-0 fw-medium mt-2'>{item.text}</h3>
         </div>
 
         {arr.length !== item.step && (
@@ -70,7 +70,7 @@ const CreateNewProduct: FC = () => {
   return (
     <DefaultLayout>
       <div className='create-product bg-white d-flex flex-column align-items-center py-4'>
-        <div className='create-product__heading mb-4 d-flex align-items-center'>
+        <div className='create-product__heading d-flex align-items-center'>
           {renderDataHeading()}
         </div>
 

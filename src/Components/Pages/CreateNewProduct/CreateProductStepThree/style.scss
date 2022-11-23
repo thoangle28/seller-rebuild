@@ -65,78 +65,6 @@
       }
     }
   }
-
-  &__select-custom {
-    position: relative;
-    width: 734px;
-    min-height: 54px;
-    padding-top: 8px;
-    padding-bottom: 7px;
-    border: 0.5px solid #c9c9c9;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    position: relative;
-
-    .close-img {
-      margin-left: 18.5px;
-
-      &.no-data {
-        cursor: default;
-      }
-    }
-
-    .separator {
-      width: 1px;
-      height: 40px;
-      background-color: #d9d9d9;
-    }
-
-    .select {
-      height: 100%;
-      flex-grow: 1;
-      gap: 6px;
-      padding-right: 40px;
-      background-image: url('./../../../../app/Images/arrow-down.png');
-      background-repeat: no-repeat;
-      background-position: calc(100% - 21px) center;
-
-      &__list {
-        position: absolute;
-        left: 0;
-        top: calc(100% + 4px);
-        width: 100%;
-        background-color: white;
-        border-radius: inherit;
-        border: 0.5px solid #c9c9c9;
-        box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
-        border-radius: 5px;
-        z-index: 1;
-        max-height: 25vh;
-        overflow-y: auto;
-      }
-
-      &__item {
-        padding-block: 8px;
-        padding-left: 24px;
-        border-bottom: 1px solid #f5f5f5;
-
-        &:last-child {
-          border-bottom: none;
-        }
-
-        &:hover {
-          background-color: #f5f5f5;
-          color: var(--primary);
-        }
-      }
-
-      span {
-        color: #c9c9c9;
-        font-size: 14px;
-        line-height: 17px;
-      }
-    }
-  }
 }
 
 .create-product .general {
@@ -499,6 +427,39 @@
   }
 }
 
+.create-product .variations {
+  .variation__item {
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+
+    .close,
+    .edit {
+      &:hover {
+        transform: scale(1.06);
+      }
+    }
+
+    .close {
+      margin-inline: 26.5px;
+    }
+
+    .separator {
+      width: 1px;
+      height: 20px;
+      background-color: #d9d9d9;
+    }
+
+    .variation__id {
+      font-size: 16px;
+      line-height: 20px;
+    }
+
+    .edit {
+      margin-right: 24.12px;
+    }
+  }
+}
+
 .select-custom-wrap {
   flex-grow: 1;
   height: auto;
@@ -533,11 +494,11 @@
       padding-block: 14px;
     }
 
-    .selected__list {
+    .selected__list.has-item {
+      padding-top: 7px;
+      padding-bottom: 6px;
       gap: 6px;
       margin-right: 6px;
-      margin-top: 8px;
-      margin-bottom: 7px;
     }
 
     .item__selected {
